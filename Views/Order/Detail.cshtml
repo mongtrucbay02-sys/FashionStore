@@ -1,0 +1,31 @@
+@{ ViewData["CommercePage"] = true; }
+@model Order
+@{ ViewData["Title"] = "Chi tiết đơn"; }
+<div class="card">
+    <h2>CHI TIẾT ĐƠN #@Model.Id.ToString("D3")</h2>
+    <p>Ngày đặt: @Model.CreatedAt.ToString("dd/MM/yyyy HH:mm")<br />Trạng thái: <strong>@Model.Status</strong></p>
+    <table>
+        <thead><tr><th>Tên</th><th>Size</th><th>SL</th><th>Đơn giá</th><th class="right">Thành tiền</th></tr></thead>
+        @foreach (var i in Model.Items)
+        {
+            <tr><td>@i.ProductName</td><td>@i.Size</td><td>@i.Quantity</td><td>@i.UnitPrice.VND()</td><td class="right">@i.Total.VND()</td></tr>
+        }
+    </table>
+    <p class="right">Tạm tính: @Model.Subtotal.VND()<br />Phí ship: @Model.ShippingFee.VND()</p>
+    <p class="right total">TỔNG: @Model.Total.VND()</p>
+</div>
+<div class="card">
+    <h3>Thông tin nhận hàng</h3>
+    <p>Họ tên: @Model.FullName<br />SĐT: @Model.Phone<br />Địa chỉ: @Model.Address<br />Thanh toán: @Model.PaymentMethod</p>
+    <a class="btn" asp-action="History">← Quay lại</a>
+</div>
+
+
+
+@if (Model.PaymentMethod == OutfitStudio.Services.QrPaymentService.Method)
+{
+    @await Html.PartialAsync("_QrPayment", Model)
+}
+@section Scripts {
+    <script src="~/js/qr-payment.js" asp-append-version="true" defer></script>
+}

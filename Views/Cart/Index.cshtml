@@ -1,0 +1,52 @@
+@{ ViewData["CommercePage"] = true; }
+@model List<CartItem>
+@{ ViewData["Title"] = "Giỏ hàng"; }
+<h2>GIỎ HÀNG</h2>
+@if (ViewBag.CartError is string error) { <div class="err">@error</div> }
+@if (!Model.Any())
+{
+    <div class="card center">Giỏ hàng trống. <a asp-controller="Home" asp-action="Index">Tiếp tục mua sắm</a></div>
+}
+else
+{
+    <div class="card">
+        <table>
+            <thead><tr><th>Ảnh</th><th>Tên</th><th>Size</th><th>SL</th><th>Giá</th><th></th></tr></thead>
+            <tbody>
+            @foreach (var i in Model)
+            {
+                <tr>
+                    <td>@if(!string.IsNullOrWhiteSpace(i.Image)){<img class="cart-thumb" src="@i.Image" alt="@i.Name" />}else{<span class="text-muted small">Ngừng bán</span>}</td>
+                    <td>@i.Name</td>
+                    <td>@i.Size</td>
+                    <td>
+                        <form asp-action="Change" method="post" class="inline">
+                            <input type="hidden" name="productId" value="@i.ProductId" />
+                            <input type="hidden" name="size" value="@i.Size" />
+                            <button name="delta" value="-1" class="btn sm">−</button>
+                            <strong style="margin:0 8px">@i.Quantity</strong>
+                            <button name="delta" value="1" class="btn sm">+</button>
+                        </form>
+                    </td>
+                    <td>@i.Total.VND()</td>
+                    <td>
+                        <form asp-action="Remove" method="post" class="inline">
+                            <input type="hidden" name="productId" value="@i.ProductId" />
+                            <input type="hidden" name="size" value="@i.Size" />
+                            <button class="btn sm red">Xóa</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+    <div class="card right">
+        <p>Tạm tính: @(((decimal)ViewBag.Subtotal).VND())</p>
+        <p>Phí ship: @(((decimal)ViewBag.Shipping).VND())</p>
+        <p class="total">TỔNG: @(((decimal)ViewBag.Subtotal + (decimal)ViewBag.Shipping).VND())</p>
+        <a class="btn" asp-controller="Order" asp-action="Checkout">TIẾN HÀNH ĐẶT HÀNG</a>
+    </div>
+}
+
+

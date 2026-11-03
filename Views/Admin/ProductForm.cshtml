@@ -1,0 +1,107 @@
+@model ProductFormViewModel
+@{
+    var isNew = Model.Product.Id == 0;
+    ViewData["Title"] = isNew ? "Thêm sản phẩm" : "Sửa sản phẩm";
+}
+<h1>@ViewData["Title"]</h1>
+
+<form method="post" enctype="multipart/form-data" asp-action="@(isNew ? "CreateProduct" : "EditProduct")">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="Id" value="@Model.Product.Id" />
+    <div class="form-grid">
+        <div class="field full">
+            <label>Tên sản phẩm</label>
+            <input type="text" name="Name" value="@Model.Product.Name" />
+            <div class="error">@Html.ValidationMessage("Product.Name")</div>
+        </div>
+        <div class="field">
+            <label>Giá (đ)</label>
+            <input type="number" name="Price" min="0" step="1000" value="@Model.Product.Price.ToString("0")" />
+            <div class="error">@Html.ValidationMessage("Product.Price")</div>
+        </div>
+        @if (isNew)
+        {
+            <div class="field">
+                <label>Tồn kho ban đầu (mỗi size)</label>
+                <input type="number" name="initialStock" min="0" max="100000" value="@Model.InitialStock" />
+                <div class="error">@Html.ValidationMessage("Product.Stock")</div>
+            </div>
+        }
+        else
+        {
+            <div class="field">
+                <label>Tồn kho hiện tại</label>
+                <div style="padding-top:10px">
+                    <b>@Model.Product.Stock</b>
+                    @if (Model.Product.SizeStock.Count > 0) { <span style="color:var(--muted)"> (@string.Join(", ", Model.Product.SizeStock.Select(kv => $"{kv.Key}: {kv.Value}")))</span> }
+                    <br /><a asp-controller="Inventory" asp-action="Index" asp-route-search="@Model.Product.Name">Quản lý tồn kho theo size →</a>
+                </div>
+            </div>
+        }
+        <div class="field">
+            <label>Ngưỡng cảnh báo sắp hết (mỗi size, để trống = @Product.DefaultLowStockThreshold)</label>
+            <input type="number" name="LowStockThreshold" min="0" max="1000" value="@Model.Product.LowStockThreshold" />
+            <div class="error">@Html.ValidationMessage("Product.LowStockThreshold")</div>
+        </div>
+        <div class="field">
+            <label>Danh mục</label>
+            <select name="CategoryId">
+                <option value="0">-- Chọn danh mục --</option>
+                @foreach (var c in Model.Categories)
+                {
+                    <option value="@c.Id" selected="@(Model.Product.CategoryId == c.Id)">@c.Name</option>
+                }
+            </select>
+            <div class="error">@Html.ValidationMessage("Product.CategoryId")</div>
+        </div>
+        <div class="field">
+            <label>Màu</label>
+            <input type="text" name="Color" value="@Model.Product.Color" />
+        </div>
+        <div class="field">
+            <label>Size (cách nhau dấu phẩy)</label>
+            <input type="text" name="Sizes" value="@Model.Product.Sizes" />
+            <div class="error">@Html.ValidationMessage("Product.Sizes")</div>
+        </div>
+        <div class="field full image-field">
+            <label>Hình ảnh</label>
+            <div class="image-row">
+                <img id="imgPreview" class="preview" alt=""
+                     src="@Model.Product.ImageUrl" style="@(string.IsNullOrEmpty(Model.Product.ImageUrl) ? "display:none" : "")" />
+                <div class="image-inputs">
+                    <input type="file" id="imageFile" name="imageFile" accept=".jpg,.jpeg,.png,.webp,image/*" />
+                    <div class="hint">Tải ảnh JPG, PNG hoặc WEBP (tối đa 5 MB). Nếu tải ảnh lên thì không cần nhập link.</div>
+                    <input type="text" id="imageUrl" name="ImageUrl" value="@Model.Product.ImageUrl"
+                           placeholder="Hoặc dán link ảnh: https://..." />
+                    <div class="error">@Html.ValidationMessage("Product.ImageUrl")</div>
+                </div>
+            </div>
+        </div>
+        <div class="field full">
+            <label>Mô tả</label>
+            <textarea name="Description">@Model.Product.Description</textarea>
+        </div>
+        <div class="field full"><label><input type="checkbox" name="Active" value="true" checked="@Model.Product.Active" /> Hiển thị sản phẩm trên cửa hàng</label><input type="hidden" name="Active" value="false" /></div>
+    </div>
+    <div class="form-actions">
+        <button class="btn" type="submit">Lưu</button>
+        <a class="btn light" asp-action="Products">Hủy</a>
+    </div>
+</form>
+
+<script>
+    // Xem trước ảnh ngay khi chọn file hoặc dán link
+    (function () {
+        var file = document.getElementById('imageFile');
+        var url = document.getElementById('imageUrl');
+        var img = document.getElementById('imgPreview');
+        function show(src) { if (src) { img.src = src; img.style.display = ''; } else { img.style.display = 'none'; } }
+        file.addEventListener('change', function () {
+            if (file.files && file.files[0]) show(URL.createObjectURL(file.files[0]));
+        });
+        url.addEventListener('input', function () { if (!file.files.length) show(url.value.trim()); });
+        img.addEventListener('error', function () { img.style.display = 'none'; });
+    })();
+</script>
+
+

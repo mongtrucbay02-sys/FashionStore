@@ -1,0 +1,38 @@
+@model VirtualTryOnPage
+@using System.Text.Json
+@{ ViewData["Title"]="Thử đồ trên ảnh của bạn"; ViewData["OutfitPage"]=true; ViewData["TryOnPage"]=true; }
+<section id="tryon" class="tryon-page" data-url="@Url.Action("Generate")" data-configured="@Model.IsConfigured.ToString().ToLowerInvariant()" data-authenticated="@Model.IsAuthenticated.ToString().ToLowerInvariant()">
+    @Html.AntiForgeryToken()
+    <header class="tryon-intro"><div><p class="eyebrow">MENSWEAR / VIRTUAL TRY-ON</p><h1>Trang phục nam mới.<br /><em>Vẫn là bạn.</em></h1><p>Tải ảnh của bạn, chọn đồ nam và xem cách kết hợp ngay trên ảnh gốc.</p></div><span class="ai-connection @(Model.IsConfigured?"connected":"")">@(Model.IsConfigured?"Đã cấu hình Cloudflare":"AI chờ kết nối")</span></header>
+    <div class="tryon-grid">
+        <section class="tryon-card"><div class="tryon-heading"><span>01</span><h2>Ảnh của bạn</h2></div>
+            <label class="tryon-file-label" for="tryon-person">Chọn ảnh JPG, PNG hoặc WEBP<input id="tryon-person" type="file" accept="image/jpeg,image/png,image/webp" /></label>
+            <p class="tryon-help">Ảnh rõ người và vùng trang phục, tối đa 5 MB / 20 megapixel. Giữ ảnh gốc để so sánh.</p>
+            <div class="tryon-person-stage" id="tryon-person-stage"><div id="tryon-person-empty"><span>＋</span><p>Thêm ảnh bạn muốn thử đồ</p><small>Không có ảnh mặc định thay cho bạn</small></div><img id="tryon-person-preview" hidden alt="Ảnh gốc của bạn" /><canvas id="tryon-paint" hidden aria-label="Tô vùng quần áo được phép thay" tabindex="0"></canvas></div>
+            <label class="tryon-field">Vùng cần thay<select id="tryon-scope"><option value="outfit">Cả bộ đồ nam</option><option value="top">Chỉ áo nam</option><option value="bottom">Chỉ quần nam</option></select></label>
+            <fieldset class="tryon-region-mode"><legend>Cách xác định vùng thay đồ</legend><label><input type="radio" name="regionMode" value="auto" checked /> AI tự xác định trang phục</label><label><input type="radio" name="regionMode" value="paint" /> Tô vùng để giữ phần còn lại từ ảnh gốc</label></fieldset>
+            <div id="tryon-brush-controls" hidden><p class="tryon-help">Tô lên áo/quần cần thay. Tránh mặt, tóc, da, tay và phụ kiện. Phần không tô được ghép lại từ ảnh gốc khi tải kết quả.</p><div class="tryon-brush-row"><label>Cỡ cọ<input id="tryon-brush" type="range" min="1" max="15" value="5" /></label><button id="tryon-eraser" type="button" aria-pressed="false">Tẩy vùng tô</button><button id="tryon-undo" type="button" disabled>Hoàn tác nét</button><button id="tryon-clear-mask" type="button">Xóa vùng tô</button></div></div>
+        </section>
+        <section class="tryon-card"><div class="tryon-heading"><span>02</span><h2>Trang phục nam muốn thử</h2></div>
+            <div class="tryon-source-tabs" role="group" aria-label="Nguồn trang phục"><button data-source="catalog" type="button" aria-pressed="true">Trong cửa hàng</button><button data-source="upload" type="button" aria-pressed="false">Tải ảnh đồ</button><button data-source="description" type="button" aria-pressed="false">Mô tả bộ đồ</button></div>
+            <div id="tryon-catalog">
+                <label class="tryon-field">Chọn theo<select id="tryon-mode"><option value="separates">Áo / quần riêng</option><option value="set">Bộ vest hoàn chỉnh</option></select></label>
+                <label class="tryon-field" id="tryon-shirt-field">Áo<select id="tryon-shirt"><option value="">Chọn một áo</option>@foreach(var p in Model.Products.Where(p=>p.Category=="shirt")){<option value="@p.Id">@p.Name · @p.ColorName</option>}</select></label>
+                <label class="tryon-field" id="tryon-pants-field">Quần<select id="tryon-pants"><option value="">Chọn một quần</option>@foreach(var p in Model.Products.Where(p=>p.Category=="pants")){<option value="@p.Id">@p.Name · @p.ColorName</option>}</select></label>
+                <label class="tryon-field" id="tryon-set-field" hidden>Bộ vest<select id="tryon-set"><option value="">Chọn một bộ vest</option>@foreach(var p in Model.Products.Where(p=>p.Category=="set")){<option value="@p.Id">@p.Name · @p.ColorName</option>}</select></label>
+                <div id="tryon-catalog-preview" class="tryon-garment-preview"></div>
+            </div>
+            <div id="tryon-upload" hidden><label class="tryon-file-label" for="tryon-garments">Chọn tối đa hai ảnh đồ nam<input id="tryon-garments" type="file" accept="image/jpeg,image/png,image/webp" multiple /></label><p class="tryon-help">Mỗi ảnh tối đa 5 MB. Ưu tiên ảnh rõ chất liệu, màu và họa tiết.</p><div id="tryon-upload-preview" class="tryon-garment-preview"></div></div>
+            <label class="tryon-field" for="tryon-description" id="tryon-description-label">Mô tả thêm (không bắt buộc)<textarea id="tryon-description" maxlength="1500" rows="4" placeholder="Ví dụ: áo thun trắng form rộng và quần jean xanh dài. Giữ nguyên giày, đồng hồ và túi của ảnh gốc."></textarea></label>
+            <p class="tryon-help">Chỉ thay vùng trang phục bạn chọn. Yêu cầu giữ gương mặt, tóc, vóc dáng, tư thế, màu da, giày, phụ kiện, góc chụp, ánh sáng và nền gốc được gửi cùng ảnh.</p>
+            <div class="tryon-actions"><button id="tryon-generate" type="button" class="primary-button" disabled>Thử đồ trên ảnh của tôi ↗</button><button id="tryon-cancel" type="button" hidden>Dừng chờ</button></div>
+            <p id="tryon-status" class="tryon-status" role="status">@(Model.IsConfigured?"Chọn ảnh người và trang phục mới để bắt đầu.":"Chưa cấu hình đủ Cloudflare API token và Account ID trên máy chủ. Bạn có thể chọn và xem trước ảnh; tạo ảnh cần cấu hình Cloudflare.")</p><p id="tryon-elapsed" class="tryon-help" hidden></p>
+            @if(!Model.IsAuthenticated){<a class="look-login" asp-controller="Account" asp-action="Login" asp-route-returnUrl="/TryOn">Đăng nhập để tạo ảnh thử đồ ↗</a>}
+            <p class="tryon-privacy">Bấm thử đồ sẽ gửi ảnh người, ảnh trang phục, vùng tô (nếu có) và mô tả tới Cloudflare, sử dụng hạn mức API. FashionStore xử lý ảnh trong yêu cầu, không lưu vào hồ sơ hoặc thư mục ảnh website. Kết quả chỉ ở phiên trình duyệt; tải PNG để giữ lại.</p>
+        </section>
+    </div>
+    <section class="tryon-result-card" id="tryon-result" hidden><div class="tryon-heading"><span>03</span><h2>Trước và sau</h2><a id="tryon-download" download="fashionstore-thu-do.png">Tải kết quả PNG ↓</a></div><div class="tryon-compare"><figure><img id="tryon-before" alt="Ảnh gốc trước khi thử đồ" /><figcaption>Ảnh gốc</figcaption></figure><figure><img id="tryon-after" alt="Kết quả thử đồ AI" /><figcaption id="tryon-result-caption">Thử đồ AI</figcaption></figure></div><p class="tryon-help">Đối chiếu gương mặt, tay, phụ kiện và mép quần áo trước khi dùng ảnh. AI không bảo đảm giữ nguyên 100% chi tiết hoặc dự đoán độ vừa theo số đo.</p></section>
+    <p class="tryon-bottom-note">Đây là thử đồ bằng chỉnh sửa ảnh tạo sinh. Tô vùng giúp bảo vệ phần ngoài vùng sửa trong ảnh tải về; chọn vùng chính xác để tránh chỉnh nhầm mặt hoặc phụ kiện. <a asp-controller="Outfit" asp-action="Index">Quay lại phối đồ &amp; gợi ý size ↗</a></p>
+</section>
+<script id="tryon-catalog-data" type="application/json">@Html.Raw(JsonSerializer.Serialize(Model.Products,new JsonSerializerOptions{PropertyNamingPolicy=JsonNamingPolicy.CamelCase}))</script>
+@section Scripts { <script src="~/js/try-on.js" asp-append-version="true" defer></script> }

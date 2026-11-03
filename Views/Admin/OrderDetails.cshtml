@@ -1,0 +1,84 @@
+@model Order
+@{
+    ViewData["Title"] = $"Đơn #{Model.Id:000}";
+    var flow = OrderStatus.Flow;
+    var idx = Array.IndexOf(flow, Model.Status);
+    var cancelled = Model.Status == OrderStatus.Cancelled;
+    var finished = cancelled || Model.Status == OrderStatus.Completed;
+    string? next = (!finished && idx >= 0 && idx < flow.Length - 1) ? flow[idx + 1] : null;
+    var awaitingQr = Model.PaymentMethod == OutfitStudio.Services.QrPaymentService.Method && Model.QrPayment?.Status != QrPaymentStatus.Paid;
+    var subtotal = Model.OrderItems.Sum(i => i.Price * i.Quantity);
+}
+<h1>Đơn #@Model.Id.ToString("000")</h1>
+
+<div class="panel">
+    <div class="steps">
+        @if (cancelled)
+        {
+            <div class="step current" style="color:var(--err);border-bottom-color:var(--err)">Đã hủy</div>
+        }
+        else
+        {
+            for (int i = 0; i < flow.Length; i++)
+            {
+                var cls = i < idx ? "done" : (i == idx ? "current" : "");
+                <div class="step @cls">@flow[i]</div>
+            }
+        }
+    </div>
+
+    @if (!finished)
+    {
+        <div class="form-actions" style="margin-top:0">
+            @if (next != null)
+            {
+                <form method="post" asp-action="UpdateOrderStatus" asp-route-id="@Model.Id">
+                    <input type="hidden" name="status" value="@next" />
+                    <button class="btn" type="submit" disabled="@awaitingQr">Chuyển sang "@next"</button>
+                </form>
+            }
+            <form method="post" asp-action="UpdateOrderStatus" asp-route-id="@Model.Id"
+                  onsubmit="return confirm('Hủy đơn này?');">
+                <input type="hidden" name="status" value="@OrderStatus.Cancelled" />
+                <button class="btn danger" type="submit">Hủy đơn</button>
+            </form>
+        </div>
+    }
+</div>
+
+@await Html.PartialAsync("_AdminQrPayment", Model)
+
+<div class="panel">
+    <h2>Thông tin nhận hàng</h2>
+    <dl class="kv">
+        <dt>Khách hàng</dt><dd>@Model.CustomerName</dd>
+        <dt>Số điện thoại</dt><dd>@Model.Phone</dd>
+        <dt>Địa chỉ</dt><dd>@Model.Address</dd>
+        <dt>Thanh toán</dt><dd>@Model.PaymentMethod</dd>
+        <dt>Ngày đặt</dt><dd>@Model.CreatedAt.ToString("dd/MM/yyyy HH:mm")</dd>
+    </dl>
+</div>
+
+<div class="panel">
+    <h2>Sản phẩm</h2>
+    <table>
+        <thead><tr><th>Tên</th><th>Size</th><th class="num">SL</th><th class="num">Đơn giá</th><th class="num">Thành tiền</th></tr></thead>
+        <tbody>
+        @foreach (var it in Model.OrderItems)
+        {
+            <tr>
+                <td>@it.ProductName</td>
+                <td>@it.Size</td>
+                <td class="num">@it.Quantity</td>
+                <td class="num">@it.Price.ToString("N0")đ</td>
+                <td class="num">@((it.Price * it.Quantity).ToString("N0"))đ</td>
+            </tr>
+        }
+        <tr><td colspan="4" class="num">Tạm tính</td><td class="num">@subtotal.ToString("N0")đ</td></tr>
+        <tr><td colspan="4" class="num">Phí ship</td><td class="num">@Model.ShippingFee.ToString("N0")đ</td></tr>
+        <tr><td colspan="4" class="num"><b>TỔNG</b></td><td class="num"><b>@Model.Total.ToString("N0")đ</b></td></tr>
+        </tbody>
+    </table>
+</div>
+
+<a class="btn light" asp-action="Orders">← Danh sách đơn</a>

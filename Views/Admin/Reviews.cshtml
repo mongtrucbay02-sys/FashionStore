@@ -1,0 +1,31 @@
+@model List<Review>
+@{
+    ViewData["Title"] = "Đánh giá";
+    var names = (Dictionary<int, string>)ViewBag.ProductNames;
+}
+<h1>Quản lý đánh giá</h1>
+
+<table>
+    <thead><tr><th>ID</th><th>Sản phẩm</th><th>Người đánh giá</th><th>Sao</th><th>Nội dung</th><th>Ngày</th><th></th></tr></thead>
+    <tbody>
+    @foreach (var r in Model)
+    {
+        <tr>
+            <td>@r.Id</td>
+            <td>@(names.TryGetValue(r.ProductId, out var pn) ? pn : "(đã xóa)")</td>
+            <td>@r.UserName</td>
+            <td>@(new string('★', r.Rating))@(new string('☆', 5 - r.Rating))</td>
+            <td>@r.Comment</td>
+            <td>@r.CreatedAt.ToString("dd/MM/yyyy")</td>
+            <td class="actions">
+                <form class="inline" method="post" asp-action="DeleteReview" asp-route-id="@r.Id"
+                      onsubmit="return confirm('Xóa đánh giá này?');">
+                    <button class="btn danger sm" type="submit">Xóa</button>
+                </form>
+            </td>
+        </tr>
+    }
+    @if (!Model.Any()) { <tr><td colspan="7" class="empty">Chưa có đánh giá.</td></tr> }
+    </tbody>
+</table>
+

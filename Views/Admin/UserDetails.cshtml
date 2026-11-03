@@ -1,0 +1,41 @@
+@model User
+@{
+    ViewData["Title"] = Model.FullName;
+    var orders = (List<Order>)ViewBag.Orders;
+}
+<h1>@Model.FullName</h1>
+
+<div class="panel">
+    <dl class="kv">
+        <dt>ID</dt><dd>@Model.Id</dd>
+        <dt>Email</dt><dd>@Model.Email</dd>
+        <dt>Xác thực email</dt><dd>@(Model.EmailVerifiedAt.HasValue ? "Đã xác thực OTP" : "Chưa xác thực OTP")</dd>
+        <dt>Điện thoại</dt><dd>@(string.IsNullOrEmpty(Model.Phone) ? "—" : Model.Phone)</dd>
+        <dt>Địa chỉ</dt><dd>@(string.IsNullOrEmpty(Model.Address) ? "—" : Model.Address)</dd>
+        <dt>Quyền</dt><dd>@Model.Role</dd>
+        <dt>Trạng thái</dt><dd>@(Model.IsLocked ? "Đã khóa" : "Hoạt động")</dd>
+    </dl>
+</div>
+
+<div class="panel">
+    <h2>Lịch sử đơn hàng (@orders.Count)</h2>
+    <table>
+        <thead><tr><th>Mã</th><th>Ngày</th><th class="num">Tổng</th><th>Trạng thái</th><th></th></tr></thead>
+        <tbody>
+        @foreach (var o in orders)
+        {
+            <tr>
+                <td>#@o.Id.ToString("000")</td>
+                <td>@o.CreatedAt.ToString("dd/MM/yyyy")</td>
+                <td class="num">@o.Total.ToString("N0")đ</td>
+                <td>@o.Status</td>
+                <td class="actions"><a class="btn light sm" asp-action="OrderDetails" asp-route-id="@o.Id">Xem</a></td>
+            </tr>
+        }
+        @if (!orders.Any()) { <tr><td colspan="5" class="empty">Chưa có đơn hàng.</td></tr> }
+        </tbody>
+    </table>
+</div>
+
+<a class="btn light" asp-action="Users">← Danh sách người dùng</a>
+

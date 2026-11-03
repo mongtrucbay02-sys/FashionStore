@@ -1,0 +1,20 @@
+bin/
+obj/
+**/bin/
+**/obj/
+.dotnet-home/
+.vs/
+*.user
+.test-output/
+.keys/
+artifacts/
+*.log
+*.tmp
+.merge-input/
+.env
+.env.*
+!.env.example
+
+# Runtime user and order data
+App_Data/*.json
+

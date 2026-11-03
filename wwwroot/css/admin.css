@@ -1,0 +1,235 @@
+/* ===== FashionStore Admin - luxury minimal =====
+   Nền ngà, chữ đen, đường kẻ mảnh, không bo góc.
+   Font Be Vietnam Pro dùng chung, hỗ trợ dấu tiếng Việt. */
+
+:root {
+    --paper: #faf8f5;
+    --white: #ffffff;
+    --ink: #000000;
+    --text: #1d1b19;
+    --muted: #7a746c;
+    --line: #dcd6cc;
+    --line-soft: #ebe7e0;
+    --gold: #a38b5b;
+    --err: #8c2f2f;
+    --ok: #3d5a45;
+    --serif: var(--font-family-base);
+    --sans: var(--font-family-base);
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+    margin: 0; background: var(--paper); color: var(--text);
+    font-family:var(--font-family-base); font-weight: 300; font-size: 14px; line-height: 1.6;
+}
+a { color: inherit; }
+:focus-visible { outline: 1px solid var(--ink); outline-offset: 3px; }
+
+/* ---------- Header ---------- */
+.topbar {
+    position: relative; text-align: center;
+    padding: 28px 40px 0; background: var(--paper);
+    border-bottom: 1px solid var(--line);
+}
+.topbar-util {
+    position: absolute; top: 18px; right: 40px; display: flex; gap: 22px;
+    font-size: 11px; letter-spacing: .08em;
+}
+.topbar-util a { text-decoration: none; color: var(--muted); }
+.topbar-util a:hover { color: var(--ink); }
+.wordmark {
+    display: inline-block; text-decoration: none; color: var(--ink);
+    font-family:var(--font-family-base); font-weight: 500; font-size: 34px; letter-spacing: .32em;
+    padding-left: .32em; /* bù letter-spacing để chữ cân giữa */
+}
+.topbar-sub {
+    font-size: 10px; letter-spacing: .4em; text-transform: uppercase; color: var(--muted);
+    margin-top: 2px; padding-left: .4em;
+}
+.mainnav { display: flex; justify-content: center; gap: 44px; margin-top: 24px; flex-wrap: wrap; }
+.mainnav a {
+    text-decoration: none; color: var(--muted);
+    font-size: 11px; font-weight: 400; letter-spacing: .2em; text-transform: uppercase;
+    padding: 14px 0 15px; border-bottom: 1px solid transparent; margin-bottom: -1px;
+    transition: color .2s, border-color .2s;
+}
+.mainnav a:hover { color: var(--ink); }
+.mainnav a.active { color: var(--ink); border-bottom-color: var(--ink); }
+
+/* ---------- Content ---------- */
+.content { max-width: 1180px; margin: 0 auto; padding: 56px 40px 80px; }
+h1 {
+    font-family:var(--font-family-base); font-weight: 500; font-size: 44px; line-height: 1.1;
+    letter-spacing: .02em; text-align: center; margin: 0 0 48px; color: var(--ink);
+}
+h2 {
+    font-family:var(--font-family-base); font-weight: 500; font-size: 26px; letter-spacing: .02em;
+    margin: 0 0 20px; color: var(--ink);
+}
+.foot {
+    text-align: center; color: var(--muted); font-size: 10px; letter-spacing: .3em;
+    text-transform: uppercase; padding: 32px 0 40px; border-top: 1px solid var(--line);
+}
+
+/* ---------- Alerts ---------- */
+.alert {
+    padding: 14px 20px; margin: 0 0 32px; text-align: center; font-size: 13px;
+    border: 1px solid var(--line); background: var(--white);
+}
+.alert.ok { border-color: var(--ok); color: var(--ok); }
+.alert.err { border-color: var(--err); color: var(--err); }
+
+/* ---------- Stat cards ---------- */
+.cards {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    border: 1px solid var(--line); background: var(--white); margin-bottom: 56px;
+}
+.stat { padding: 32px 28px; text-align: center; border-right: 1px solid var(--line-soft); }
+.stat:last-child { border-right: none; }
+.stat .label { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+.stat .value { font-family:var(--font-family-base); font-size: 46px; font-weight: 500; line-height: 1.15; margin-top: 10px; color: var(--ink); }
+.stat .note { font-size: 12px; margin-top: 8px; color: var(--gold); }
+
+/* ---------- Panels ---------- */
+.panel { background: var(--white); border: 1px solid var(--line); padding: 36px; margin-bottom: 40px; }
+.panel > h2:first-child { text-align: center; }
+.panel table { border: none; }
+
+/* ---------- Toolbar ---------- */
+.toolbar { display: flex; gap: 14px; align-items: center; margin-bottom: 28px; flex-wrap: wrap; }
+.toolbar form { display: flex; gap: 10px; flex-wrap: wrap; }
+.toolbar .spacer { flex: 1; }
+
+input[type=text], input[type=number], select, textarea {
+    padding: 11px 14px; border: 1px solid var(--line); border-radius: 0; background: var(--white);
+    font: inherit; font-weight: 300; color: var(--text); transition: border-color .2s;
+}
+input:hover, select:hover, textarea:hover { border-color: var(--muted); }
+input:focus, select:focus, textarea:focus { outline: none; border-color: var(--ink); }
+textarea { width: 100%; min-height: 110px; resize: vertical; }
+
+/* ---------- Buttons ---------- */
+.btn {
+    display: inline-block; padding: 12px 26px; border-radius: 0;
+    border: 1px solid var(--ink); background: var(--ink); color: var(--white);
+    font: inherit; font-size: 11px; font-weight: 400; letter-spacing: .2em; text-transform: uppercase;
+    text-decoration: none; cursor: pointer; transition: background .2s, color .2s, border-color .2s;
+}
+.btn:hover { background: var(--white); color: var(--ink); }
+.btn.light { background: var(--white); color: var(--ink); border-color: var(--line); }
+.btn.light:hover { border-color: var(--ink); }
+.btn.danger { background: var(--white); color: var(--err); border-color: var(--line); }
+.btn.danger:hover { border-color: var(--err); background: var(--err); color: var(--white); }
+.btn.sm { padding: 7px 14px; font-size: 10px; letter-spacing: .14em; }
+form.inline { display: inline; }
+
+/* ---------- Tables ---------- */
+table { width: 100%; border-collapse: collapse; background: var(--white); border: 1px solid var(--line); }
+th, td { text-align: left; padding: 18px 20px; border-bottom: 1px solid var(--line-soft); vertical-align: middle; }
+th {
+    font-size: 10px; font-weight: 400; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--muted); border-bottom: 1px solid var(--line); background: var(--white);
+}
+tbody tr { transition: background .15s; }
+tbody tr:hover { background: var(--paper); }
+tr:last-child td { border-bottom: none; }
+td.actions { white-space: nowrap; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+.empty { text-align: center; color: var(--muted); padding: 48px 20px; font-family:var(--font-family-base); font-size: 20px; }
+
+/* ---------- Badges: chữ + gạch chân mảnh, không tô nền ---------- */
+.badge {
+    display: inline-block; padding: 0 0 2px; font-size: 11px; font-weight: 400; letter-spacing: .08em;
+    color: var(--text); border-bottom: 1px solid var(--line); background: none; border-radius: 0;
+}
+.badge.s-pending { color: var(--gold); border-bottom-color: var(--gold); }
+.badge.s-confirmed, .badge.s-shipping { color: var(--ink); border-bottom-color: var(--ink); }
+.badge.s-completed { color: var(--ok); border-bottom-color: var(--ok); }
+.badge.s-cancelled, .badge.locked { color: var(--err); border-bottom-color: var(--err); }
+.badge.admin { color: var(--white); background: var(--ink); border: none; padding: 3px 10px; letter-spacing: .14em; text-transform: uppercase; font-size: 10px; }
+
+/* ---------- Forms ---------- */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 32px; max-width: 760px; margin: 0 auto; }
+.form-grid .full { grid-column: 1 / -1; }
+.field label {
+    display: block; font-size: 10px; font-weight: 400; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 8px;
+}
+.field input, .field select { width: 100%; }
+.field .error { color: var(--err); font-size: 12px; margin-top: 6px; }
+.form-actions { margin-top: 36px; display: flex; gap: 12px; justify-content: center; }
+.panel .form-actions { margin-top: 28px; }
+
+.thumb { width: 52px; height: 64px; object-fit: cover; background: var(--line-soft); display: block; }
+
+/* ---------- Order flow ---------- */
+.steps { display: flex; justify-content: center; margin: 4px 0 32px; flex-wrap: wrap; }
+.step {
+    padding: 0 28px 14px; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted);
+    border-bottom: 1px solid var(--line); flex: 1; text-align: center; min-width: 130px;
+}
+.step.done { color: var(--ink); border-bottom-color: var(--ink); }
+.step.current { color: var(--ink); font-weight: 500; border-bottom: 3px solid var(--ink); padding-bottom: 12px; }
+
+/* ---------- Key-value ---------- */
+.kv { display: grid; grid-template-columns: 150px 1fr; gap: 14px 24px; margin: 0; }
+.kv dt { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); padding-top: 3px; }
+.kv dd { margin: 0; }
+
+/* ---------- Chart ---------- */
+.chart { display: flex; align-items: flex-end; gap: 28px; height: 230px; padding: 10px 20px 0; border-bottom: 1px solid var(--line); }
+.chart .col { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; position: relative; }
+.chart .bar { width: 100%; max-width: 44px; background: var(--ink); min-height: 1px; transition: background .2s; }
+.chart .col:hover .bar { background: var(--gold); }
+.chart .val { font-size: 11px; color: var(--muted); margin-bottom: 8px; letter-spacing: .04em; }
+.chart .lbl { position: absolute; bottom: -30px; font-size: 11px; letter-spacing: .1em; color: var(--muted); }
+.chart-wrap { padding-bottom: 36px; }
+
+/* ---------- Ảnh sản phẩm (form) ---------- */
+.image-row { display: flex; gap: 24px; align-items: flex-start; }
+.image-row .preview { width: 120px; height: 150px; object-fit: cover; border: 1px solid var(--line); background: var(--line-soft); flex-shrink: 0; }
+.image-inputs { flex: 1; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.image-inputs input[type=text] { width: 100%; }
+.image-inputs input[type=file] { font-size: 12px; }
+.image-inputs .hint { font-size: 12px; color: var(--muted); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 820px) {
+    .topbar { padding: 52px 20px 0; }
+    .topbar-util { top: 16px; right: 20px; }
+    .wordmark { font-size: 26px; }
+    .mainnav { gap: 22px; justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; }
+    .mainnav a { white-space: nowrap; }
+    .content { padding: 36px 20px 56px; }
+    h1 { font-size: 34px; margin-bottom: 32px; }
+    .panel { padding: 22px; }
+    .form-grid { grid-template-columns: 1fr; }
+    .stat { border-right: none; border-bottom: 1px solid var(--line-soft); }
+    .kv { grid-template-columns: 1fr; gap: 4px; }
+    .kv dd { margin-bottom: 12px; }
+    table { display: block; overflow-x: auto; }
+    .chart { gap: 6px; padding: 10px 0 0; }
+    .chart .lbl { font-size: 9px; letter-spacing: 0; transform: rotate(-35deg); transform-origin: top right; right: 50%; white-space: nowrap; bottom: -26px; }
+    .chart-wrap { padding-bottom: 44px; }
+    .image-row { flex-direction: column; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+}
+
+.topbar-util form{display:inline;margin:0}.admin-logout{border:0;background:none;color:inherit;font:inherit;cursor:pointer;padding:0}.field input[type=checkbox]{width:auto;margin-right:8px}
+/* ---------- Tồn kho theo size ---------- */
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { display: inline-block; padding: 3px 9px; border: 1px solid var(--line); font-size: 12px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.chip b { font-weight: 500; }
+.chip.low { color: var(--gold); border-color: var(--gold); }
+.chip.out { color: var(--err); border-color: var(--err); }
+.stock-form { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 0; }
+.stock-form select, .stock-form input { padding: 7px 10px; }
+.stock-form .qty { width: 90px; }
+.stock-form .note { width: 170px; }
+.threshold-form { display: flex; gap: 6px; align-items: center; margin: 0; }
+.threshold-form input { width: 64px; padding: 7px 8px; }
+

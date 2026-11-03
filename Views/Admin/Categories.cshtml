@@ -1,0 +1,36 @@
+@model List<Category>
+@{
+    ViewData["Title"] = "Danh mục";
+    var counts = (Dictionary<int, int>)ViewBag.ProductCounts;
+}
+<h1>Quản lý danh mục</h1>
+
+<div class="toolbar">
+    <div class="spacer"></div>
+    <a class="btn" asp-action="CreateCategory">+ Thêm danh mục</a>
+</div>
+
+<table>
+    <thead><tr><th>ID</th><th>Tên</th><th>Mô tả</th><th class="num">Số sản phẩm</th><th>Thao tác</th></tr></thead>
+    <tbody>
+    @foreach (var c in Model)
+    {
+        <tr>
+            <td>@c.Id</td>
+            <td>@c.Name</td>
+            <td>@c.Description</td>
+            <td class="num">@(counts.TryGetValue(c.Id, out var n) ? n : 0)</td>
+            <td class="actions">
+                <a class="btn light sm" asp-action="EditCategory" asp-route-id="@c.Id">Sửa</a>
+                <form class="inline" method="post" asp-action="DeleteCategory" asp-route-id="@c.Id"
+                      onsubmit="return confirm('Xác nhận thao tác này?');">
+                    <button class="btn danger sm" type="submit">Xóa</button>
+                </form>
+            </td>
+        </tr>
+    }
+    @if (!Model.Any()) { <tr><td colspan="5" class="empty">Chưa có danh mục.</td></tr> }
+    </tbody>
+</table>
+
+

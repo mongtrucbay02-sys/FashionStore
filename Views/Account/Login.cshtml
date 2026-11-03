@@ -1,0 +1,22 @@
+@{ ViewData["CommercePage"] = true; }
+@model LoginVM
+@{ ViewData["Title"] = "Đăng nhập"; }
+<div class="card" style="max-width:400px;margin:auto">
+    <h2 class="center">ĐĂNG NHẬP</h2>
+    <p>Nhập email và mật khẩu; OTP sẽ được gửi đến Gmail trước khi đăng nhập.</p>
+    <form asp-action="Login" method="post">
+        <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+        <div class="err" asp-validation-summary="ModelOnly"></div>
+        <label asp-for="Email">Email</label>
+        <input asp-for="Email" type="email" />
+        <span asp-validation-for="Email"></span>
+        <label asp-for="Password">Mật khẩu</label>
+        <input asp-for="Password" type="password" />
+        <span asp-validation-for="Password"></span>
+        <button class="btn full">ĐĂNG NHẬP</button>
+    </form>
+    <p class="center"><a asp-action="Register">Đăng ký tài khoản</a></p>
+</div>
+
+
+

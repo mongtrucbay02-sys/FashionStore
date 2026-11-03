@@ -1,0 +1,61 @@
+@model DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+    var max = Model.MonthlyRevenue.Max(m => m.Value);
+    string Cls(string s) => s switch
+    {
+        OrderStatus.Pending => "s-pending",
+        OrderStatus.Confirmed => "s-confirmed",
+        OrderStatus.Shipping => "s-shipping",
+        OrderStatus.Completed => "s-completed",
+        _ => "s-cancelled"
+    };
+}
+<h1>Tổng quan</h1>
+
+<div class="cards">
+    <div class="stat"><div class="label">Tổng sản phẩm</div><div class="value">@Model.TotalProducts</div>
+        @if (Model.LowStockProducts > 0) { <div class="note"><a asp-controller="Inventory" asp-action="Index" asp-route-status="alert" style="color:inherit">@Model.LowStockProducts sản phẩm sắp hết hàng</a></div> }
+    </div>
+    <div class="stat"><div class="label">Đơn hàng</div><div class="value">@Model.TotalOrders</div>
+        @if (Model.PendingOrders > 0) { <div class="note">@Model.PendingOrders đơn chờ xác nhận</div> }
+    </div>
+    <div class="stat"><div class="label">Người dùng</div><div class="value">@Model.TotalUsers</div></div>
+    <div class="stat"><div class="label">Doanh thu (đơn hoàn thành)</div><div class="value">@Model.Revenue.ToString("N0")đ</div></div>
+</div>
+
+<div class="panel">
+    <h2>Doanh thu 6 tháng gần nhất</h2>
+    <div class="chart-wrap"><div class="chart">
+        @foreach (var m in Model.MonthlyRevenue)
+        {
+            var h = max > 0 ? (int)Math.Round((double)(m.Value / max) * 150) : 0;
+            <div class="col">
+                <div class="val">@(m.Value > 0 ? (m.Value / 1000).ToString("N0") + "k" : "0")</div>
+                <div class="bar" style="height:@(h)px"></div>
+                <div class="lbl">@m.Label</div>
+            </div>
+        }
+    </div></div>
+</div>
+
+<div class="panel">
+    <h2>Đơn hàng mới nhất</h2>
+    <table>
+        <thead><tr><th>Mã</th><th>Khách</th><th class="num">Tổng</th><th>Trạng thái</th><th></th></tr></thead>
+        <tbody>
+        @foreach (var o in Model.RecentOrders)
+        {
+            <tr>
+                <td>#@o.Id.ToString("000")</td>
+                <td>@o.CustomerName</td>
+                <td class="num">@o.Total.ToString("N0")đ</td>
+                <td><span class="badge @Cls(o.Status)">@o.Status</span></td>
+                <td class="actions"><a class="btn light sm" asp-action="OrderDetails" asp-route-id="@o.Id">Xem</a></td>
+            </tr>
+        }
+        @if (!Model.RecentOrders.Any()) { <tr><td colspan="5" class="empty">Chưa có đơn hàng.</td></tr> }
+        </tbody>
+    </table>
+</div>
+

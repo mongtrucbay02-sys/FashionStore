@@ -1,0 +1,30 @@
+@model Product
+@{
+    ViewData["Title"] = Model.Name;
+    string cat = ViewBag.CategoryName;
+}
+<h1>@Model.Name</h1>
+
+<div class="panel">
+    <div style="display:flex; gap:24px; flex-wrap:wrap;">
+        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+        {
+            <img src="@Model.ImageUrl" alt="@Model.Name" style="width:220px; height:220px; object-fit:cover; border-radius:10px; background:#eee;" />
+        }
+        <dl class="kv" style="flex:1; min-width:260px;">
+            <dt>ID</dt><dd>@Model.Id</dd>
+            <dt>Giá</dt><dd>@Model.Price.ToString("N0")đ</dd>
+            <dt>Danh mục</dt><dd>@cat</dd>
+            <dt>Tồn kho</dt><dd>@Model.Stock@if (Model.SizeStock.Count > 0) { <span style="color:var(--muted)"> (@string.Join(", ", Model.SizeStock.Select(kv => $"{kv.Key}: {kv.Value}")))</span> }</dd>
+            <dt>Ngưỡng cảnh báo</dt><dd>@Model.EffectiveThreshold @(Model.LowStockThreshold is null ? "(mặc định)" : "")</dd>
+            <dt>Màu</dt><dd>@(string.IsNullOrEmpty(Model.Color) ? "—" : Model.Color)</dd>
+            <dt>Size</dt><dd>@Model.Sizes</dd>
+            <dt>Mô tả</dt><dd>@(string.IsNullOrEmpty(Model.Description) ? "—" : Model.Description)</dd>
+        </dl>
+    </div>
+    <div class="form-actions">
+        <a class="btn" asp-action="EditProduct" asp-route-id="@Model.Id">Sửa</a>
+        <a class="btn light" asp-action="Products">← Danh sách</a>
+    </div>
+</div>
+

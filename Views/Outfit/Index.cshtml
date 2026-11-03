@@ -1,0 +1,53 @@
+@model OutfitCatalog
+@using System.Text.Json
+@{ ViewData["Title"] = "Phối đồ trực quan"; ViewData["OutfitPage"] = true; }
+<nav class="studio-shortcuts" aria-label="Điều hướng phòng phối đồ"><a href="#studio">Phòng phối đồ</a><a href="#size-guide">Gợi ý size</a><a href="#saved">Bộ đồ đã lưu <span id="saved-count">0</span></a></nav>
+    <section class="intro">
+        <div><p class="eyebrow">MENSWEAR / OUTFIT STUDIO</p><h1>Định hình phong cách.<br /><em>Chất riêng phái mạnh.</em></h1><p class="intro-copy">Phối áo nam với quần nam, hoặc chọn một bộ vest hoàn chỉnh.<br />Nhập chiều cao, cân nặng để chọn size phù hợp với từng sản phẩm.</p></div>
+        <div class="intro-aside"><span class="asterisk">✳</span><p>Một tủ đồ.<br />Nhiều phiên bản của bạn.</p><span class="small-label">ÁO + QUẦN / BỘ VEST</span></div>
+    </section>
+    <section id="studio" class="studio" aria-label="Phối đồ trực quan">
+        <aside class="wardrobe">
+            <div class="panel-heading"><div><p class="eyebrow">01 / TỦ ĐỒ</p><h2>Chọn trang phục</h2></div><span id="product-count" class="count-badge"></span></div>
+            <div class="tabs" role="tablist" aria-label="Loại trang phục">
+                <button id="tab-shirt" role="tab" aria-selected="true" aria-controls="product-panel" data-category="shirt">Áo <span>01</span></button>
+                <button id="tab-pants" role="tab" aria-selected="false" aria-controls="product-panel" tabindex="-1" data-category="pants">Quần <span>02</span></button>
+                <button id="tab-set" role="tab" aria-selected="false" aria-controls="product-panel" tabindex="-1" data-category="set">Bộ vest <span>03</span></button>
+            </div>
+            <label class="filter-label" for="kind-filter">KIỂU DÁNG</label><select id="kind-filter"><option value="all">Tất cả kiểu dáng</option></select>
+            <div class="color-filter"><span>MÀU SẮC</span><div id="color-filters" aria-label="Lọc theo màu"></div></div>
+            <div id="product-panel" role="tabpanel" aria-labelledby="tab-shirt"><div id="product-grid" class="product-grid"></div></div>
+            <p class="wardrobe-note" id="wardrobe-instruction">Chọn sản phẩm, chọn size và thêm outfit vào giỏ hàng.</p>
+        </aside>
+        <div class="outfit-panel">
+            <div class="canvas-heading"><div><p class="eyebrow">02 / OUTFIT CỦA BẠN</p><h2>Trang phục đã chọn</h2></div><div class="look-heading-actions"><button id="reset" class="text-button" title="Khôi phục bộ đồ mặc định">↺ <span>Đặt lại</span></button></div></div>
+            <div class="outfit-canvas lookbook-canvas" id="lookbook-canvas">
+                <div id="outfit-preview" class="outfit-preview">
+                    <figure><img id="lookbook-image" src="~/images/collection-2026/loop-set.png" alt="Loop Set màu nâu" /><figcaption id="preview-primary-label">Bộ vest</figcaption></figure>
+                    <figure id="pants-preview" hidden><img id="outfit-pants-image" alt="Quần đã chọn" /><figcaption id="preview-pants-label">Quần</figcaption></figure>
+                </div>
+                <span class="lookbook-badge">Ảnh sản phẩm</span>
+                <div class="lookbook-caption">FASHION STORE / TRANG PHỤC ĐÃ CHỌN</div>
+            </div>
+            <p id="lookbook-description" class="lookbook-description">Ảnh thật của sản phẩm trong bộ sưu tập. Giày và phụ kiện không tính kèm.</p>
+            <div class="outfit-details"><div id="selected-summary" aria-live="polite"></div><div class="outfit-total"><span>TỔNG GIÁ SẢN PHẨM</span><strong id="total-price"></strong></div><button id="save-outfit" class="primary-button">Lưu bộ đồ <span>↗</span></button>
+                <form asp-controller="Cart" asp-action="AddOutfit" method="post" class="outfit-shopping">
+                    <input type="hidden" id="cart-mode" name="mode" /><input type="hidden" id="cart-shirt" name="shirtId" /><input type="hidden" id="cart-pants" name="pantsId" /><input type="hidden" id="cart-set" name="setId" />
+                    <div class="size-row">
+                        <label data-size-for="shirt">Size áo<select name="shirtSize"><option>S</option><option selected>M</option><option>L</option><option>XL</option></select></label>
+                        <label data-size-for="pants">Size quần<select name="pantsSize"><option>S</option><option selected>M</option><option>L</option><option>XL</option></select></label>
+                        <label data-size-for="set">Size bộ vest<select name="setSize"><option>S</option><option selected>M</option><option>L</option><option>XL</option></select></label>
+                    </div>
+                    <button class="primary-button shop-outfit-button" type="submit">Thêm outfit vào giỏ hàng <span>↗</span></button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <div id="size-guide">@await Html.PartialAsync("_SizeAdvisor", new SizeAdvisorVM(".outfit-shopping select"))</div>
+    <section id="saved" class="saved-section"><div class="section-heading"><div><p class="eyebrow">03 / BỘ SƯU TẬP CÁ NHÂN</p><h2>Bộ đồ đã lưu</h2></div><span class="small-label">LƯU TRÊN TRÌNH DUYỆT NÀY</span></div><div id="saved-grid" class="saved-grid"></div></section>
+    <div id="toast" role="status" class="toast" hidden></div>
+@section Scripts {
+<script id="catalog-data" type="application/json">@Html.Raw(JsonSerializer.Serialize(Model, new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase }))</script>
+<script src="~/js/outfit.js" asp-append-version="true" defer></script>
+
+}

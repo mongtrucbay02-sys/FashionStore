@@ -1,0 +1,405 @@
+[
+  {
+    "id": 2001,
+    "slug": "bleu-shorts",
+    "name": "Bleu Shorts",
+    "source": "Screenshot 2026-10-27 081012.png",
+    "crop": [
+      9,
+      20,
+      471,
+      506
+    ],
+    "output": "/images/collection-2026/bleu-shorts.png"
+  },
+  {
+    "id": 2002,
+    "slug": "body-shirt",
+    "name": "Body Shirt",
+    "source": "Screenshot 2026-10-27 081012.png",
+    "crop": [
+      630,
+      20,
+      1092,
+      506
+    ],
+    "output": "/images/collection-2026/body-shirt.png"
+  },
+  {
+    "id": 2003,
+    "slug": "cale-blazer",
+    "name": "Cale Blazer",
+    "source": "Screenshot 2026-10-27 081012.png",
+    "crop": [
+      1251,
+      20,
+      1713,
+      506
+    ],
+    "output": "/images/collection-2026/cale-blazer.png"
+  },
+  {
+    "id": 2004,
+    "slug": "cale-pant",
+    "name": "Cale Pant",
+    "source": "Screenshot 2026-10-27 081023.png",
+    "crop": [
+      6,
+      20,
+      468,
+      506
+    ],
+    "output": "/images/collection-2026/cale-pant.png"
+  },
+  {
+    "id": 2005,
+    "slug": "cane-jacket",
+    "name": "Cane Jacket",
+    "source": "Screenshot 2026-10-27 081023.png",
+    "crop": [
+      627,
+      20,
+      1089,
+      506
+    ],
+    "output": "/images/collection-2026/cane-jacket.png"
+  },
+  {
+    "id": 2006,
+    "slug": "denim-pant",
+    "name": "Denim Pant",
+    "source": "Screenshot 2026-10-27 081023.png",
+    "crop": [
+      1248,
+      20,
+      1710,
+      506
+    ],
+    "output": "/images/collection-2026/denim-pant.png"
+  },
+  {
+    "id": 2007,
+    "slug": "denim-set",
+    "name": "Denim Set",
+    "source": "Screenshot 2026-10-27 081029.png",
+    "crop": [
+      18,
+      54,
+      480,
+      540
+    ],
+    "output": "/images/collection-2026/denim-set.png"
+  },
+  {
+    "id": 2008,
+    "slug": "denim-shirt",
+    "name": "Denim Shirt",
+    "source": "Screenshot 2026-10-27 081029.png",
+    "crop": [
+      639,
+      54,
+      1101,
+      540
+    ],
+    "output": "/images/collection-2026/denim-shirt.png"
+  },
+  {
+    "id": 2009,
+    "slug": "doom-pant",
+    "name": "Doom Pant",
+    "source": "Screenshot 2026-10-27 081029.png",
+    "crop": [
+      1260,
+      54,
+      1722,
+      540
+    ],
+    "output": "/images/collection-2026/doom-pant.png"
+  },
+  {
+    "id": 2010,
+    "slug": "faln-blazer",
+    "name": "Faln Blazer",
+    "source": "Screenshot 2026-10-27 081044.png",
+    "crop": [
+      70,
+      32,
+      532,
+      518
+    ],
+    "output": "/images/collection-2026/faln-blazer.png"
+  },
+  {
+    "id": 2011,
+    "slug": "faln-set",
+    "name": "Faln Set",
+    "source": "Screenshot 2026-10-27 081044.png",
+    "crop": [
+      691,
+      32,
+      1153,
+      518
+    ],
+    "output": "/images/collection-2026/faln-set.png"
+  },
+  {
+    "id": 2012,
+    "slug": "fury-set",
+    "name": "Fury Set",
+    "source": "Screenshot 2026-10-27 081103.png",
+    "crop": [
+      7,
+      38,
+      469,
+      525
+    ],
+    "output": "/images/collection-2026/fury-set.png"
+  },
+  {
+    "id": 2013,
+    "slug": "grey-blazer",
+    "name": "Grey Blazer",
+    "source": "Screenshot 2026-10-27 081103.png",
+    "crop": [
+      628,
+      38,
+      1090,
+      525
+    ],
+    "output": "/images/collection-2026/grey-blazer.png"
+  },
+  {
+    "id": 2014,
+    "slug": "grey-pant",
+    "name": "Grey Pant",
+    "source": "Screenshot 2026-10-27 081103.png",
+    "crop": [
+      1249,
+      38,
+      1711,
+      525
+    ],
+    "output": "/images/collection-2026/grey-pant.png"
+  },
+  {
+    "id": 2015,
+    "slug": "grey-set",
+    "name": "Grey Set",
+    "source": "Screenshot 2026-10-27 081108.png",
+    "crop": [
+      14,
+      33,
+      476,
+      519
+    ],
+    "output": "/images/collection-2026/grey-set.png"
+  },
+  {
+    "id": 2016,
+    "slug": "hans-pant",
+    "name": "Hans Pant",
+    "source": "Screenshot 2026-10-27 081108.png",
+    "crop": [
+      635,
+      33,
+      1097,
+      519
+    ],
+    "output": "/images/collection-2026/hans-pant.png"
+  },
+  {
+    "id": 2017,
+    "slug": "heal-shirt",
+    "name": "Heal Shirt",
+    "source": "Screenshot 2026-10-27 081108.png",
+    "crop": [
+      1256,
+      33,
+      1718,
+      519
+    ],
+    "output": "/images/collection-2026/heal-shirt.png"
+  },
+  {
+    "id": 2018,
+    "slug": "host-blazer",
+    "name": "Host Blazer",
+    "source": "Screenshot 2026-10-27 081113.png",
+    "crop": [
+      13,
+      35,
+      475,
+      521
+    ],
+    "output": "/images/collection-2026/host-blazer.png"
+  },
+  {
+    "id": 2019,
+    "slug": "humer-pant",
+    "name": "Humer Pant",
+    "source": "Screenshot 2026-10-27 081113.png",
+    "crop": [
+      634,
+      35,
+      1096,
+      521
+    ],
+    "output": "/images/collection-2026/humer-pant.png"
+  },
+  {
+    "id": 2020,
+    "slug": "leto-mangto",
+    "name": "Leto Mangto",
+    "source": "Screenshot 2026-10-27 081124.png",
+    "crop": [
+      0,
+      22,
+      454,
+      509
+    ],
+    "output": "/images/collection-2026/leto-mangto.png"
+  },
+  {
+    "id": 2021,
+    "slug": "loop-blazer",
+    "name": "Loop Blazer",
+    "source": "Screenshot 2026-10-27 081124.png",
+    "crop": [
+      613,
+      22,
+      1075,
+      509
+    ],
+    "output": "/images/collection-2026/loop-blazer.png"
+  },
+  {
+    "id": 2022,
+    "slug": "loop-pant",
+    "name": "Loop Pant",
+    "source": "Screenshot 2026-10-27 081124.png",
+    "crop": [
+      1234,
+      22,
+      1696,
+      509
+    ],
+    "output": "/images/collection-2026/loop-pant.png"
+  },
+  {
+    "id": 2023,
+    "slug": "loop-set",
+    "name": "Loop Set",
+    "source": "Screenshot 2026-10-27 081130.png",
+    "crop": [
+      7,
+      29,
+      469,
+      515
+    ],
+    "output": "/images/collection-2026/loop-set.png"
+  },
+  {
+    "id": 2024,
+    "slug": "luci-blazer",
+    "name": "Luci Blazer",
+    "source": "Screenshot 2026-10-27 081130.png",
+    "crop": [
+      628,
+      29,
+      1090,
+      515
+    ],
+    "output": "/images/collection-2026/luci-blazer.png"
+  },
+  {
+    "id": 2025,
+    "slug": "luther-mangto",
+    "name": "Luther Mangto",
+    "source": "Screenshot 2026-10-27 081130.png",
+    "crop": [
+      1249,
+      29,
+      1711,
+      515
+    ],
+    "output": "/images/collection-2026/luther-mangto.png"
+  },
+  {
+    "id": 2026,
+    "slug": "mior-blazer",
+    "name": "Mior Blazer",
+    "source": "Screenshot 2026-10-27 081136 - Copy.png",
+    "crop": [
+      18,
+      46,
+      480,
+      533
+    ],
+    "output": "/images/collection-2026/mior-blazer.png"
+  },
+  {
+    "id": 2027,
+    "slug": "mior-set",
+    "name": "Mior Set",
+    "source": "Screenshot 2026-10-27 081136 - Copy.png",
+    "crop": [
+      639,
+      46,
+      1101,
+      533
+    ],
+    "output": "/images/collection-2026/mior-set.png"
+  },
+  {
+    "id": 2028,
+    "slug": "neck-shirt",
+    "name": "Neck Shirt",
+    "source": "Screenshot 2026-10-27 081136 - Copy.png",
+    "crop": [
+      1260,
+      46,
+      1722,
+      533
+    ],
+    "output": "/images/collection-2026/neck-shirt.png"
+  },
+  {
+    "id": 2029,
+    "slug": "bleu-blazer",
+    "name": "Bleu Blazer",
+    "source": "Screenshot 2026-10-27 081800.png",
+    "crop": [
+      19,
+      60,
+      481,
+      547
+    ],
+    "output": "/images/collection-2026/bleu-blazer.png"
+  },
+  {
+    "id": 2030,
+    "slug": "bleu-pant",
+    "name": "Bleu Pant",
+    "source": "Screenshot 2026-10-27 081800.png",
+    "crop": [
+      640,
+      60,
+      1102,
+      547
+    ],
+    "output": "/images/collection-2026/bleu-pant.png"
+  },
+  {
+    "id": 2031,
+    "slug": "bleu-set",
+    "name": "Bleu Set",
+    "source": "Screenshot 2026-10-27 081800.png",
+    "crop": [
+      1261,
+      60,
+      1723,
+      547
+    ],
+    "output": "/images/collection-2026/bleu-set.png"
+  }
+]

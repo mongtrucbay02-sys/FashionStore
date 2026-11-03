@@ -1,0 +1,43 @@
+@{ ViewData["CommercePage"] = true; }
+@model CheckoutVM
+@{ ViewData["Title"] = "Đặt hàng"; }
+<div class="card">
+    <h2>ĐƠN HÀNG CỦA BẠN</h2>
+    <table>
+        @foreach (var i in Model.Items)
+        {
+            <tr><td>@i.Name (Size @i.Size) x@(i.Quantity)</td><td class="right">@i.Total.VND()</td></tr>
+        }
+    </table>
+    <p class="right">Tạm tính: @Model.Subtotal.VND()<br />Phí ship: @Model.ShippingFee.VND()</p>
+    <p class="right total">TỔNG: @Model.Total.VND()</p>
+</div>
+
+<div class="card">
+    <h2>THÔNG TIN NHẬN HÀNG</h2>
+    <form asp-action="Checkout" method="post">
+        <label asp-for="FullName"></label>
+        <input asp-for="FullName" type="text" />
+        <span asp-validation-for="FullName"></span>
+        <label asp-for="Phone"></label>
+        <input asp-for="Phone" type="tel" />
+        <span asp-validation-for="Phone"></span>
+        <label asp-for="Address"></label>
+        <input asp-for="Address" type="text" />
+        <span asp-validation-for="Address"></span>
+
+        <label>Phương thức:</label>
+        <div class="radio">
+            <label><input type="radio" asp-for="PaymentMethod" value="COD" />COD</label>
+            @if (Model.QrPayAvailable)
+            {
+                <label><input type="radio" asp-for="PaymentMethod" value="QR Pay" />QR Pay — quét mã VietQR</label>
+            }
+        </div>
+        <span asp-validation-for="PaymentMethod"></span><p>Chọn QR Pay để xem mã chuyển khoản đúng số tiền và mã đơn sau khi đặt hàng. Cửa hàng xác nhận sau khi nhận tiền.</p>
+        <button class="btn full">ĐẶT HÀNG</button>
+    </form>
+</div>
+
+
+

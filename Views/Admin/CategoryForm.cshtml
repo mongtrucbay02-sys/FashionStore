@@ -1,0 +1,27 @@
+@model Category
+@{
+    var isNew = Model.Id == 0;
+    ViewData["Title"] = isNew ? "Thêm danh mục" : "Sửa danh mục";
+}
+<h1>@ViewData["Title"]</h1>
+
+<form method="post" asp-action="@(isNew ? "CreateCategory" : "EditCategory")">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="Id" value="@Model.Id" />
+    <div class="form-grid">
+        <div class="field full">
+            <label>Tên danh mục</label>
+            <input type="text" name="Name" value="@Model.Name" />
+            <div class="error">@Html.ValidationMessage("Name")</div>
+        </div>
+        <div class="field full">
+            <label>Mô tả</label>
+            <textarea name="Description">@Model.Description</textarea>
+        </div>
+    </div>
+    <div class="form-actions">
+        <button class="btn" type="submit">Lưu</button>
+        <a class="btn light" asp-action="Categories">Hủy</a>
+    </div>
+</form>
+

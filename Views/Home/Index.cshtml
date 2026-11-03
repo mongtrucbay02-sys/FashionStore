@@ -1,0 +1,5 @@
+@model List<Product>
+@{ViewData["Title"]="Trang chủ";}
+<section class="hero"><div class="container hero-content"><div class="eyebrow">THỜI TRANG NAM · 2026</div><h1>PHONG CÁCH NAM.<br/><em>CHẤT RIÊNG CỦA BẠN.</em></h1><p>Blazer, sơ mi, quần âu và bộ vest nam. Thanh lịch từ công sở đến những cuộc hẹn.</p><a asp-controller="Product" asp-action="Index" class="btn btn-light btn-lg rounded-0 px-4">KHÁM PHÁ NGAY <i class="bi bi-arrow-up-right"></i></a></div></section>
+<div class="container py-5"><div class="section-heading"><div><div class="eyebrow dark">LỰA CHỌN DÀNH CHO BẠN</div><h2>Sản phẩm nổi bật</h2></div><a asp-controller="Product" asp-action="Index" class="text-dark">Xem tất cả →</a></div><div class="row g-4">@foreach(var p in Model){<div class="col-6 col-lg-3">@await Html.PartialAsync("_ProductCard",p)</div>}</div></div><section class="outfit-promo"><div class="container text-center py-5"><div class="eyebrow">STYLE STUDIO</div><h2>PHỐI ĐỒ THEO CÁCH CỦA BẠN</h2><p>Phối áo nam với quần nam hoặc chọn bộ vest để hoàn thiện phong cách.</p><a class="btn btn-light rounded-0" asp-controller="Outfit" asp-action="Index">THỬ PHỐI ĐỒ NGAY</a></div></section>
+

@@ -1,0 +1,296 @@
+{
+  "info": {
+    "name": "FashionStore - Test thử đồ bằng Apidog",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Import vào Apidog. Gửi 01–02 để đăng nhập bằng mật khẩu, sau đó 05–06. 07 tạo ảnh chỉ gửi thủ công."
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5080",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "A - Đăng nhập và kiểm tra không tạo ảnh",
+      "item": [
+        {
+          "name": "01 - Lấy token đăng nhập",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/Account/Login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Account",
+                "Login"
+              ]
+            },
+            "description": ""
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const html = pm.response.text();",
+                  "const input = (html.match(/<input\\b[^>]*>/gi) || []).find(tag => /name=[\"']__RequestVerificationToken[\"']/i.test(tag));",
+                  "const match = input && input.match(/value=[\"']([^\"']+)[\"']/i);",
+                  "pm.environment.unset(\"loginCsrf\");",
+                  "pm.test(\"Trang trả token CSRF\", function () { pm.expect(pm.response.code).to.eql(200); pm.expect(!!match).to.eql(true); });",
+                  "if (!match) throw new Error(\"Không tìm thấy CSRF token; kiểm tra URL và response HTML.\");",
+                  "pm.environment.set(\"loginCsrf\", match[1].replace(/&amp;/g,\"&\").replace(/&quot;/g,'\"').replace(/&#39;/g,\"'\"));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "02 - Đăng nhập FashionStore",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/Account/Login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "Account",
+                "Login"
+              ]
+            },
+            "description": "Điền email/password trong môi trường Apidog cục bộ. Không cần quyền Admin. Giữ cookie jar giữa các request. Mật khẩu đúng sẽ đăng nhập ngay.",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "Email",
+                  "value": "{{email}}",
+                  "type": "text"
+                },
+                {
+                  "key": "Password",
+                  "value": "{{password}}",
+                  "type": "text"
+                },
+                {
+                  "key": "__RequestVerificationToken",
+                  "value": "{{loginCsrf}}",
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.environment.unset(\"tryonCsrf\");",
+                  "const failed = /name=[\"']Password[\"']/.test(pm.response.text());",
+                  "pm.test(\"Đăng nhập thành công\", function () { pm.expect(pm.response.code >= 200 && pm.response.code < 400 && !failed).to.eql(true); });",
+                  "if (failed) throw new Error(\"Đăng nhập chưa thành công. Kiểm tra email, password và cookie jar.\");"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "05 - Lấy token thử đồ sau đăng nhập",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/TryOn",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "TryOn"
+              ]
+            },
+            "description": ""
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const html = pm.response.text();",
+                  "const input = (html.match(/<input\\b[^>]*>/gi) || []).find(tag => /name=[\"']__RequestVerificationToken[\"']/i.test(tag));",
+                  "const match = input && input.match(/value=[\"']([^\"']+)[\"']/i);",
+                  "pm.environment.unset(\"tryonCsrf\");",
+                  "pm.test(\"Trang trả token CSRF\", function () { pm.expect(pm.response.code).to.eql(200); pm.expect(!!match).to.eql(true); });",
+                  "if (!match) throw new Error(\"Không tìm thấy CSRF token; kiểm tra URL và response HTML.\");",
+                  "pm.environment.set(\"tryonCsrf\", match[1].replace(/&amp;/g,\"&\").replace(/&quot;/g,'\"').replace(/&#39;/g,\"'\"));",
+                  "const signedIn = /data-authenticated=\"true\"/.test(html);",
+                  "pm.test(\"Đã đăng nhập vào thử đồ\", function () { pm.expect(signedIn).to.eql(true); });",
+                  "if (!signedIn) { pm.environment.unset(\"tryonCsrf\"); throw new Error(\"Hãy gửi request đăng nhập và bật lưu cookie trước.\"); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "06 - Kiểm tra thiếu ảnh (không gọi Cloudflare)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/TryOn/Generate",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "TryOn",
+                "Generate"
+              ]
+            },
+            "description": "Không có file person nên máy chủ trả 400 trước khi gọi Cloudflare.",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "source",
+                  "value": "description",
+                  "type": "text"
+                },
+                {
+                  "key": "scope",
+                  "value": "top",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "Áo sơ mi nam trắng",
+                  "type": "text"
+                },
+                {
+                  "key": "__RequestVerificationToken",
+                  "value": "{{tryonCsrf}}",
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Thiếu ảnh trả 400\", function () { pm.expect(pm.response.code).to.eql(400); pm.expect(pm.response.json().message).to.include(\"ảnh\"); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "B - Gửi thủ công: tạo ảnh có sử dụng hạn mức",
+      "item": [
+        {
+          "name": "07 - Tạo ảnh thử đồ (sử dụng hạn mức Cloudflare)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/TryOn/Generate",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "TryOn",
+                "Generate"
+              ]
+            },
+            "description": "Chỉ gửi thủ công khi đã chọn file person và có Cloudflare key trên máy chủ. Có thể tính phí. Không tự chạy lặp. Trả ảnh PNG, không phải JSON. Không gửi API key trong request này.",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "person",
+                  "type": "file",
+                  "src": [],
+                  "description": "Chọn ảnh người PNG/JPG 128–2048 px mỗi cạnh, tối đa 5 MB."
+                },
+                {
+                  "key": "source",
+                  "value": "description",
+                  "type": "text"
+                },
+                {
+                  "key": "scope",
+                  "value": "top",
+                  "type": "text"
+                },
+                {
+                  "key": "mode",
+                  "value": "separates",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "Thay áo hiện tại bằng áo sơ mi nam trắng, tay dài. Giữ nguyên quần, giày, gương mặt, tóc, tư thế và bối cảnh.",
+                  "type": "text"
+                },
+                {
+                  "key": "__RequestVerificationToken",
+                  "value": "{{tryonCsrf}}",
+                  "type": "text"
+                },
+                {
+                  "key": "mask",
+                  "type": "file",
+                  "src": [],
+                  "disabled": true,
+                  "description": "Tùy chọn: PNG alpha <4 MB cùng kích thước person; transparent=thay, opaque=giữ."
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Ảnh PNG thử đồ thành công\", function () { pm.expect(pm.response.code).to.eql(200); pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"image/png\"); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

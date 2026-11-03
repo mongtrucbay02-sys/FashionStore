@@ -1,0 +1,22 @@
+@{ ViewData["CommercePage"] = true; }
+@model List<Order>
+@{ ViewData["Title"] = "Lịch sử đơn"; }
+<h2>LỊCH SỬ ĐƠN HÀNG</h2>
+@if (!Model.Any())
+{
+    <div class="card center">Bạn chưa có đơn hàng nào.</div>
+}
+@foreach (var o in Model)
+{
+    <div class="card">
+        <strong>Đơn #@o.Id.ToString("D3")</strong> <small>(@o.CreatedAt.ToString("dd/MM/yyyy HH:mm"))</small><br />
+        @string.Join(", ", o.Items.Select(i => $"{i.ProductName} x{i.Quantity}"))<br />
+        Tổng: <strong>@o.Total.VND()</strong><br />
+        Trạng thái: @o.Status<br />
+        @if (o.QrPayment is not null) { <span>QR Pay: @o.QrPayment.StatusLabel</span><br /> }<br />
+        <a class="btn sm" asp-action="Detail" asp-route-id="@o.Id">Xem chi tiết</a>
+    </div>
+}
+
+
+

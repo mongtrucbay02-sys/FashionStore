@@ -1,0 +1,57 @@
+@{ var outfit = ViewData["OutfitPage"] is true; var commerce = ViewData["CommercePage"] is true; }
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] | FASHION STORE · THỜI TRANG NAM</title>
+    @if (outfit)
+    {
+        <link rel="stylesheet" href="~/css/outfit.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/outfit-preview.css" asp-append-version="true" />
+    }
+    else
+    {
+        <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    }
+    <link rel="stylesheet" href="~/css/store-shell.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/size-advisor.css" asp-append-version="true" />
+    @if(ViewData["TryOnPage"] is true) { <link rel="stylesheet" href="~/css/try-on.css" asp-append-version="true" /> }
+    <link rel="preload" href="~/fonts/be-vietnam-pro/BeVietnamPro-Regular.ttf" as="font" type="font/ttf" crossorigin asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/typography.css" asp-append-version="true" />
+</head>
+<body>
+<header class="store-header">
+    <a class="store-brand" asp-controller="Home" asp-action="Index">FASHION<span>STORE.</span><small class="store-brand-tag">MENSWEAR</small></a>
+    <nav aria-label="Điều hướng chính">
+        <a asp-controller="Home" asp-action="Index">Trang chủ</a>
+        <a asp-controller="Product" asp-action="Index">Sản phẩm</a>
+        <a asp-controller="Outfit" asp-action="Index">Phối đồ</a>
+        <a asp-controller="TryOn" asp-action="Index">Thử đồ AI</a>
+        <a asp-controller="Cart" asp-action="Index">Giỏ hàng</a>
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <a asp-controller="Order" asp-action="History">Đơn hàng</a>
+            @if (User.IsInRole("Admin")) { <a asp-controller="Admin" asp-action="Dashboard">Quản trị</a> }
+            <span class="store-user">@User.Identity.Name</span>
+            <form asp-controller="Account" asp-action="Logout" method="post"><button>Đăng xuất</button></form>
+        }
+        else
+        {
+            <a asp-controller="Account" asp-action="Login">Đăng nhập</a>
+            <a asp-controller="Account" asp-action="Register">Đăng ký</a>
+        }
+    </nav>
+</header>
+<main class="@(commerce ? "commerce-page" : outfit ? "outfit-main" : "store-main")">
+    @if (TempData["Success"] is string success) { <div class="store-alert success" role="status">@success</div> }
+    @if (TempData["Error"] is string error) { <div class="store-alert error" role="alert">@error</div> }
+    @RenderBody()
+</main>
+<footer class="store-footer"><a class="store-brand" asp-controller="Home" asp-action="Index">FASHION<span>STORE.</span><small class="store-brand-tag">MENSWEAR</small></a><p>Thời trang nam · Phối đồ · Thử đồ AI</p><span>ĐỒ ÁN THỜI TRANG · 2026</span></footer>
+@await RenderSectionAsync("Scripts", required: false)
+<script src="~/js/size-rules.js" asp-append-version="true" defer></script>
+<script src="~/js/size-advisor.js" asp-append-version="true" defer></script>
+</body>
+</html>

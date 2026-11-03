@@ -1,0 +1,99 @@
+@using OutfitStudio.Services
+@model InventoryViewModel
+@{
+    ViewData["Title"] = "Tồn kho";
+    var catNames = Model.Categories.ToDictionary(c => c.Id, c => c.Name);
+    var back = Context.Request.QueryString.Value ?? "";
+    string Cls(string status) => status == InventoryService.OutLabel ? "s-cancelled" : status == InventoryService.LowLabel ? "s-pending" : "s-completed";
+    string ChipCls(string status) => status == InventoryService.OutLabel ? "out" : status == InventoryService.LowLabel ? "low" : "";
+}
+<h1>Quản lý tồn kho</h1>
+
+<div class="cards">
+    <div class="stat"><div class="label">Tổng số lượng tồn</div><div class="value">@Model.TotalUnits.ToString("N0")</div></div>
+    <div class="stat"><div class="label">Sản phẩm sắp hết</div><div class="value">@Model.LowStock</div>
+        <div class="note">có size chạm ngưỡng cảnh báo@if (Model.LowStock > 0) { <text> · </text><a asp-action="Index" asp-route-status="low" style="color:inherit">Xem</a> }</div>
+    </div>
+    <div class="stat"><div class="label">Hết hàng</div><div class="value">@Model.OutOfStock</div>
+        @if (Model.OutOfStock > 0) { <div class="note"><a asp-action="Index" asp-route-status="out" style="color:inherit">Xem danh sách</a></div> }
+    </div>
+</div>
+
+<div class="toolbar">
+    <form method="get" asp-action="Index">
+        <input type="text" name="search" value="@Model.Search" placeholder="Tìm theo tên..." />
+        <select name="categoryId">
+            <option value="">Tất cả danh mục</option>
+            @foreach (var c in Model.Categories)
+            {
+                <option value="@c.Id" selected="@(Model.CategoryId == c.Id)">@c.Name</option>
+            }
+        </select>
+        <select name="status">
+            <option value="">Mọi trạng thái</option>
+            <option value="alert" selected="@(Model.Status == "alert")">Cần nhập (hết + sắp hết)</option>
+            <option value="out" selected="@(Model.Status == "out")">Hết hàng</option>
+            <option value="low" selected="@(Model.Status == "low")">Sắp hết</option>
+            <option value="ok" selected="@(Model.Status == "ok")">Còn hàng</option>
+        </select>
+        <button class="btn light" type="submit">Lọc</button>
+    </form>
+    <div class="spacer"></div>
+    <a class="btn light" asp-action="Export" asp-route-search="@Model.Search" asp-route-categoryId="@Model.CategoryId" asp-route-status="@Model.Status">Xuất Excel</a>
+    <a class="btn light" asp-action="History">Lịch sử tồn kho</a>
+</div>
+
+<div style="overflow-x:auto">
+<table>
+    <thead>
+        <tr><th>ID</th><th></th><th>Sản phẩm</th><th>Tồn theo size</th><th class="num">Tổng</th><th>Trạng thái</th><th>Ngưỡng</th><th>Nhập / điều chỉnh</th></tr>
+    </thead>
+    <tbody>
+    @foreach (var p in Model.Products)
+    {
+        var status = InventoryService.StatusOf(p);
+        <tr>
+            <td>@p.Id.ToString("00")</td>
+            <td>@if (!string.IsNullOrEmpty(p.ImageUrl)) { <img class="thumb" src="@p.ImageUrl" alt="" /> }</td>
+            <td>
+                @p.Name@if (!p.Active) { <span style="color:var(--muted)"> (đang ẩn)</span> }
+                <div style="color:var(--muted);font-size:12px">@(catNames.TryGetValue(p.CategoryId, out var cn) ? cn : "—")</div>
+            </td>
+            <td>
+                <div class="chips">
+                    @foreach (var s in p.AvailableSizes)
+                    {
+                        <span class="chip @ChipCls(InventoryService.SizeStatus(p, s))">@s: <b>@p.StockOf(s)</b></span>
+                    }
+                </div>
+            </td>
+            <td class="num">@p.Stock.ToString("N0")</td>
+            <td><span class="badge @Cls(status)">@status</span></td>
+            <td>
+                <form class="threshold-form" method="post" asp-action="SetThreshold" asp-route-id="@p.Id">
+                    <input type="hidden" name="back" value="@back" />
+                    <input type="number" name="threshold" min="0" max="@InventoryService.MaxThreshold" value="@p.LowStockThreshold" placeholder="@Product.DefaultLowStockThreshold" title="Cảnh báo khi một size còn ≤ số này. Để trống = mặc định." />
+                    <button class="btn light sm" type="submit">Lưu</button>
+                </form>
+            </td>
+            <td>
+                <form class="stock-form" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="back" value="@back" />
+                    <select name="size">
+                        @foreach (var s in p.AvailableSizes) { <option value="@s">@s</option> }
+                    </select>
+                    <input class="qty" type="number" name="amount" min="0" max="@InventoryService.MaxStock" placeholder="Số lượng" required />
+                    <input class="note" type="text" name="note" maxlength="200" placeholder="Ghi chú (tùy chọn)" />
+                    <button class="btn sm" type="submit" asp-action="Import" asp-route-id="@p.Id" title="Cộng thêm số lượng vào size đã chọn">Nhập thêm</button>
+                    <button class="btn light sm" type="submit" asp-action="Adjust" asp-route-id="@p.Id" title="Đặt tồn của size đã chọn đúng bằng số này"
+                            onclick="return confirm('Đặt lại tồn kho của size này?');">Đặt lại</button>
+                    <a class="btn light sm" asp-action="History" asp-route-productId="@p.Id">Lịch sử</a>
+                </form>
+            </td>
+        </tr>
+    }
+    @if (!Model.Products.Any()) { <tr><td colspan="8" class="empty">Không có sản phẩm nào.</td></tr> }
+    </tbody>
+</table>
+</div>

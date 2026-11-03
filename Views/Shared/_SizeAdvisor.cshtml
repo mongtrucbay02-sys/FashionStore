@@ -1,0 +1,13 @@
+@model SizeAdvisorVM
+<section class="size-advisor" data-size-advisor data-size-target="@Model.TargetSelector" data-size-kind="@Model.Kind" aria-label="Gợi ý size theo chiều cao và cân nặng">
+    <div class="size-advisor-heading"><div><p class="size-eyebrow">TÌM SIZE CỦA BẠN</p><h2>Mặc vừa, tự tin hơn.</h2></div><span>cm / kg</span></div>
+    <div class="size-advisor-fields">
+        <label>Chiều cao (cm)<input data-height type="number" min="130" max="220" step="0.1" placeholder="Ví dụ: 170" inputmode="decimal" /></label>
+        <label>Cân nặng (kg)<input data-weight type="number" min="30" max="180" step="0.1" placeholder="Ví dụ: 65" inputmode="decimal" /></label>
+        <label>Bạn thích mặc<select data-fit><option value="regular">Theo bảng size</option><option value="loose">Rộng hơn một cỡ</option></select></label>
+        <button type="button" data-recommend>Gợi ý size ↗</button>
+    </div>
+    <div class="size-advisor-result" data-size-result role="status" hidden><strong data-size-badge></strong><div><h3 data-size-title></h3><p data-size-reason></p><p data-size-availability></p></div><button type="button" data-apply-size disabled>Áp dụng size</button></div>
+    <p class="size-advisor-note">Gợi ý theo bảng size áo nam và quần nam của cửa hàng. Hãy kiểm tra thêm vòng ngực, eo và phom sản phẩm để chọn độ vừa. Thông số được tính tại trình duyệt.</p>
+    <details class="size-advisor-chart"><summary>Xem bảng size áo &amp; quần</summary><p data-guide-label></p><div data-size-tables></div><p data-size-boundary></p><p>Ngoài bảng sẽ không tự ép về XL. Bộ vest cần đối chiếu cả cỡ áo và cỡ quần trước khi mua.</p></details>
+</section>

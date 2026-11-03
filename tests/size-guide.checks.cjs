@@ -1,0 +1,27 @@
+const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
+const {recommend}=require('../wwwroot/js/size-rules.js');
+const guide=JSON.parse(fs.readFileSync(path.join(__dirname,'../wwwroot/data/size-guide.json'),'utf8').replace(/^\uFEFF/,''));let count=0;
+function check(name,fn){fn();count++;console.log('PASS: '+name);}
+const pair=(h,w,fit='regular')=>{const r=recommend(h,w,fit,guide);return [r.shirt?.size,r.pants?.size];};
+check('170 cm / 65 kg uses separate shirt L and pants M',()=>assert.deepEqual(pair(170,65),['L','M']));
+check('Below 168 cm / 59 kg yields shirt M and pants S',()=>assert.deepEqual(pair(167,58),['M','S']));
+check('Shirt below 170 cm / 67 kg stays M',()=>assert.equal(pair(169.9,66.9)[0],'M'));
+check('Shirt exact 67 kg moves to L',()=>assert.equal(pair(165,67)[0],'L'));
+check('Shared 175 cm shirt boundary prefers XL',()=>assert.equal(pair(175,70)[0],'XL'));
+check('Shared 75 kg shirt boundary prefers XL',()=>assert.equal(pair(170,75)[0],'XL'));
+check('Pants exact 168 cm moves from S to M',()=>assert.equal(pair(168,58)[1],'M'));
+check('Pants 173 cm / 69 kg stays M',()=>assert.equal(pair(173,69)[1],'M'));
+check('Pants 174 cm / 70 kg is L',()=>assert.equal(pair(174,70)[1],'L'));
+check('Pants 177 cm / 77 kg stays L',()=>assert.equal(pair(177,77)[1],'L'));
+check('Pants 178 cm / 78 kg is XL',()=>assert.equal(pair(178,78)[1],'XL'));
+check('Pants gap at 59 kg moves up to M',()=>assert.equal(pair(160,59)[1],'M'));
+check('Pants fractional height in a gap moves up',()=>assert.equal(pair(173.5,65)[1],'L'));
+check('Conflicting dimensions prefer larger size',()=>assert.deepEqual(pair(160,80),['XL','XL']));
+check('Upper inclusive boundaries are supported',()=>assert.deepEqual(pair(184,85),['XL','XL']));
+check('185 cm valid only in pants chart',()=>{const r=recommend(185,80,'regular',guide);assert.ok(r.shirt.error);assert.equal(r.pants.size,'XL');});
+check('Above 85 kg never forces XL',()=>{const r=recommend(170,85.1,'regular',guide);assert.ok(r.shirt.error&&r.pants.error);});
+check('Loose fit increases each category separately',()=>assert.deepEqual(pair(170,65,'loose'),['XL','L']));
+check('Loose above largest size returns no smaller substitute',()=>{const r=recommend(180,80,'loose',guide);assert.ok(r.shirt.error&&r.pants.error);});
+check('Invalid numerical inputs rejected',()=>{for(const n of [NaN,Infinity,0,129,221])assert.ok(recommend(n,65,'regular',guide).error);});
+check('Invalid style rejected',()=>assert.ok(recommend(170,65,'invalid',guide).error));
+console.log(`Completed ${count} size chart checks.`);

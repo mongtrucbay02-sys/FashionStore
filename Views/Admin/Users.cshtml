@@ -1,0 +1,37 @@
+@model List<User>
+@{
+    ViewData["Title"] = "Người dùng";
+}
+<h1>Quản lý người dùng</h1>
+
+<table>
+    <thead><tr><th>ID</th><th>Họ tên</th><th>Email</th><th>Điện thoại</th><th>Quyền</th><th>Trạng thái</th><th>Thao tác</th></tr></thead>
+    <tbody>
+    @foreach (var u in Model)
+    {
+        var other = u.Role == "Admin" ? "User" : "Admin";
+        <tr>
+            <td>@u.Id</td>
+            <td>@u.FullName</td>
+            <td>@u.Email</td>
+            <td>@u.Phone</td>
+            <td><span class="badge @(u.Role == "Admin" ? "admin" : "")">@u.Role</span></td>
+            <td>@if (u.IsLocked) { <span class="badge locked">Đã khóa</span> } else { <span class="badge s-completed">Hoạt động</span> }</td>
+            <td class="actions">
+                <a class="btn light sm" asp-action="UserDetails" asp-route-id="@u.Id">Xem</a>
+                <form class="inline" method="post" asp-action="ToggleLock" asp-route-id="@u.Id">
+                    <button class="btn light sm" type="submit">@(u.IsLocked ? "Mở khóa" : "Khóa")</button>
+                </form>
+                <form class="inline" method="post" asp-action="ChangeRole" asp-route-id="@u.Id"
+                      onsubmit="return confirm('Xác nhận thao tác này?');">
+                    <input type="hidden" name="role" value="@other" />
+                    <button class="btn light sm" type="submit">Đặt làm @other</button>
+                </form>
+            </td>
+        </tr>
+    }
+    @if (!Model.Any()) { <tr><td colspan="7" class="empty">Chưa có tài khoản.</td></tr> }
+    </tbody>
+</table>
+
+

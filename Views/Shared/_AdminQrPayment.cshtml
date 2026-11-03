@@ -1,0 +1,38 @@
+@model Order
+@if (Model.PaymentMethod == OutfitStudio.Services.QrPaymentService.Method && Model.QrPayment is { } qr)
+{
+    <div class="panel">
+        <h2>Đối soát QR Pay</h2>
+        <dl class="kv">
+            <dt>Trạng thái</dt><dd><strong>@qr.StatusLabel</strong></dd>
+            <dt>Ngân hàng nhận</dt><dd>@qr.BankName</dd>
+            <dt>Tài khoản nhận</dt><dd>@qr.AccountNumber · @qr.AccountName</dd>
+            <dt>Số tiền phải nhận</dt><dd><strong>@Model.Total.ToString("N0") đ</strong></dd>
+            <dt>Nội dung cần khớp</dt><dd><strong>@qr.Reference</strong></dd>
+            @if (qr.ReportedAt.HasValue) { <dt>Khách báo chuyển tiền</dt><dd>@qr.ReportedAt.Value.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</dd> }
+            @if (qr.Status == QrPaymentStatus.Paid)
+            {
+                <dt>Xác nhận lúc</dt><dd>@qr.PaidAt?.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</dd>
+                <dt>Người xác nhận</dt><dd>@qr.ConfirmedBy</dd>
+                <dt>Mã giao dịch ngân hàng</dt><dd>@qr.BankTransactionReference</dd>
+            }
+        </dl>
+        @if (Model.Status == OrderStatus.Cancelled)
+        {
+            <p class="error">Đơn đã hủy. Kiểm tra giao dịch và hoàn tiền bên ngoài website nếu đã nhận tiền; website không tự động hoàn tiền.</p>
+        }
+        else if (qr.Status != QrPaymentStatus.Paid)
+        {
+            <p>Đối chiếu trên ứng dụng/sao kê ngân hàng: đúng tài khoản nhận, đủ số tiền và đúng nội dung. Thông báo của khách không phải xác nhận ngân hàng.</p>
+            <form asp-controller="Admin" asp-action="ConfirmQrPayment" asp-route-id="@Model.Id" method="post">
+                <div class="field"><label for="bank-transaction">Mã giao dịch thực tế trên ngân hàng</label><input id="bank-transaction" name="transactionReference" required minlength="3" maxlength="100" autocomplete="off" /></div>
+                <div class="field"><label><input type="checkbox" name="received" value="true" required /> Tôi đã kiểm tra và nhận đủ tiền trong tài khoản ngân hàng.</label></div>
+                <div class="form-actions"><button class="btn" type="submit">Xác nhận đã nhận tiền</button></div>
+            </form>
+            @if (qr.Status == QrPaymentStatus.CustomerReported)
+            {
+                <form asp-controller="Admin" asp-action="ReopenQrPayment" asp-route-id="@Model.Id" method="post"><button class="btn light" type="submit">Chưa thấy giao dịch — yêu cầu khách kiểm tra lại</button></form>
+            }
+        }
+    </div>
+}

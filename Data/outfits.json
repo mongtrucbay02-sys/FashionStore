@@ -1,0 +1,420 @@
+{
+  "products": [
+    {
+      "id": "bleu-shorts",
+      "storeProductId": 2001,
+      "category": "pants",
+      "kind": "shorts",
+      "name": "Bleu Shorts",
+      "color": "navy",
+      "colorName": "Xanh navy",
+      "hex": "#303344",
+      "price": 470000
+    },
+    {
+      "id": "body-shirt",
+      "storeProductId": 2002,
+      "category": "shirt",
+      "kind": "tank",
+      "name": "Body Shirt",
+      "color": "brown",
+      "colorName": "Nâu",
+      "hex": "#594b34",
+      "price": 280000
+    },
+    {
+      "id": "cale-blazer",
+      "storeProductId": 2003,
+      "category": "shirt",
+      "kind": "blazer",
+      "name": "Cale Blazer",
+      "color": "gray",
+      "colorName": "Xám",
+      "hex": "#66655e",
+      "price": 1090000
+    },
+    {
+      "id": "cale-pant",
+      "storeProductId": 2004,
+      "category": "pants",
+      "kind": "formal",
+      "name": "Cale Pant",
+      "color": "gray",
+      "colorName": "Xám",
+      "hex": "#747369",
+      "price": 590000
+    },
+    {
+      "id": "cane-jacket",
+      "storeProductId": 2005,
+      "category": "shirt",
+      "kind": "jacket",
+      "name": "Cane Jacket",
+      "color": "gray",
+      "colorName": "Xám",
+      "hex": "#747369",
+      "price": 1040000
+    },
+    {
+      "id": "denim-pant",
+      "storeProductId": 2006,
+      "category": "pants",
+      "kind": "denim",
+      "name": "Denim Pant",
+      "color": "black",
+      "colorName": "Đen",
+      "hex": "#343438",
+      "price": 620000
+    },
+    {
+      "id": "denim-set",
+      "storeProductId": 2007,
+      "category": "set",
+      "kind": "set",
+      "name": "Denim Set",
+      "color": "black",
+      "colorName": "Đen",
+      "hex": "#343438",
+      "price": 1240000
+    },
+    {
+      "id": "denim-shirt",
+      "storeProductId": 2008,
+      "category": "shirt",
+      "kind": "denim",
+      "name": "Denim Shirt",
+      "color": "black",
+      "colorName": "Đen",
+      "hex": "#343438",
+      "price": 620000
+    },
+    {
+      "id": "doom-pant",
+      "storeProductId": 2009,
+      "category": "pants",
+      "kind": "formal",
+      "name": "Doom Pant",
+      "color": "black",
+      "colorName": "Đen",
+      "hex": "#292b2b",
+      "price": 580000
+    },
+    {
+      "id": "faln-blazer",
+      "storeProductId": 2010,
+      "category": "shirt",
+      "kind": "blazer",
+      "name": "Faln Blazer",
+      "color": "beige",
+      "colorName": "Kem",
+      "hex": "#d4cdbc",
+      "price": 1090000
+    },
+    {
+      "id": "faln-set",
+      "storeProductId": 2011,
+      "category": "set",
+      "kind": "set",
+      "name": "Faln Set",
+      "color": "beige",
+      "colorName": "Kem",
+      "hex": "#d4cdbc",
+      "price": 1640000
+    },
+    {
+      "id": "fury-set",
+      "storeProductId": 2012,
+      "category": "set",
+      "kind": "set",
+      "name": "Fury Set",
+      "color": "gray",
+      "colorName": "Xám",
+      "hex": "#81827e",
+      "price": 1540000
+    },
+    {
+      "id": "grey-blazer",
+      "storeProductId": 2013,
+      "category": "shirt",
+      "kind": "blazer",
+      "name": "Grey Blazer",
+      "color": "charcoal",
+      "colorName": "Xám đậm",
+      "hex": "#484b4b",
+      "price": 950000
+    },
+    {
+      "id": "grey-pant",
+      "storeProductId": 2014,
+      "category": "pants",
+      "kind": "formal",
+      "name": "Grey Pant",
+      "color": "charcoal",
+      "colorName": "Xám đậm",
+      "hex": "#484b4b",
+      "price": 560000
+    },
+    {
+      "id": "grey-set",
+      "storeProductId": 2015,
+      "category": "set",
+      "kind": "set",
+      "name": "Grey Set",
+      "color": "charcoal",
+      "colorName": "Xám đậm",
+      "hex": "#484b4b",
+      "price": 1510000
+    },
+    {
+      "id": "hans-pant",
+      "storeProductId": 2016,
+      "category": "pants",
+      "kind": "formal",
+      "name": "Hans Pant",
+      "color": "beige",
+      "colorName": "Be",
+      "hex": "#a7a38b",
+      "price": 550000
+    },
+    {
+      "id": "heal-shirt",
+      "storeProductId": 2017,
+      "category": "shirt",
+      "kind": "shirt",
+      "name": "Heal Shirt",
+      "color": "gray",
+      "colorName": "Xám",
+      "hex": "#a1a4a5",
+      "price": 520000
+    },
+    {
+      "id": "host-blazer",
+      "storeProductId": 2018,
+      "category": "shirt",
+      "kind": "blazer",
+      "name": "Host Blazer",
+      "color": "black",
+      "colorName": "Đen",
+      "hex": "#242525",
+      "price": 1020000
+    },
+    {
+      "id": "humer-pant",
+      "storeProductId": 2019,
+      "category": "pants",
+      "kind": "formal",
+      "name": "Humer Pant",
+      "color": "black",
+      "colorName": "Đen",
+      "hex": "#242525",
+      "price": 650000
+    },
+    {
+      "id": "leto-mangto",
+      "storeProductId": 2020,
+      "category": "shirt",
+      "kind": "coat",
+      "name": "Leto Mangto",
+      "color": "gray",
+      "colorName": "Xám nhạt",
+      "hex": "#abada0",
+      "price": 1470000
+    },
+    {
+      "id": "loop-blazer",
+      "storeProductId": 2021,
+      "category": "shirt",
+      "kind": "blazer",
+      "name": "Loop Blazer",
+      "color": "brown",
+      "colorName": "Nâu",
+      "hex": "#5c4037",
+      "price": 1290000
+    },
+    {
+      "id": "loop-pant",
+      "storeProductId": 2022,
+      "category": "pants",
+      "kind": "formal",
+      "name": "Loop Pant",
+      "color": "brown",
+      "colorName": "Nâu",
+      "hex": "#5c4037",
+      "price": 680000
+    },
+    {
+      "id": "loop-set",
+      "storeProductId": 2023,
+      "category": "set",
+      "kind": "set",
+      "name": "Loop Set",
+      "color": "brown",
+      "colorName": "Nâu",
+      "hex": "#5c4037",
+      "price": 1970000
+    },
+    {
+      "id": "luci-blazer",
+      "storeProductId": 2024,
+      "category": "shirt",
+      "kind": "blazer",
+      "name": "Luci Blazer",
+      "color": "beige",
+      "colorName": "Kem",
+      "hex": "#c9c3b1",
+      "price": 1190000
+    },
+    {
+      "id": "luther-mangto",
+      "storeProductId": 2025,
+      "category": "shirt",
+      "kind": "coat",
+      "name": "Luther Mangto",
+      "color": "charcoal",
+      "colorName": "Xám đậm",
+      "hex": "#484b48",
+      "price": 1490000
+    },
+    {
+      "id": "mior-blazer",
+      "storeProductId": 2026,
+      "category": "shirt",
+      "kind": "blazer",
+      "name": "Mior Blazer",
+      "color": "gray",
+      "colorName": "Xám",
+      "hex": "#70716d",
+      "price": 1050000
+    },
+    {
+      "id": "mior-set",
+      "storeProductId": 2027,
+      "category": "set",
+      "kind": "set",
+      "name": "Mior Set",
+      "color": "gray",
+      "colorName": "Xám",
+      "hex": "#70716d",
+      "price": 1600000
+    },
+    {
+      "id": "neck-shirt",
+      "storeProductId": 2028,
+      "category": "shirt",
+      "kind": "shirt",
+      "name": "Neck Shirt",
+      "color": "gray",
+      "colorName": "Xám nhạt",
+      "hex": "#afb7ad",
+      "price": 520000
+    },
+    {
+      "id": "bleu-blazer",
+      "storeProductId": 2029,
+      "category": "shirt",
+      "kind": "blazer",
+      "name": "Bleu Blazer",
+      "color": "navy",
+      "colorName": "Xanh navy",
+      "hex": "#303344",
+      "price": 1090000
+    },
+    {
+      "id": "bleu-pant",
+      "storeProductId": 2030,
+      "category": "pants",
+      "kind": "formal",
+      "name": "Bleu Pant",
+      "color": "navy",
+      "colorName": "Xanh navy",
+      "hex": "#303344",
+      "price": 590000
+    },
+    {
+      "id": "bleu-set",
+      "storeProductId": 2031,
+      "category": "set",
+      "kind": "set",
+      "name": "Bleu Set",
+      "color": "navy",
+      "colorName": "Xanh navy",
+      "hex": "#303344",
+      "price": 1680000
+    }
+  ],
+  "rules": {
+    "black": {
+      "pants": [
+        "gray",
+        "charcoal",
+        "beige",
+        "navy",
+        "black"
+      ],
+      "shoes": [],
+      "reason": "Áo đen kết hợp quần xám, be hoặc navy tạo tổng thể gọn gàng. Chọn sắc đen đồng điệu nếu muốn vẻ tối giản."
+    },
+    "brown": {
+      "pants": [
+        "brown",
+        "beige",
+        "gray",
+        "black"
+      ],
+      "shoes": [],
+      "reason": "Tông nâu hợp quần cùng màu, be hoặc xám; ưu tiên màu trầm để giữ chất thanh lịch."
+    },
+    "beige": {
+      "pants": [
+        "brown",
+        "gray",
+        "navy",
+        "black"
+      ],
+      "shoes": [],
+      "reason": "Áo kem tạo nền sáng, dễ kết hợp quần nâu, xám, navy hoặc đen."
+    },
+    "gray": {
+      "pants": [
+        "gray",
+        "charcoal",
+        "black",
+        "navy"
+      ],
+      "shoes": [],
+      "reason": "Áo xám dễ phối quần cùng tông, xám đậm, đen hoặc navy."
+    },
+    "charcoal": {
+      "pants": [
+        "gray",
+        "charcoal",
+        "black",
+        "beige"
+      ],
+      "shoes": [],
+      "reason": "Áo xám đậm có thể phối đồng tông hoặc làm sáng tổng thể bằng quần be."
+    },
+    "navy": {
+      "pants": [
+        "navy",
+        "gray",
+        "beige",
+        "black"
+      ],
+      "shoes": [],
+      "reason": "Navy phối quần cùng màu, xám hoặc be cho phong cách lịch sự."
+    },
+    "default": {
+      "pants": [
+        "black",
+        "gray",
+        "brown",
+        "beige",
+        "navy",
+        "charcoal"
+      ],
+      "shoes": [],
+      "reason": "Ưu tiên các màu trung tính, phối cùng tông hoặc tạo tương phản sáng tối vừa phải."
+    }
+  }
+}

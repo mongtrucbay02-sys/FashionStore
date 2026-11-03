@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] - FashionStore Admin</title>
+    <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
+    <link rel="preload" href="~/fonts/be-vietnam-pro/BeVietnamPro-Regular.ttf" as="font" type="font/ttf" crossorigin asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/typography.css" asp-append-version="true" />
+</head>
+<body>
+@{
+    var action = ViewContext.RouteData.Values["action"]?.ToString() ?? "";
+    string Active(params string[] names) => names.Contains(action) ? "active" : "";
+}
+<header class="topbar">
+    <div class="topbar-util">
+        <a asp-controller="Home" asp-action="Index">Về cửa hàng</a>
+        <form asp-controller="Account" asp-action="Logout" method="post"><button type="submit" class="admin-logout">Đăng xuất</button></form>
+    </div>
+    <a class="wordmark" asp-controller="Admin" asp-action="Dashboard">FASHIONSTORE</a>
+    <div class="topbar-sub">Quản trị thời trang nam</div>
+    <nav class="mainnav">
+        <a class="@Active("Dashboard")" asp-controller="Admin" asp-action="Dashboard">Tổng quan</a>
+        <a class="@Active("Products","ProductDetails","CreateProduct","EditProduct")" asp-controller="Admin" asp-action="Products">Sản phẩm</a>
+        <a class="@Active("Categories","CreateCategory","EditCategory")" asp-controller="Admin" asp-action="Categories">Danh mục</a>
+        <a class="@Active("Orders","OrderDetails")" asp-controller="Admin" asp-action="Orders">Đơn hàng</a>
+        <a class="@Active("Users","UserDetails")" asp-controller="Admin" asp-action="Users">Người dùng</a>
+        <a class="@Active("Reviews")" asp-controller="Admin" asp-action="Reviews">Đánh giá</a>
+        <a class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Inventory" ? "active" : "")" asp-controller="Inventory" asp-action="Index">Tồn kho</a>
+        <a class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "PaymentSettings" ? "active" : "")" asp-controller="PaymentSettings" asp-action="Index">Thanh toán QR</a>
+    </nav>
+</header>
+
+<main class="content">
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert ok">@TempData["Success"]</div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert err">@TempData["Error"]</div>
+    }
+    @RenderBody()
+</main>
+
+<footer class="foot">FashionStore · Khu vực quản trị</footer>
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+
+

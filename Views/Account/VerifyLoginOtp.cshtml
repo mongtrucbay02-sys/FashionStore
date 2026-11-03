@@ -1,0 +1,16 @@
+@{ ViewData["CommercePage"] = true; }
+@model OtpVerifyVM
+@{ ViewData["Title"] = "Xác thực đăng nhập"; }
+<div class="card" style="max-width:400px;margin:auto">
+    <h2 class="center">XÁC THỰC ĐĂNG NHẬP</h2>
+    <p>Nhập mã 6 chữ số vừa gửi đến <strong>@Model.Email</strong>. Mã có hiệu lực trong 5 phút.</p>
+    <form asp-action="VerifyLoginOtp" method="post">
+        <div asp-validation-summary="ModelOnly" class="err" role="alert"></div>
+        <input asp-for="Email" type="hidden" />
+        <label asp-for="Code"></label>
+        <input asp-for="Code" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" />
+        <span asp-validation-for="Code"></span>
+        <button class="btn full">XÁC NHẬN</button>
+    </form>
+    <p class="center"><a asp-action="Login">Quay lại đăng nhập</a></p>
+</div>

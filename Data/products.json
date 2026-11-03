@@ -1,0 +1,795 @@
+[
+  {
+    "Id": 2001,
+    "Name": "Bleu Shorts",
+    "Description": "Bleu Shorts \u00B7 m\u00E0u xanh navy. S\u1EA3n ph\u1EA9m thu\u1ED9c b\u1ED9 s\u01B0u t\u1EADp th\u1EDDi trang nam. Gi\u00E1 tham kh\u1EA3o theo \u1EA3nh \u0111\u01B0\u1EE3c cung c\u1EA5p; gi\u00E0y v\u00E0 ph\u1EE5 ki\u1EC7n tr\u00EAn ng\u01B0\u1EDDi m\u1EABu kh\u00F4ng \u0111\u01B0\u1EE3c t\u00EDnh k\u00E8m.",
+    "Price": 470000,
+    "CategoryId": 2,
+    "Image": "/images/collection-2026/bleu-shorts.png",
+    "Color": "Xanh navy",
+    "Sizes": "S,M,L,XL",
+    "Stock": 18,
+    "SizeStock": {
+      "S": 3,
+      "M": 5,
+      "L": 5,
+      "XL": 5
+    },
+    "LowStockThreshold": 1,
+    "Active": true,
+    "Audience": "men",
+    "Emoji": "\uD83D\uDC56",
+    "AvailableSizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ]
+  },
+  {
+    "Id": 2002,
+    "Name": "Body Shirt",
+    "Description": "Body Shirt \u00B7 m\u00E0u n\u00E2u. S\u1EA3n ph\u1EA9m thu\u1ED9c b\u1ED9 s\u01B0u t\u1EADp th\u1EDDi trang nam. Gi\u00E1 tham kh\u1EA3o theo \u1EA3nh \u0111\u01B0\u1EE3c cung c\u1EA5p; gi\u00E0y v\u00E0 ph\u1EE5 ki\u1EC7n tr\u00EAn ng\u01B0\u1EDDi m\u1EABu kh\u00F4ng \u0111\u01B0\u1EE3c t\u00EDnh k\u00E8m.",
+    "Price": 280000,
+    "CategoryId": 1,
+    "Image": "/images/collection-2026/body-shirt.png",
+    "Color": "N\u00E2u",
+    "Sizes": "M,L,XL",
+    "Stock": 20,
+    "SizeStock": {
+      "M": 7,
+      "L": 7,
+      "XL": 6
+    },
+    "LowStockThreshold": null,
+    "Active": true,
+    "Audience": "men",
+    "Emoji": "\uD83D\uDC55",
+    "AvailableSizes": [
+      "M",
+      "L",
+      "XL"
+    ]
+  },
+  {
+    "Id": 2003,
+    "Name": "Cale Blazer",
+    "Description": "Cale Blazer \u00B7 m\u00E0u x\u00E1m. S\u1EA3n ph\u1EA9m thu\u1ED9c b\u1ED9 s\u01B0u t\u1EADp th\u1EDDi trang nam. Gi\u00E1 tham kh\u1EA3o theo \u1EA3nh \u0111\u01B0\u1EE3c cung c\u1EA5p; gi\u00E0y v\u00E0 ph\u1EE5 ki\u1EC7n tr\u00EAn ng\u01B0\u1EDDi m\u1EABu kh\u00F4ng \u0111\u01B0\u1EE3c t\u00EDnh k\u00E8m.",
+    "Price": 1090000,
+    "CategoryId": 1,
+    "Image": "/images/collection-2026/cale-blazer.png",
+    "Color": "X\u00E1m",
+    "Sizes": "M,L,XL",
+    "Stock": 20,
+    "SizeStock": {
+      "M": 7,
+      "L": 7,
+      "XL": 6
+    },
+    "LowStockThreshold": null,
+    "Active": true,
+    "Audience": "men",
+    "Emoji": "\uD83D\uDC55",
+    "AvailableSizes": [
+      "M",
+      "L",
+      "XL"
+    ]
+  },
+  {
+    "Id": 2004,
+    "Name": "Cale Pant",
+    "Description": "Cale Pant \u00B7 m\u00E0u x\u00E1m. S\u1EA3n ph\u1EA9m thu\u1ED9c b\u1ED9 s\u01B0u t\u1EADp th\u1EDDi trang nam. Gi\u00E1 tham kh\u1EA3o theo \u1EA3nh \u0111\u01B0\u1EE3c cung c\u1EA5p; gi\u00E0y v\u00E0 ph\u1EE5 ki\u1EC7n tr\u00EAn ng\u01B0\u1EDDi m\u1EABu kh\u00F4ng \u0111\u01B0\u1EE3c t\u00EDnh k\u00E8m.",
+    "Price": 590000,
+    "CategoryId": 2,
+    "Image": "/images/collection-2026/cale-pant.png",
+    "Color": "X\u00E1m",
+    "Sizes": "S,M,L,XL",
+    "Stock": 20,
+    "SizeStock": {
+      "S": 5,
+      "M": 5,
+      "L": 5,
+      "XL": 5
+    },
+    "LowStockThreshold": null,
+    "Active": true,
+    "Audience": "men",
+    "Emoji": "\uD83D\uDC56",
+    "AvailableSizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ]
+  },
+  {
+    "Id": 2005,
+    "Name": "Cane Jacket",
+    "Description": "Cane Jacket \u00B7 m\u00E0u x\u00E1m. S\u1EA3n ph\u1EA9m thu\u1ED9c b\u1ED9 s\u01B0u t\u1EADp th\u1EDDi trang nam. Gi\u00E1 tham kh\u1EA3o theo \u1EA3nh \u0111\u01B0\u1EE3c cung c\u1EA5p; gi\u00E0y v\u00E0 ph\u1EE5 ki\u1EC7n tr\u00EAn ng\u01B0\u1EDDi m\u1EABu kh\u00F4ng \u0111\u01B0\u1EE3c t\u00EDnh k\u00E8m.",
+    "Price": 1040000,
+    "CategoryId": 1,
+    "Image": "/images/collection-2026/cane-jacket.png",
+    "Color": "X\u00E1m",
+    "Sizes": "M,L,XL",
+    "Stock": 20,
+    "SizeStock": {
+      "M": 7,
+      "L": 7,
+      "XL": 6
+    },
+    "LowStockThreshold": null,
+    "Active": true,
+    "Audience": "men",
+    "Emoji": "\uD83D\uDC55",
+    "AvailableSizes": [
+      "M",
+      "L",
+      "XL"
+    ]
+  },
+  {
+    "Id": 2006,
+    "Name": "Denim Pant",
+    "Description": "Denim Pant \u00B7 m\u00E0u \u0111en. S\u1EA3n ph\u1EA9m thu\u1ED9c b\u1ED9 s\u01B0u t\u1EADp th\u1EDDi trang nam. Gi\u00E1 tham kh\u1EA3o theo \u1EA3nh \u0111\u01B0\u1EE3c cung c\u1EA5p; gi\u00E0y v\u00E0 ph\u1EE5 ki\u1EC7n tr\u00EAn ng\u01B0\u1EDDi m\u1EABu kh\u00F4ng \u0111\u01B0\u1EE3c t\u00EDnh k\u00E8m.",
+    "Price": 620000,
+    "CategoryId": 2,
+    "Image": "/images/collection-2026/denim-pant.png",
+    "Color": "\u0110en",
+    "Sizes": "S,M,L,XL",
+    "Stock": 20,
+    "SizeStock": {
+      "S": 5,
+      "M": 5,
+      "L": 5,
+      "XL": 5
+    },
+    "LowStockThreshold": null,
+    "Active": true,
+    "Audience": "men",
+    "Emoji": "\uD83D\uDC56",
+    "AvailableSizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ]
+  },
+  {
+    "Id": 2007,
+    "Name": "Denim Set",
+    "Description": "Denim Set \u00B7 m\u00E0u \u0111en. S\u1EA3n ph\u1EA9m thu\u1ED9c b\u1ED9 s\u01B0u t\u1EADp th\u1EDDi trang nam. Gi\u00E1 tham kh\u1EA3o theo \u1EA3nh \u0111\u01B0\u1EE3c cung c\u1EA5p; gi\u00E0y v\u00E0 ph\u1EE5 ki\u1EC7n tr\u00EAn ng\u01B0\u1EDDi m\u1EABu kh\u00F4ng \u0111\u01B0\u1EE3c t\u00EDnh k\u00E8m.",
+    "Price": 1240000,
+    "CategoryId": 3,
+    "Image": "/images/collection-2026/denim-set.png",
+    "Color": "\u0110en",
+    "Sizes": "M,L,XL",
+    "Stock": 20,
+    "SizeStock": {
+      "M": 7,
+      "L": 7,
+      "XL": 6
+    },
+    "LowStockThreshold": null,
+    "Active": true,
+    "Audience": "men",
+    "Emoji": "\uD83D\uDC5F",
+    "AvailableSizes": [
+      "M",
+      "L",
+      "XL"
+    ]
+  },
+  {
+    "Id": 2008,
+    "Name": "Denim Shirt",
+    "Description": "Denim Shirt \u00B7 m\u00E0u \u0111en. S\u1EA3n ph\u1EA9m thu\u1ED9c b\u1ED9 s\u01B0u t\u1EADp th\u1EDDi trang nam. Gi\u00E1 tham kh\u1EA3o theo \u1EA3nh \u0111\u01B0\u1EE3c cung c\u1EA5p; gi\u00E0y v\u00E0 ph\u1EE5 ki\u1EC7n tr\u00EAn ng\u01B0\u1EDDi m\u1EABu kh\u00F4ng \u0111\u01B0\u1EE3c t\u00EDnh k\u00E8m.",
+    "Price": 620000,
+    "CategoryId": 1,
+    "Image": "/images/collection-2026/denim-shirt.png",
+    "Color": "\u0110en",
+    "Sizes": "M,L,XL",
+    "Stock": 20,
+    "SizeStock": {
+      "M": 7,
+      "L": 7,
+      "XL": 6
+    },
+    "LowStockThreshold": null,
+    "Active": true,
+    "Audience": "men",
+    "Emoji": "\uD83D\uDC55",
+    "AvailableSizes": [
+      "M",
+      "L",
+      "XL"
+    ]
+  },
+  {
+    "Id": 2009,
+    "Name": "Doom Pant",
+    "Description": "Doom Pant \u00B7 m\u00E0u \u0111en. S\u1EA3n ph\u1EA9m thu\u1ED9c b\u1ED9 s\u01B0u t\u1EADp th\u1EDDi trang nam. Gi\u00E1 tham kh\u1EA3o theo \u1EA3nh \u0111\u01B0\u1EE3c cung c\u1EA5p; gi\u00E0y v\u00E0 ph\u1EE5 ki\u1EC7n tr\u00EAn ng\u01B0\u1EDDi m\u1EABu kh\u00F4ng \u0111\u01B0\u1EE3c t\u00EDnh k\u00E8m.",
+    "Price": 580000,
+    "CategoryId": 2,
+    "Image": "/images/collection-2026/doom-pant.png",
+    "Color": "\u0110en",
+    "Sizes": "S,M,L,XL",
+    "Stock": 20,
+    "SizeStock": {
+      "S": 5,
+      "M": 5,
+      "L": 5,
+      "XL": 5
+    },
+    "LowStockThreshold": null,
+    "Active": true,
+    "Audience": "men",
+    "Emoji": "\uD83D\uDC56",
+    "AvailableSizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ]
+  },
+  {
+    "Id": 2010,
+    "Name": "Faln Blazer",
+    "Description": "Faln Blazer \u00B7 m\u00E0u kem. S\u1EA3n ph\u1EA9m thu\u1ED9c b\u1ED9 s\u01B0u t\u1EADp th\u1EDDi trang nam. Gi\u00E1 tham kh\u1EA3o theo \u1EA3nh \u0111\u01B0\u1EE3c cung c\u1EA5p; gi\u00E0y v\u00E0 ph\u1EE5 ki\u1EC7n tr\u00EAn ng\u01B0\u1EDDi m\u1EABu kh\u00F4ng \u0111\u01B0\u1EE3c t\u00EDnh k\u00E8m.",
+    "Price": 1090000,
+    "CategoryId": 1,
+    "Image": "/images/collection-2026/faln-blazer.png",
+    "Color": "Kem",
+    "Sizes": "M,L,XL",
+    "Stock": 20,
+    "SizeStock": {
+      "M": 7,
+      "L": 7,
+      "XL": 6
+    },
+    "LowStockThreshold": null,
+    "Active": true,
+    "Audience": "men",
+    "Emoji": "\uD83D\uDC55",
+    "AvailableSizes": [
+      "M",
+      "L",
+      "XL"
+    ]
+  },
+  {
+    "Id": 2011,
+    "Name": "Faln Set",
+    "Description": "Faln Set \u00B7 m\u00E0u kem. S\u1EA3n ph\u1EA9m thu\u1ED9c b\u1ED9 s\u01B0u t\u1EADp th\u1EDDi trang nam. Gi\u00E1 tham kh\u1EA3o theo \u1EA3nh \u0111\u01B0\u1EE3c cung c\u1EA5p; gi\u00E0y v\u00E0 ph\u1EE5 ki\u1EC7n tr\u00EAn ng\u01B0\u1EDDi m\u1EABu kh\u00F4ng \u0111\u01B0\u1EE3c t\u00EDnh k\u00E8m.",
+    "Price": 1640000,
+    "CategoryId": 3,
+    "Image": "/images/collection-2026/faln-set.png",
+    "Color": "Kem",
+    "Sizes": "M,L,XL",
+    "Stock": 20,
+    "SizeStock": {
+      "M": 7,
+      "L": 7,
+      "XL": 6
+    },
+    "LowStockThreshold": null,
+    "Active": true,
+    "Audience": "men",
+    "Emoji": "\uD83D\uDC5F",
+    "AvailableSizes": [
+      "M",
+      "L",
+      "XL"
+    ]
+  },
+  {
+    "Id": 2012,
+    "Name": "Fury Set",
+    "Description": "Fury Set \u00B7 m\u00E0u x\u00E1m. S\u1EA3n ph\u1EA9m thu\u1ED9c b\u1ED9 s\u01B0u t\u1EADp th\u1EDDi trang nam. Gi\u00E1 tham kh\u1EA3o theo \u1EA3nh \u0111\u01B0\u1EE3c cung c\u1EA5p; gi\u00E0y v\u00E0 ph\u1EE5 ki\u1EC7n tr\u00EAn ng\u01B0\u1EDDi m\u1EABu kh\u00F4ng \u0111\u01B0\u1EE3c t\u00EDnh k\u00E8m.",
+    "Price": 1540000,
+    "CategoryId": 3,
+    "Image": "/images/collection-2026/fury-set.png",
+    "Color": "X\u00E1m",
+    "Sizes": "M,L,XL",
+    "Stock": 20,
+    "SizeStock": {
+      "M": 7,
+      "L": 7,
+      "XL": 6
+    },
+    "LowStockThreshold": null,
+    "Active": true,
+    "Audience": "men",
+    "Emoji": "\uD83D\uDC5F",
+    "AvailableSizes": [
+      "M",
+      "L",
+      "XL"
+    ]
+  },
+  {
+    "Id": 2013,
+    "Name": "Grey Blazer",
+    "Description": "Grey Blazer \u00B7 m\u00E0u x\u00E1m \u0111\u1EADm. S\u1EA3n ph\u1EA9m thu\u1ED9c b\u1ED9 s\u01B0u t\u1EADp th\u1EDDi trang nam. Gi\u00E1 tham kh\u1EA3o theo \u1EA3nh \u0111\u01B0\u1EE3c cung c\u1EA5p; gi\u00E0y v\u00E0 ph\u1EE5 ki\u1EC7n tr\u00EAn ng\u01B0\u1EDDi m\u1EABu kh\u00F4ng \u0111\u01B0\u1EE3c t\u00EDnh k\u00E8m.",
+    "Price": 950000,
+    "CategoryId": 1,
+    "Image": "/images/collection-2026/grey-blazer.png",
+    "Color": "X\u00E1m \u0111\u1EADm",
+    "Sizes": "M,L,XL",
+    "Stock": 20,
+    "SizeStock": {
+      "M": 7,
+      "L": 7,
+      "XL": 6
+    },
+    "LowStockThreshold": null,
+    "Active": true,
+    "Audience": "men",
+    "Emoji": "\uD83D\uDC55",
+    "AvailableSizes": [
+      "M",
+      "L",
+      "XL"
+    ]
+  },
+  {
+    "Id": 2014,
+    "Name": "Grey Pant",
+    "Description": "Grey Pant \u00B7 m\u00E0u x\u00E1m \u0111\u1EADm. S\u1EA3n ph\u1EA9m thu\u1ED9c b\u1ED9 s\u01B0u t\u1EADp th\u1EDDi trang nam. Gi\u00E1 tham kh\u1EA3o theo \u1EA3nh \u0111\u01B0\u1EE3c cung c\u1EA5p; gi\u00E0y v\u00E0 ph\u1EE5 ki\u1EC7n tr\u00EAn ng\u01B0\u1EDDi m\u1EABu kh\u00F4ng \u0111\u01B0\u1EE3c t\u00EDnh k\u00E8m.",
+    "Price": 560000,
+    "CategoryId": 2,
+    "Image": "/images/collection-2026/grey-pant.png",
+    "Color": "X\u00E1m \u0111\u1EADm",
+    "Sizes": "S,M,L,XL",
+    "Stock": 20,
+    "SizeStock": {
+      "S": 5,
+      "M": 5,
+      "L": 5,
+      "XL": 5
+    },
+    "LowStockThreshold": null,
+    "Active": true,
+    "Audience": "men",
+    "Emoji": "\uD83D\uDC56",
+    "AvailableSizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ]
+  },
+  {
+    "Id": 2015,
+    "Name": "Grey Set",
+    "Description": "Grey Set \u00B7 m\u00E0u x\u00E1m \u0111\u1EADm. S\u1EA3n ph\u1EA9m thu\u1ED9c b\u1ED9 s\u01B0u t\u1EADp th\u1EDDi trang nam. Gi\u00E1 tham kh\u1EA3o theo \u1EA3nh \u0111\u01B0\u1EE3c cung c\u1EA5p; gi\u00E0y v\u00E0 ph\u1EE5 ki\u1EC7n tr\u00EAn ng\u01B0\u1EDDi m\u1EABu kh\u00F4ng \u0111\u01B0\u1EE3c t\u00EDnh k\u00E8m.",
+    "Price": 1510000,
+    "CategoryId": 3,
+    "Image": "/images/collection-2026/grey-set.png",
+    "Color": "X\u00E1m \u0111\u1EADm",
+    "Sizes": "M,L,XL",
+    "Stock": 20,
+    "SizeStock": {
+      "M": 7,
+      "L": 7,
+      "XL": 6
+    },
+    "LowStockThreshold": null,
+    "Active": true,
+    "Audience": "men",
+    "Emoji": "\uD83D\uDC5F",
+    "AvailableSizes": [
+      "M",
+      "L",
+      "XL"
+    ]
+  },
+  {
+    "Id": 2016,
+    "Name": "Hans Pant",
+    "Description": "Hans Pant \u00B7 m\u00E0u be. S\u1EA3n ph\u1EA9m thu\u1ED9c b\u1ED9 s\u01B0u t\u1EADp th\u1EDDi trang nam. Gi\u00E1 tham kh\u1EA3o theo \u1EA3nh \u0111\u01B0\u1EE3c cung c\u1EA5p; gi\u00E0y v\u00E0 ph\u1EE5 ki\u1EC7n tr\u00EAn ng\u01B0\u1EDDi m\u1EABu kh\u00F4ng \u0111\u01B0\u1EE3c t\u00EDnh k\u00E8m.",
+    "Price": 550000,
+    "CategoryId": 2,
+    "Image": "/images/collection-2026/hans-pant.png",
+    "Color": "Be",
+    "Sizes": "S,M,L,XL",
+    "Stock": 20,
+    "SizeStock": {
+      "S": 5,
+      "M": 5,
+      "L": 5,
+      "XL": 5
+    },
+    "LowStockThreshold": null,
+    "Active": true,
+    "Audience": "men",
+    "Emoji": "\uD83D\uDC56",
+    "AvailableSizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ]
+  },
+  {
+    "Id": 2017,
+    "Name": "Heal Shirt",
+    "Description": "Heal Shirt \u00B7 m\u00E0u x\u00E1m. S\u1EA3n ph\u1EA9m thu\u1ED9c b\u1ED9 s\u01B0u t\u1EADp th\u1EDDi trang nam. Gi\u00E1 tham kh\u1EA3o theo \u1EA3nh \u0111\u01B0\u1EE3c cung c\u1EA5p; gi\u00E0y v\u00E0 ph\u1EE5 ki\u1EC7n tr\u00EAn ng\u01B0\u1EDDi m\u1EABu kh\u00F4ng \u0111\u01B0\u1EE3c t\u00EDnh k\u00E8m.",
+    "Price": 520000,
+    "CategoryId": 1,
+    "Image": "/images/collection-2026/heal-shirt.png",
+    "Color": "X\u00E1m",
+    "Sizes": "M,L,XL",
+    "Stock": 20,
+    "SizeStock": {
+      "M": 7,
+      "L": 7,
+      "XL": 6
+    },
+    "LowStockThreshold": null,
+    "Active": true,
+    "Audience": "men",
+    "Emoji": "\uD83D\uDC55",
+    "AvailableSizes": [
+      "M",
+      "L",
+      "XL"
+    ]
+  },
+  {
+    "Id": 2018,
+    "Name": "Host Blazer",
+    "Description": "Host Blazer \u00B7 m\u00E0u \u0111en. S\u1EA3n ph\u1EA9m thu\u1ED9c b\u1ED9 s\u01B0u t\u1EADp th\u1EDDi trang nam. Gi\u00E1 tham kh\u1EA3o theo \u1EA3nh \u0111\u01B0\u1EE3c cung c\u1EA5p; gi\u00E0y v\u00E0 ph\u1EE5 ki\u1EC7n tr\u00EAn ng\u01B0\u1EDDi m\u1EABu kh\u00F4ng \u0111\u01B0\u1EE3c t\u00EDnh k\u00E8m.",
+    "Price": 1020000,
+    "CategoryId": 1,
+    "Image": "/images/collection-2026/host-blazer.png",
+    "Color": "\u0110en",
+    "Sizes": "M,L,XL",
+    "Stock": 20,
+    "SizeStock": {
+      "M": 7,
+      "L": 7,
+      "XL": 6
+    },
+    "LowStockThreshold": null,
+    "Active": true,
+    "Audience": "men",
+    "Emoji": "\uD83D\uDC55",
+    "AvailableSizes": [
+      "M",
+      "L",
+      "XL"
+    ]
+  },
+  {
+    "Id": 2019,
+    "Name": "Humer Pant",
+    "Description": "Humer Pant \u00B7 m\u00E0u \u0111en. S\u1EA3n ph\u1EA9m thu\u1ED9c b\u1ED9 s\u01B0u t\u1EADp th\u1EDDi trang nam. Gi\u00E1 tham kh\u1EA3o theo \u1EA3nh \u0111\u01B0\u1EE3c cung c\u1EA5p; gi\u00E0y v\u00E0 ph\u1EE5 ki\u1EC7n tr\u00EAn ng\u01B0\u1EDDi m\u1EABu kh\u00F4ng \u0111\u01B0\u1EE3c t\u00EDnh k\u00E8m.",
+    "Price": 650000,
+    "CategoryId": 2,
+    "Image": "/images/collection-2026/humer-pant.png",
+    "Color": "\u0110en",
+    "Sizes": "S,M,L,XL",
+    "Stock": 20,
+    "SizeStock": {
+      "S": 5,
+      "M": 5,
+      "L": 5,
+      "XL": 5
+    },
+    "LowStockThreshold": null,
+    "Active": true,
+    "Audience": "men",
+    "Emoji": "\uD83D\uDC56",
+    "AvailableSizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ]
+  },
+  {
+    "Id": 2020,
+    "Name": "Leto Mangto",
+    "Description": "Leto Mangto \u00B7 m\u00E0u x\u00E1m nh\u1EA1t. S\u1EA3n ph\u1EA9m thu\u1ED9c b\u1ED9 s\u01B0u t\u1EADp th\u1EDDi trang nam. Gi\u00E1 tham kh\u1EA3o theo \u1EA3nh \u0111\u01B0\u1EE3c cung c\u1EA5p; gi\u00E0y v\u00E0 ph\u1EE5 ki\u1EC7n tr\u00EAn ng\u01B0\u1EDDi m\u1EABu kh\u00F4ng \u0111\u01B0\u1EE3c t\u00EDnh k\u00E8m.",
+    "Price": 1470000,
+    "CategoryId": 1,
+    "Image": "/images/collection-2026/leto-mangto.png",
+    "Color": "X\u00E1m nh\u1EA1t",
+    "Sizes": "M,L,XL",
+    "Stock": 20,
+    "SizeStock": {
+      "M": 7,
+      "L": 7,
+      "XL": 6
+    },
+    "LowStockThreshold": null,
+    "Active": true,
+    "Audience": "men",
+    "Emoji": "\uD83D\uDC55",
+    "AvailableSizes": [
+      "M",
+      "L",
+      "XL"
+    ]
+  },
+  {
+    "Id": 2021,
+    "Name": "Loop Blazer",
+    "Description": "Loop Blazer \u00B7 m\u00E0u n\u00E2u. S\u1EA3n ph\u1EA9m thu\u1ED9c b\u1ED9 s\u01B0u t\u1EADp th\u1EDDi trang nam. Gi\u00E1 tham kh\u1EA3o theo \u1EA3nh \u0111\u01B0\u1EE3c cung c\u1EA5p; gi\u00E0y v\u00E0 ph\u1EE5 ki\u1EC7n tr\u00EAn ng\u01B0\u1EDDi m\u1EABu kh\u00F4ng \u0111\u01B0\u1EE3c t\u00EDnh k\u00E8m.",
+    "Price": 1290000,
+    "CategoryId": 1,
+    "Image": "/images/collection-2026/loop-blazer.png",
+    "Color": "N\u00E2u",
+    "Sizes": "M,L,XL",
+    "Stock": 20,
+    "SizeStock": {
+      "M": 7,
+      "L": 7,
+      "XL": 6
+    },
+    "LowStockThreshold": null,
+    "Active": true,
+    "Audience": "men",
+    "Emoji": "\uD83D\uDC55",
+    "AvailableSizes": [
+      "M",
+      "L",
+      "XL"
+    ]
+  },
+  {
+    "Id": 2022,
+    "Name": "Loop Pant",
+    "Description": "Loop Pant \u00B7 m\u00E0u n\u00E2u. S\u1EA3n ph\u1EA9m thu\u1ED9c b\u1ED9 s\u01B0u t\u1EADp th\u1EDDi trang nam. Gi\u00E1 tham kh\u1EA3o theo \u1EA3nh \u0111\u01B0\u1EE3c cung c\u1EA5p; gi\u00E0y v\u00E0 ph\u1EE5 ki\u1EC7n tr\u00EAn ng\u01B0\u1EDDi m\u1EABu kh\u00F4ng \u0111\u01B0\u1EE3c t\u00EDnh k\u00E8m.",
+    "Price": 680000,
+    "CategoryId": 2,
+    "Image": "/images/collection-2026/loop-pant.png",
+    "Color": "N\u00E2u",
+    "Sizes": "S,M,L,XL",
+    "Stock": 20,
+    "SizeStock": {
+      "S": 5,
+      "M": 5,
+      "L": 5,
+      "XL": 5
+    },
+    "LowStockThreshold": null,
+    "Active": true,
+    "Audience": "men",
+    "Emoji": "\uD83D\uDC56",
+    "AvailableSizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ]
+  },
+  {
+    "Id": 2023,
+    "Name": "Loop Set",
+    "Description": "Loop Set \u00B7 m\u00E0u n\u00E2u. S\u1EA3n ph\u1EA9m thu\u1ED9c b\u1ED9 s\u01B0u t\u1EADp th\u1EDDi trang nam. Gi\u00E1 tham kh\u1EA3o theo \u1EA3nh \u0111\u01B0\u1EE3c cung c\u1EA5p; gi\u00E0y v\u00E0 ph\u1EE5 ki\u1EC7n tr\u00EAn ng\u01B0\u1EDDi m\u1EABu kh\u00F4ng \u0111\u01B0\u1EE3c t\u00EDnh k\u00E8m.",
+    "Price": 1970000,
+    "CategoryId": 3,
+    "Image": "/images/collection-2026/loop-set.png",
+    "Color": "N\u00E2u",
+    "Sizes": "M,L,XL",
+    "Stock": 20,
+    "SizeStock": {
+      "M": 7,
+      "L": 7,
+      "XL": 6
+    },
+    "LowStockThreshold": null,
+    "Active": true,
+    "Audience": "men",
+    "Emoji": "\uD83D\uDC5F",
+    "AvailableSizes": [
+      "M",
+      "L",
+      "XL"
+    ]
+  },
+  {
+    "Id": 2024,
+    "Name": "Luci Blazer",
+    "Description": "Luci Blazer \u00B7 m\u00E0u kem. S\u1EA3n ph\u1EA9m thu\u1ED9c b\u1ED9 s\u01B0u t\u1EADp th\u1EDDi trang nam. Gi\u00E1 tham kh\u1EA3o theo \u1EA3nh \u0111\u01B0\u1EE3c cung c\u1EA5p; gi\u00E0y v\u00E0 ph\u1EE5 ki\u1EC7n tr\u00EAn ng\u01B0\u1EDDi m\u1EABu kh\u00F4ng \u0111\u01B0\u1EE3c t\u00EDnh k\u00E8m.",
+    "Price": 1190000,
+    "CategoryId": 1,
+    "Image": "/images/collection-2026/luci-blazer.png",
+    "Color": "Kem",
+    "Sizes": "M,L,XL",
+    "Stock": 20,
+    "SizeStock": {
+      "M": 7,
+      "L": 7,
+      "XL": 6
+    },
+    "LowStockThreshold": null,
+    "Active": true,
+    "Audience": "men",
+    "Emoji": "\uD83D\uDC55",
+    "AvailableSizes": [
+      "M",
+      "L",
+      "XL"
+    ]
+  },
+  {
+    "Id": 2025,
+    "Name": "Luther Mangto",
+    "Description": "Luther Mangto \u00B7 m\u00E0u x\u00E1m \u0111\u1EADm. S\u1EA3n ph\u1EA9m thu\u1ED9c b\u1ED9 s\u01B0u t\u1EADp th\u1EDDi trang nam. Gi\u00E1 tham kh\u1EA3o theo \u1EA3nh \u0111\u01B0\u1EE3c cung c\u1EA5p; gi\u00E0y v\u00E0 ph\u1EE5 ki\u1EC7n tr\u00EAn ng\u01B0\u1EDDi m\u1EABu kh\u00F4ng \u0111\u01B0\u1EE3c t\u00EDnh k\u00E8m.",
+    "Price": 1490000,
+    "CategoryId": 1,
+    "Image": "/images/collection-2026/luther-mangto.png",
+    "Color": "X\u00E1m \u0111\u1EADm",
+    "Sizes": "M,L,XL",
+    "Stock": 20,
+    "SizeStock": {
+      "M": 7,
+      "L": 7,
+      "XL": 6
+    },
+    "LowStockThreshold": null,
+    "Active": true,
+    "Audience": "men",
+    "Emoji": "\uD83D\uDC55",
+    "AvailableSizes": [
+      "M",
+      "L",
+      "XL"
+    ]
+  },
+  {
+    "Id": 2026,
+    "Name": "Mior Blazer",
+    "Description": "Mior Blazer \u00B7 m\u00E0u x\u00E1m. S\u1EA3n ph\u1EA9m thu\u1ED9c b\u1ED9 s\u01B0u t\u1EADp th\u1EDDi trang nam. Gi\u00E1 tham kh\u1EA3o theo \u1EA3nh \u0111\u01B0\u1EE3c cung c\u1EA5p; gi\u00E0y v\u00E0 ph\u1EE5 ki\u1EC7n tr\u00EAn ng\u01B0\u1EDDi m\u1EABu kh\u00F4ng \u0111\u01B0\u1EE3c t\u00EDnh k\u00E8m.",
+    "Price": 1050000,
+    "CategoryId": 1,
+    "Image": "/images/collection-2026/mior-blazer.png",
+    "Color": "X\u00E1m",
+    "Sizes": "M,L,XL",
+    "Stock": 20,
+    "SizeStock": {
+      "M": 7,
+      "L": 7,
+      "XL": 6
+    },
+    "LowStockThreshold": null,
+    "Active": true,
+    "Audience": "men",
+    "Emoji": "\uD83D\uDC55",
+    "AvailableSizes": [
+      "M",
+      "L",
+      "XL"
+    ]
+  },
+  {
+    "Id": 2027,
+    "Name": "Mior Set",
+    "Description": "Mior Set \u00B7 m\u00E0u x\u00E1m. S\u1EA3n ph\u1EA9m thu\u1ED9c b\u1ED9 s\u01B0u t\u1EADp th\u1EDDi trang nam. Gi\u00E1 tham kh\u1EA3o theo \u1EA3nh \u0111\u01B0\u1EE3c cung c\u1EA5p; gi\u00E0y v\u00E0 ph\u1EE5 ki\u1EC7n tr\u00EAn ng\u01B0\u1EDDi m\u1EABu kh\u00F4ng \u0111\u01B0\u1EE3c t\u00EDnh k\u00E8m.",
+    "Price": 1600000,
+    "CategoryId": 3,
+    "Image": "/images/collection-2026/mior-set.png",
+    "Color": "X\u00E1m",
+    "Sizes": "M,L,XL",
+    "Stock": 20,
+    "SizeStock": {
+      "M": 7,
+      "L": 7,
+      "XL": 6
+    },
+    "LowStockThreshold": null,
+    "Active": true,
+    "Audience": "men",
+    "Emoji": "\uD83D\uDC5F",
+    "AvailableSizes": [
+      "M",
+      "L",
+      "XL"
+    ]
+  },
+  {
+    "Id": 2028,
+    "Name": "Neck Shirt",
+    "Description": "Neck Shirt \u00B7 m\u00E0u x\u00E1m nh\u1EA1t. S\u1EA3n ph\u1EA9m thu\u1ED9c b\u1ED9 s\u01B0u t\u1EADp th\u1EDDi trang nam. Gi\u00E1 tham kh\u1EA3o theo \u1EA3nh \u0111\u01B0\u1EE3c cung c\u1EA5p; gi\u00E0y v\u00E0 ph\u1EE5 ki\u1EC7n tr\u00EAn ng\u01B0\u1EDDi m\u1EABu kh\u00F4ng \u0111\u01B0\u1EE3c t\u00EDnh k\u00E8m.",
+    "Price": 520000,
+    "CategoryId": 1,
+    "Image": "/images/collection-2026/neck-shirt.png",
+    "Color": "X\u00E1m nh\u1EA1t",
+    "Sizes": "M,L,XL",
+    "Stock": 20,
+    "SizeStock": {
+      "M": 7,
+      "L": 7,
+      "XL": 6
+    },
+    "LowStockThreshold": null,
+    "Active": true,
+    "Audience": "men",
+    "Emoji": "\uD83D\uDC55",
+    "AvailableSizes": [
+      "M",
+      "L",
+      "XL"
+    ]
+  },
+  {
+    "Id": 2029,
+    "Name": "Bleu Blazer",
+    "Description": "Bleu Blazer \u00B7 m\u00E0u xanh navy. S\u1EA3n ph\u1EA9m thu\u1ED9c b\u1ED9 s\u01B0u t\u1EADp th\u1EDDi trang nam. Gi\u00E1 tham kh\u1EA3o theo \u1EA3nh \u0111\u01B0\u1EE3c cung c\u1EA5p; gi\u00E0y v\u00E0 ph\u1EE5 ki\u1EC7n tr\u00EAn ng\u01B0\u1EDDi m\u1EABu kh\u00F4ng \u0111\u01B0\u1EE3c t\u00EDnh k\u00E8m.",
+    "Price": 1090000,
+    "CategoryId": 1,
+    "Image": "/images/collection-2026/bleu-blazer.png",
+    "Color": "Xanh navy",
+    "Sizes": "M,L,XL",
+    "Stock": 20,
+    "SizeStock": {
+      "M": 7,
+      "L": 7,
+      "XL": 6
+    },
+    "LowStockThreshold": null,
+    "Active": true,
+    "Audience": "men",
+    "Emoji": "\uD83D\uDC55",
+    "AvailableSizes": [
+      "M",
+      "L",
+      "XL"
+    ]
+  },
+  {
+    "Id": 2030,
+    "Name": "Bleu Pant",
+    "Description": "Bleu Pant \u00B7 m\u00E0u xanh navy. S\u1EA3n ph\u1EA9m thu\u1ED9c b\u1ED9 s\u01B0u t\u1EADp th\u1EDDi trang nam. Gi\u00E1 tham kh\u1EA3o theo \u1EA3nh \u0111\u01B0\u1EE3c cung c\u1EA5p; gi\u00E0y v\u00E0 ph\u1EE5 ki\u1EC7n tr\u00EAn ng\u01B0\u1EDDi m\u1EABu kh\u00F4ng \u0111\u01B0\u1EE3c t\u00EDnh k\u00E8m.",
+    "Price": 590000,
+    "CategoryId": 2,
+    "Image": "/images/collection-2026/bleu-pant.png",
+    "Color": "Xanh navy",
+    "Sizes": "S,M,L,XL",
+    "Stock": 20,
+    "SizeStock": {
+      "S": 5,
+      "M": 5,
+      "L": 5,
+      "XL": 5
+    },
+    "LowStockThreshold": null,
+    "Active": true,
+    "Audience": "men",
+    "Emoji": "\uD83D\uDC56",
+    "AvailableSizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ]
+  },
+  {
+    "Id": 2031,
+    "Name": "Bleu Set",
+    "Description": "Bleu Set \u00B7 m\u00E0u xanh navy. S\u1EA3n ph\u1EA9m thu\u1ED9c b\u1ED9 s\u01B0u t\u1EADp th\u1EDDi trang nam. Gi\u00E1 tham kh\u1EA3o theo \u1EA3nh \u0111\u01B0\u1EE3c cung c\u1EA5p; gi\u00E0y v\u00E0 ph\u1EE5 ki\u1EC7n tr\u00EAn ng\u01B0\u1EDDi m\u1EABu kh\u00F4ng \u0111\u01B0\u1EE3c t\u00EDnh k\u00E8m.",
+    "Price": 1680000,
+    "CategoryId": 3,
+    "Image": "/images/collection-2026/bleu-set.png",
+    "Color": "Xanh navy",
+    "Sizes": "M,L,XL",
+    "Stock": 20,
+    "SizeStock": {
+      "M": 7,
+      "L": 7,
+      "XL": 6
+    },
+    "LowStockThreshold": null,
+    "Active": true,
+    "Audience": "men",
+    "Emoji": "\uD83D\uDC5F",
+    "AvailableSizes": [
+      "M",
+      "L",
+      "XL"
+    ]
+  }
+]

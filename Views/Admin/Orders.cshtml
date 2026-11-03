@@ -1,0 +1,46 @@
+@model List<Order>
+@{
+    ViewData["Title"] = "Đơn hàng";
+    string? current = ViewBag.Status;
+    string Cls(string s) => s switch
+    {
+        OrderStatus.Pending => "s-pending",
+        OrderStatus.Confirmed => "s-confirmed",
+        OrderStatus.Shipping => "s-shipping",
+        OrderStatus.Completed => "s-completed",
+        _ => "s-cancelled"
+    };
+}
+<h1>Quản lý đơn hàng</h1>
+
+<div class="toolbar">
+    <form method="get" asp-action="Orders">
+        <select name="status" onchange="this.form.submit()">
+            <option value="">Tất cả trạng thái</option>
+            @foreach (var s in OrderStatus.All)
+            {
+                <option value="@s" selected="@(current == s)">@s</option>
+            }
+        </select>
+    </form>
+</div>
+
+<table>
+    <thead><tr><th>Mã</th><th>Khách</th><th>Ngày đặt</th><th class="num">Tổng</th><th>Thanh toán</th><th>Trạng thái</th><th></th></tr></thead>
+    <tbody>
+    @foreach (var o in Model)
+    {
+        <tr>
+            <td>#@o.Id.ToString("000")</td>
+            <td>@o.CustomerName</td>
+            <td>@o.CreatedAt.ToString("dd/MM/yyyy HH:mm")</td>
+            <td class="num">@o.Total.ToString("N0")đ</td>
+            <td>@o.PaymentMethod</td>
+            <td><span class="badge @Cls(o.Status)">@o.Status</span></td>
+            <td class="actions"><a class="btn light sm" asp-action="OrderDetails" asp-route-id="@o.Id">Chi tiết</a></td>
+        </tr>
+    }
+    @if (!Model.Any()) { <tr><td colspan="7" class="empty">Không có đơn hàng.</td></tr> }
+    </tbody>
+</table>
+

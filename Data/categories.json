@@ -1,0 +1,17 @@
+[
+  {
+    "Id": 1,
+    "Name": "Áo nam",
+    "Description": "Blazer, sơ mi, jacket và áo khoác nam"
+  },
+  {
+    "Id": 2,
+    "Name": "Quần nam",
+    "Description": "Quần âu, denim và quần short nam"
+  },
+  {
+    "Id": 3,
+    "Name": "Bộ vest nam",
+    "Description": "Bộ vest và trang phục nam phối sẵn"
+  }
+]

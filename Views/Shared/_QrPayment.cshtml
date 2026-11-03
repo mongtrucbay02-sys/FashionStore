@@ -1,0 +1,56 @@
+@using OutfitStudio.Services
+@model Order
+@{
+    var qr = Model.QrPayment;
+    var imageUrl = QrPaymentService.ImageUrl(Model);
+    var cancelled = OrderStatus.Normalize(Model.Status) == OrderStatus.Cancelled;
+}
+@if (qr is not null)
+{
+    <section class="card qr-payment" aria-labelledby="qr-title">
+        <div class="eyebrow dark">VIETQR · CHUYỂN KHOẢN NGÂN HÀNG</div>
+        <h2 id="qr-title">Thanh toán đơn #@Model.Id.ToString("D3")</h2>
+        <p class="qr-status" role="status">@qr.StatusLabel</p>
+        @if (cancelled)
+        {
+            <p class="qr-notice">Đơn đã hủy. Không chuyển thêm tiền. Nếu đã thanh toán, vui lòng liên hệ cửa hàng để đối soát và xử lý hoàn tiền.</p>
+        }
+        else if (qr.Status == QrPaymentStatus.Paid)
+        {
+            <p>Cửa hàng đã xác nhận nhận tiền lúc @qr.PaidAt?.ToLocalTime().ToString("dd/MM/yyyy HH:mm"). Bạn không cần chuyển thêm.</p>
+        }
+        else
+        {
+            <div class="qr-layout">
+                <div class="qr-image-wrap">
+                    @if (imageUrl is not null)
+                    {
+                        <img class="qr-image" src="@imageUrl" alt="Mã VietQR thanh toán đơn @Model.Id" width="540" height="640" referrerpolicy="no-referrer" data-qr-image />
+                        <p data-qr-error hidden>Chưa tải được ảnh QR. Bạn có thể chuyển khoản theo thông tin bên cạnh và giữ đúng nội dung.</p>
+                    }
+                </div>
+                <dl class="qr-details">
+                    <dt>Ngân hàng</dt><dd>@qr.BankName</dd>
+                    <dt>Chủ tài khoản</dt><dd>@qr.AccountName</dd>
+                    <dt>Số tài khoản</dt><dd><strong>@qr.AccountNumber</strong> <button type="button" class="qr-copy" data-copy="@qr.AccountNumber">Sao chép</button></dd>
+                    <dt>Số tiền cần chuyển</dt><dd><strong>@Model.Total.VND()</strong> <button type="button" class="qr-copy" data-copy="@Model.Total.ToString("0", System.Globalization.CultureInfo.InvariantCulture)">Sao chép</button></dd>
+                    <dt>Nội dung chuyển khoản</dt><dd><strong>@qr.Reference</strong> <button type="button" class="qr-copy" data-copy="@qr.Reference">Sao chép</button></dd>
+                </dl>
+            </div>
+            <p>Mở ứng dụng ngân hàng, quét QR hoặc tải ảnh QR về máy để quét từ thư viện. Kiểm tra người nhận, số tiền và nội dung trước khi xác nhận chuyển tiền.</p>
+            <p class="qr-notice">Bấm nút bên dưới chỉ gửi thông báo để cửa hàng đối soát, chưa xác nhận tiền đã vào tài khoản.</p>
+            @if (qr.Status == QrPaymentStatus.Unpaid)
+            {
+                <form asp-controller="Order" asp-action="ReportTransfer" asp-route-id="@Model.Id" method="post">
+                    <button class="btn" type="submit">TÔI ĐÃ CHUYỂN KHOẢN</button>
+                </form>
+            }
+            else
+            {
+                <p>Cửa hàng đã nhận thông báo của bạn. Không cần chuyển tiền lần nữa. Tải lại trang để xem kết quả đối soát.</p>
+            }
+            <p class="qr-provider-note">Ảnh QR được cung cấp bởi VietQR.io. Nếu ảnh không tải được, thông tin chuyển khoản vẫn hiển thị ở trên.</p>
+        }
+        <p data-copy-result role="status" aria-live="polite"></p>
+    </section>
+}

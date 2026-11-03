@@ -1,0 +1,19 @@
+@model QrPaymentSettings
+@{ ViewData["Title"] = "Thanh toán QR"; }
+<h1>Thanh toán QR</h1>
+<div class="panel">
+    <p>VietQR chuyển khoản ngân hàng: tự điền số tiền và nội dung theo đơn hàng. Sau khi kiểm tra tiền vào tài khoản, quản trị xác nhận tại chi tiết đơn.</p>
+    <form method="post" asp-action="Index">
+        <div asp-validation-summary="All" class="error" role="alert"></div>
+        <div class="form-grid">
+            <div class="field full"><label><input asp-for="Enabled" /> Bật QR Pay trên trang đặt hàng</label></div>
+            <div class="field"><label asp-for="BankBin">BIN ngân hàng (6 chữ số)</label><input asp-for="BankBin" inputmode="numeric" maxlength="6" placeholder="Ví dụ: 970415" /><span asp-validation-for="BankBin"></span></div>
+            <div class="field"><label asp-for="BankName">Tên ngân hàng</label><input asp-for="BankName" maxlength="100" placeholder="Ví dụ: VietinBank" /><span asp-validation-for="BankName"></span></div>
+            <div class="field"><label asp-for="AccountNumber">Tài khoản nhận tiền</label><input asp-for="AccountNumber" maxlength="19" autocomplete="off" /><span asp-validation-for="AccountNumber"></span></div>
+            <div class="field"><label asp-for="AccountName">Tên chủ tài khoản</label><input asp-for="AccountName" maxlength="100" autocomplete="off" /><span asp-validation-for="AccountName"></span></div>
+        </div>
+        <p>Nhập đúng tài khoản của cửa hàng. <a href="https://api.vietqr.io/v2/banks" target="_blank" rel="noopener noreferrer">Tra cứu BIN ngân hàng</a>. Không nhập mật khẩu, mã OTP hay thông tin đăng nhập ngân hàng.</p>
+        <p>Ảnh QR được tải từ img.vietqr.io với tài khoản nhận, số tiền và mã thanh toán; không gửi tên, email hoặc địa chỉ khách hàng. Đổi cấu hình chỉ áp dụng cho đơn mới.</p>
+        <div class="form-actions"><button class="btn" type="submit">Lưu cấu hình QR Pay</button></div>
+    </form>
+</div>

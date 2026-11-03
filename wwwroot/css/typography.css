@@ -1,0 +1,80 @@
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  src: url('../fonts/be-vietnam-pro/BeVietnamPro-Light.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  src: url('../fonts/be-vietnam-pro/BeVietnamPro-Regular.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  src: url('../fonts/be-vietnam-pro/BeVietnamPro-Medium.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  src: url('../fonts/be-vietnam-pro/BeVietnamPro-SemiBold.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  src: url('../fonts/be-vietnam-pro/BeVietnamPro-Bold.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  src: url('../fonts/be-vietnam-pro/BeVietnamPro-ExtraBold.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+}
+
+:root {
+  --font-family-base: 'Be Vietnam Pro', Arial, sans-serif;
+  --sans: var(--font-family-base);
+  --serif: var(--font-family-base);
+  --bs-font-sans-serif: var(--font-family-base);
+  --bs-body-font-family: var(--font-family-base);
+}
+html {
+  font-synthesis: none;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+body {
+  font-family: var(--font-family-base);
+  font-weight: 400;
+  line-height: 1.6;
+}
+button, input, select, textarea, optgroup { font-family: inherit; }
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-base);
+  line-height: 1.4;
+  letter-spacing: normal;
+}
+h1 em, h2 em, h3 em, h4 em, h5 em, h6 em {
+  font-family: inherit;
+  font-style: normal;
+  font-weight: inherit;
+}
+.intro h1, .hero h1, .tryon-intro h1 {
+  line-height: 1.35;
+  letter-spacing: -0.025em;
+}

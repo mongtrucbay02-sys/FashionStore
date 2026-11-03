@@ -1,0 +1,23 @@
+{
+  "label": "Bảng size thời trang nam của cửa hàng",
+  "boundaryNote": "Áo: mốc chung 175 cm hoặc 75 kg ưu tiên XL. Quần: các khoảng trống giữa các mốc được xếp lên cỡ kế tiếp, ví dụ 59–60 kg hoặc 173–174 cm. Khi chiều cao và cân nặng khác cỡ, ưu tiên cỡ lớn hơn.",
+  "charts": {
+    "shirt": {
+      "label": "Bảng size áo nam",
+      "rows": [
+        { "size": "M", "maxHeight": 170, "maxWeight": 67, "heightExclusive": true, "weightExclusive": true, "heightLabel": "Dưới 170 cm", "weightLabel": "Dưới 67 kg" },
+        { "size": "L", "maxHeight": 175, "maxWeight": 75, "heightExclusive": true, "weightExclusive": true, "heightLabel": "170–175 cm", "weightLabel": "67–75 kg" },
+        { "size": "XL", "maxHeight": 184, "maxWeight": 85, "heightLabel": "175–184 cm", "weightLabel": "75–85 kg" }
+      ]
+    },
+    "pants": {
+      "label": "Bảng size quần nam",
+      "rows": [
+        { "size": "S", "maxHeight": 168, "maxWeight": 59, "heightExclusive": true, "weightExclusive": true, "heightLabel": "Dưới 168 cm", "weightLabel": "Dưới 59 kg" },
+        { "size": "M", "maxHeight": 173, "maxWeight": 69, "heightLabel": "168–173 cm", "weightLabel": "60–69 kg" },
+        { "size": "L", "maxHeight": 177, "maxWeight": 77, "heightLabel": "174–177 cm", "weightLabel": "70–77 kg" },
+        { "size": "XL", "maxHeight": 185, "maxWeight": 85, "heightLabel": "178–185 cm", "weightLabel": "78–85 kg" }
+      ]
+    }
+  }
+}

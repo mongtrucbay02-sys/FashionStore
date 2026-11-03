@@ -1,0 +1,52 @@
+@model ProductListViewModel
+@{
+    ViewData["Title"] = "Sản phẩm";
+    var catNames = Model.Categories.ToDictionary(c => c.Id, c => c.Name);
+}
+<h1>Quản lý sản phẩm</h1>
+
+<div class="toolbar">
+    <form method="get" asp-action="Products">
+        <input type="text" name="search" value="@Model.Search" placeholder="Tìm theo tên..." />
+        <select name="categoryId">
+            <option value="">Tất cả danh mục</option>
+            @foreach (var c in Model.Categories)
+            {
+                <option value="@c.Id" selected="@(Model.CategoryId == c.Id)">@c.Name</option>
+            }
+        </select>
+        <button class="btn light" type="submit">Tìm</button>
+    </form>
+    <div class="spacer"></div>
+    <a class="btn" asp-action="CreateProduct">+ Thêm sản phẩm</a>
+</div>
+
+<table>
+    <thead>
+        <tr><th>ID</th><th></th><th>Tên</th><th class="num">Giá</th><th>Danh mục</th><th class="num">Tồn kho</th><th>Thao tác</th></tr>
+    </thead>
+    <tbody>
+    @foreach (var p in Model.Products)
+    {
+        <tr>
+            <td>@p.Id.ToString("00")</td>
+            <td>@if (!string.IsNullOrEmpty(p.ImageUrl)) { <img class="thumb" src="@p.ImageUrl" alt="" /> }</td>
+            <td>@p.Name</td>
+            <td class="num">@p.Price.ToString("N0")đ</td>
+            <td>@(catNames.TryGetValue(p.CategoryId, out var cn) ? cn : "—")</td>
+            <td class="num">@p.Stock</td>
+            <td class="actions">
+                <a class="btn light sm" asp-action="ProductDetails" asp-route-id="@p.Id">Xem</a>
+                <a class="btn light sm" asp-action="EditProduct" asp-route-id="@p.Id">Sửa</a>
+                <form class="inline" method="post" asp-action="DeleteProduct" asp-route-id="@p.Id"
+                      onsubmit="return confirm('Xác nhận thao tác này?');">
+                    <button class="btn danger sm" type="submit">Xóa</button>
+                </form>
+            </td>
+        </tr>
+    }
+    @if (!Model.Products.Any()) { <tr><td colspan="7" class="empty">Không có sản phẩm nào.</td></tr> }
+    </tbody>
+</table>
+
+
