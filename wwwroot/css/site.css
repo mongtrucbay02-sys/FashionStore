@@ -113,6 +113,29 @@ a {
     transform: scale(1.06)
 }
 
+.product-card {
+    height: 100%;
+    transition: transform .22s ease
+}
+
+.product-card:hover {
+    transform: translateY(-3px)
+}
+
+.product-card a:focus-visible,
+.btn:focus-visible,
+.form-control:focus-visible,
+.form-select:focus-visible {
+    outline: 2px solid #a1846b;
+    outline-offset: 3px
+}
+
+.btn,
+.form-control,
+.form-select {
+    transition: color .18s ease, background-color .18s ease, border-color .18s ease, box-shadow .18s ease
+}
+
 .product-name {
     color: var(--ink);
     font-weight: 600;
@@ -268,6 +291,15 @@ a {
 
     .section-heading {
         align-items: center
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important
     }
 }
 

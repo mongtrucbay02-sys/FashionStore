@@ -21,7 +21,7 @@
         @if (Model.PendingOrders > 0) { <div class="note">@Model.PendingOrders đơn chờ xác nhận</div> }
     </div>
     <div class="stat"><div class="label">Người dùng</div><div class="value">@Model.TotalUsers</div></div>
-    <div class="stat"><div class="label">Doanh thu (đơn hoàn thành)</div><div class="value">@Model.Revenue.ToString("N0")đ</div></div>
+    <div class="stat revenue-stat"><div class="label">Doanh thu (đơn hoàn thành)</div><div class="value">@Model.Revenue.ToString("N0")đ</div></div>
 </div>
 
 <div class="panel">
