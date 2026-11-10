@@ -57,7 +57,8 @@ public static class StoreApplication
         {
             options.LoginPath = "/Account/Login";
             options.AccessDeniedPath = "/Account/AccessDenied";
-            options.ExpireTimeSpan = TimeSpan.FromDays(7);
+            options.ExpireTimeSpan = TimeSpan.FromDays(92);
+            options.SlidingExpiration = true;
             options.Events.OnValidatePrincipal = async context =>
             {
                 var store = context.HttpContext.RequestServices.GetRequiredService<AppStore>();

@@ -47,7 +47,8 @@ public sealed class OtpEmailService(IOptions<EmailSettings> options, IMemoryCach
             EnableSsl = settings.EnableSsl,
             UseDefaultCredentials = false,
             Credentials = new NetworkCredential(settings.FromEmail, settings.Password),
-            DeliveryMethod = SmtpDeliveryMethod.Network
+            DeliveryMethod = SmtpDeliveryMethod.Network,
+            Timeout = 30000
         };
         await client.SendMailAsync(message, cancellationToken);
 

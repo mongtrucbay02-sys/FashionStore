@@ -71,6 +71,10 @@ public class AccountController(AppStore store, OtpEmailService otpEmail) : Contr
         {
             return Json(new { success = false, message = "Hãy đợi 60 giây trước khi yêu cầu mã khác." });
         }
+        catch (OperationCanceledException)
+        {
+            return Json(new { success = false, message = "Gửi OTP bị hủy hoặc quá thời gian chờ. Kiểm tra mạng và cấu hình SMTP." });
+        }
         catch (Exception ex) when (ex is InvalidOperationException or System.Net.Mail.SmtpException)
         {
             return Json(new { success = false, message = "Không thể gửi OTP. Kiểm tra cấu hình Gmail trong .env." });
@@ -104,6 +108,11 @@ public class AccountController(AppStore store, OtpEmailService otpEmail) : Contr
         catch (OtpCooldownException)
         {
             ModelState.AddModelError(string.Empty, "Hãy đợi 60 giây trước khi yêu cầu mã đăng nhập khác.");
+            return View(vm);
+        }
+        catch (OperationCanceledException)
+        {
+            ModelState.AddModelError(string.Empty, "Gửi OTP bị hủy hoặc quá thời gian chờ. Kiểm tra mạng và cấu hình SMTP.");
             return View(vm);
         }
         catch (Exception ex) when (ex is InvalidOperationException or System.Net.Mail.SmtpException)
@@ -172,7 +181,15 @@ public class AccountController(AppStore store, OtpEmailService otpEmail) : Contr
         return RedirectToAction(nameof(Login));
     }
 
-    private Task SignIn(User user) => HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, AccountIdentity.Create(user));
+    private Task SignIn(User user) => HttpContext.SignInAsync(
+        CookieAuthenticationDefaults.AuthenticationScheme,
+        AccountIdentity.Create(user),
+        new AuthenticationProperties
+        {
+            IsPersistent = true,
+            AllowRefresh = true,
+            ExpiresUtc = DateTimeOffset.UtcNow.AddMonths(3)
+        });
 
     public IActionResult AccessDenied()
     {
