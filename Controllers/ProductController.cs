@@ -12,7 +12,14 @@ public class ProductController(AppStore db, ProductCatalog catalog) : Controller
         var available = catalog.All.Where(x => x.Active).ToList();
         IEnumerable<Product> data = available;
         if (!string.IsNullOrWhiteSpace(q))
-            data = data.Where(x => x.Name.Contains(q.Trim(), StringComparison.OrdinalIgnoreCase));
+        {
+            var term = q.Trim();
+            data = data.Where(x =>
+                x.Name.Contains(term, StringComparison.OrdinalIgnoreCase) ||
+                x.Color.Contains(term, StringComparison.OrdinalIgnoreCase) ||
+                x.Description.Contains(term, StringComparison.OrdinalIgnoreCase) ||
+                x.Sizes.Contains(term, StringComparison.OrdinalIgnoreCase));
+        }
         if (category.HasValue)
             data = data.Where(x => x.CategoryId == category.Value);
         data = sort switch

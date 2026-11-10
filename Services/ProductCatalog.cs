@@ -13,7 +13,9 @@ public sealed class ProductCatalog(AppStore store)
     }
 
     public const decimal ShippingFee = 30000;
-    public List<Product> All => store.All<Product>("products").Where(p => p.Audience == "men").ToList();
+    public List<Product> All => store.All<Product>("products")
+        .Where(p => string.Equals(p.Audience, "men", StringComparison.OrdinalIgnoreCase))
+        .ToList();
     public Product? Find(int id) => All.FirstOrDefault(p => p.Id == id && p.Active);
 
     public bool ValidateCart(List<CartItem> cart, out string error)
