@@ -39,7 +39,10 @@ public sealed class InventoryService(AppStore store)
         }
         else
         foreach (var s in sizes)
-            next[s] = p.SizeStock.TryGetValue(s, out var v) ? v : 0;
+        {
+            var old = p.SizeStock.FirstOrDefault(pair => pair.Key.Equals(s, StringComparison.OrdinalIgnoreCase));
+            next[s] = old.Key is not null ? old.Value : 0;
+        }
         p.SizeStock = next;
         p.Stock = next.Values.Sum();
     }

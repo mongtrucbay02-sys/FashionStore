@@ -50,7 +50,14 @@ public sealed class AdminController(AppStore store, IWebHostEnvironment environm
     {
         var products = store.All<Product>("products").AsEnumerable();
         if (!string.IsNullOrWhiteSpace(search))
-            products = products.Where(p => p.Name.Contains(search.Trim(), StringComparison.OrdinalIgnoreCase));
+        {
+            var term = search.Trim();
+            products = products.Where(p =>
+                p.Name.Contains(term, StringComparison.OrdinalIgnoreCase) ||
+                p.Color.Contains(term, StringComparison.OrdinalIgnoreCase) ||
+                p.Description.Contains(term, StringComparison.OrdinalIgnoreCase) ||
+                p.Sizes.Contains(term, StringComparison.OrdinalIgnoreCase));
+        }
         if (categoryId.HasValue)
             products = products.Where(p => p.CategoryId == categoryId.Value);
         return View(new ProductListViewModel { Products = products.OrderBy(p => p.Id).ToList(), Categories = CategoriesList(), Search = search, CategoryId = categoryId });
@@ -181,6 +188,7 @@ public sealed class AdminController(AppStore store, IWebHostEnvironment environm
         p.Color ??= "";
         p.Image ??= "";
         p.Sizes = (p.Sizes ?? "").Trim();
+        p.Sizes = string.Join(",", p.AvailableSizes);
         if (parseErrors)
             ModelState.AddModelError("Product.Price", "Giá, ngưỡng cảnh báo và danh mục phải là số hợp lệ.");
         if (p.Name.Length is < 1 or > 200)

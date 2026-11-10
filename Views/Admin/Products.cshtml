@@ -12,7 +12,7 @@
             <option value="">Tất cả danh mục</option>
             @foreach (var c in Model.Categories)
             {
-                <option value="@c.Id" selected="@(Model.CategoryId == c.Id)">@c.Name</option>
+                <option value="@c.Id" selected="@(Model.CategoryId == c.Id ? "selected" : null)">@c.Name</option>
             }
         </select>
         <button class="btn light" type="submit">Tìm</button>

@@ -18,7 +18,14 @@ public sealed class InventoryController(AppStore store, InventoryService invento
     {
         var items = store.All<Product>("products").AsEnumerable();
         if (!string.IsNullOrWhiteSpace(search))
-            items = items.Where(p => p.Name.Contains(search.Trim(), StringComparison.OrdinalIgnoreCase));
+        {
+            var term = search.Trim();
+            items = items.Where(p =>
+                p.Name.Contains(term, StringComparison.OrdinalIgnoreCase) ||
+                p.Color.Contains(term, StringComparison.OrdinalIgnoreCase) ||
+                p.Description.Contains(term, StringComparison.OrdinalIgnoreCase) ||
+                p.Sizes.Contains(term, StringComparison.OrdinalIgnoreCase));
+        }
         if (categoryId.HasValue)
             items = items.Where(p => p.CategoryId == categoryId.Value);
         items = status switch

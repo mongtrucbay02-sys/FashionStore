@@ -12,7 +12,7 @@
 <div class="cards">
     <div class="stat"><div class="label">Tổng số lượng tồn</div><div class="value">@Model.TotalUnits.ToString("N0")</div></div>
     <div class="stat"><div class="label">Sản phẩm sắp hết</div><div class="value">@Model.LowStock</div>
-        <div class="note">có size chạm ngưỡng cảnh báo@if (Model.LowStock > 0) { <text> · </text><a asp-action="Index" asp-route-status="low" style="color:inherit">Xem</a> }</div>
+        <div class="note">có size chạm ngưỡng cảnh báo · <a asp-action="Index" asp-route-status="low" style="color:inherit">Xem</a></div>
     </div>
     <div class="stat"><div class="label">Hết hàng</div><div class="value">@Model.OutOfStock</div>
         @if (Model.OutOfStock > 0) { <div class="note"><a asp-action="Index" asp-route-status="out" style="color:inherit">Xem danh sách</a></div> }
@@ -26,15 +26,15 @@
             <option value="">Tất cả danh mục</option>
             @foreach (var c in Model.Categories)
             {
-                <option value="@c.Id" selected="@(Model.CategoryId == c.Id)">@c.Name</option>
+                <option value="@c.Id" selected="@(Model.CategoryId == c.Id ? "selected" : null)">@c.Name</option>
             }
         </select>
         <select name="status">
             <option value="">Mọi trạng thái</option>
-            <option value="alert" selected="@(Model.Status == "alert")">Cần nhập (hết + sắp hết)</option>
-            <option value="out" selected="@(Model.Status == "out")">Hết hàng</option>
-            <option value="low" selected="@(Model.Status == "low")">Sắp hết</option>
-            <option value="ok" selected="@(Model.Status == "ok")">Còn hàng</option>
+            <option value="alert" selected="@(Model.Status == "alert" ? "selected" : null)">Cần nhập (hết + sắp hết)</option>
+            <option value="out" selected="@(Model.Status == "out" ? "selected" : null)">Hết hàng</option>
+            <option value="low" selected="@(Model.Status == "low" ? "selected" : null)">Sắp hết</option>
+            <option value="ok" selected="@(Model.Status == "ok" ? "selected" : null)">Còn hàng</option>
         </select>
         <button class="btn light" type="submit">Lọc</button>
     </form>

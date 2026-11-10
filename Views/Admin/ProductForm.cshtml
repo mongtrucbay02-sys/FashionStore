@@ -59,8 +59,8 @@
             <input type="text" name="Color" value="@Model.Product.Color" />
         </div>
         <div class="field">
-            <label>Size (cách nhau dấu phẩy)</label>
-            <input type="text" name="Sizes" value="@Model.Product.Sizes" />
+            <label>Size tùy chọn (cách nhau dấu phẩy)</label>
+            <input type="text" name="Sizes" value="@Model.Product.Sizes" placeholder="Ví dụ: S,M,L,XL,XXL hoặc 38,39,40" autocomplete="off" />
             <div class="error">@Html.ValidationMessage("Product.Sizes")</div>
         </div>
         <div class="field full image-field">

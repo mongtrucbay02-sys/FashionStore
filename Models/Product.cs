@@ -46,6 +46,10 @@ public class Product
     public bool Active { get; set; } = true;
     public string Audience { get; set; } = "men";
     public string Emoji => CategoryId switch { 2 => "👖", 3 => "👟", _ => "👕" };
-    public string[] AvailableSizes => Sizes.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).Distinct().ToArray();
+    public string[] AvailableSizes => Sizes
+        .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+        .Where(size => size.Length > 0)
+        .Distinct(StringComparer.OrdinalIgnoreCase)
+        .ToArray();
 }
 
