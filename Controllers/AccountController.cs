@@ -18,6 +18,55 @@ public class AccountController(AppStore store, OtpEmailService otpEmail) : Contr
     private const string LoginOtpReturnUrl = "account.login.otp.returnUrl";
     private readonly PasswordHasher<User> hasher = new();
 
+    [HttpGet]
+    public IActionResult ForgotPassword() => View(new ResetPasswordVM());
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> SendResetCode(ResetPasswordVM vm)
+    {
+        var email = (vm.Email ?? "").Trim().ToLowerInvariant();
+        var user = store.Read<User>(UsersFile).FirstOrDefault(u => u.Email == email && !u.IsLocked && !u.IsDeleted);
+        if (user is not null && new EmailAddressAttribute().IsValid(email))
+        {
+            try
+            {
+                await otpEmail.SendCodeAsync(email, "reset-password:" + user.Id, HttpContext.RequestAborted);
+            }
+            catch (Exception ex) when (ex is OtpCooldownException or InvalidOperationException or System.Net.Mail.SmtpException)
+            {
+                HttpContext.RequestServices.GetRequiredService<ILogger<AccountController>>()
+                    .LogWarning("Không thể gửi OTP đặt lại mật khẩu ({ErrorType}).", ex.GetType().Name);
+            }
+        }
+        ViewBag.Message = "Nếu tài khoản đủ điều kiện, mã OTP sẽ được gửi đến email đã nhập.";
+        ModelState.Clear();
+        return View(nameof(ForgotPassword), new ResetPasswordVM { Email = email });
+    }
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public IActionResult ForgotPassword(ResetPasswordVM vm)
+    {
+        if (!ModelState.IsValid) return View(vm);
+        var email = vm.Email.Trim().ToLowerInvariant();
+        var reset = false;
+        store.Modify<User>(UsersFile, users =>
+        {
+            var user = users.FirstOrDefault(u => u.Email == email && !u.IsLocked && !u.IsDeleted);
+            if (user is null || !otpEmail.VerifyCode(email, vm.Code, "reset-password:" + user.Id))
+                return;
+            user.PasswordHash = hasher.HashPassword(user, vm.Password);
+            reset = true;
+        });
+        if (!reset)
+        {
+            ModelState.AddModelError(nameof(vm.Code), "Mã OTP không hợp lệ hoặc đã hết hạn.");
+            return View(vm);
+        }
+        ClearLoginOtpSession();
+        TempData["Success"] = "Đã đặt lại mật khẩu. Hãy đăng nhập bằng mật khẩu mới.";
+        return RedirectToAction(nameof(Login));
+    }
+
     [HttpGet] public IActionResult Register() => View(new RegisterVM());
 
     [HttpPost, ValidateAntiForgeryToken]
@@ -123,6 +172,7 @@ public class AccountController(AppStore store, OtpEmailService otpEmail) : Contr
 
         HttpContext.Session.SetString(LoginOtpEmail, email);
         HttpContext.Session.SetString(LoginOtpUserId, user.Id.ToString());
+        HttpContext.Session.SetString("account.login.passwordVersion", user.PasswordVersion);
         HttpContext.Session.SetString(LoginOtpReturnUrl, Url.IsLocalUrl(returnUrl) ? returnUrl! : "");
         return RedirectToAction(nameof(VerifyLoginOtp));
     }
@@ -150,7 +200,8 @@ public class AccountController(AppStore store, OtpEmailService otpEmail) : Contr
         }
 
         var user = store.Read<User>(UsersFile).FirstOrDefault(u => u.Id == userId && u.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
-        if (user is null || user.IsLocked)
+        if (user is null || user.IsLocked || user.IsDeleted ||
+            user.PasswordVersion != HttpContext.Session.GetString("account.login.passwordVersion"))
         {
             ClearLoginOtpSession();
             ModelState.AddModelError(string.Empty, "Tài khoản không còn khả dụng. Hãy đăng nhập lại.");
@@ -167,6 +218,7 @@ public class AccountController(AppStore store, OtpEmailService otpEmail) : Contr
     {
         HttpContext.Session.Remove(LoginOtpEmail);
         HttpContext.Session.Remove(LoginOtpUserId);
+        HttpContext.Session.Remove("account.login.passwordVersion");
         HttpContext.Session.Remove(LoginOtpReturnUrl);
     }
 

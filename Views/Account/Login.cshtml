@@ -15,6 +15,8 @@
         <span asp-validation-for="Password"></span>
         <button class="btn full">ĐĂNG NHẬP</button>
     </form>
+    @if (TempData["Success"] is string message) { <p role="status">@message</p> }
+    <p class="center"><a asp-action="ForgotPassword">Quên mật khẩu?</a></p>
     <p class="center"><a asp-action="Register">Đăng ký tài khoản</a></p>
 </div>
 

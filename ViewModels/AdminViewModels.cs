@@ -29,8 +29,8 @@ namespace OutfitStudio.ViewModels
             get; set;
         }
         public List<Order> RecentOrders { get; set; } = new();
-        // Doanh thu 6 tháng gần nhất để vẽ biểu đồ: (nhãn tháng, doanh thu)
-        public List<(string Label, decimal Value)> MonthlyRevenue { get; set; } = new();
+        public List<(string Label, decimal Value)> DailyRevenue { get; set; } = new();
+        public List<(string Name, long Quantity)> BestSellers { get; set; } = new();
     }
 
     public class ProductListViewModel

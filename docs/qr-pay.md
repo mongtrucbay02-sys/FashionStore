@@ -10,12 +10,21 @@
 
 Cấu hình tại `dbo.QrPaymentSettings` trong SQL Server, chỉ Admin được sửa bằng POST + CSRF. Tắt QR chỉ ảnh hưởng đơn mới. Đơn QR đang tồn tại giữ ảnh chụp thông tin nhận tiền lúc đặt, tránh đổi ngân hàng giữa chừng.
 
+## Tự động đối soát qua SePay
+
+1. Liên kết đúng tài khoản nhận tiền đã cấu hình ở trên với SePay.
+2. Tạo webhook cho sự kiện **Có tiền vào**, định dạng **JSON**, URL HTTPS công khai của website kết thúc bằng `/payments/sepay/webhook`.
+3. Chọn xác thực **API Key** và đặt cùng khóa bí mật ở biến môi trường `SePay__WebhookApiKey` của website. Khởi động lại ứng dụng sau khi cập nhật cấu hình.
+4. Cho phép SePay gửi cả giao dịch có trường mã thanh toán trống. Website nhận diện mã `FS...` từ nội dung chuyển khoản hoặc trường mã thanh toán. Xem [hướng dẫn webhook SePay](https://docs.sepay.vn/tich-hop-webhooks.html).
+
+Khi nhận webhook hợp lệ, website đối chiếu mã đơn, tài khoản nhận, số tiền và mã giao dịch trước khi ghi trạng thái **Đã xác nhận thanh toán**. Giao dịch gửi lại không cập nhật thời điểm thanh toán. Trang chi tiết đơn tự kiểm tra trạng thái mỗi 5 giây và cập nhật khi thanh toán được xác nhận. Giao dịch lệch số tiền, thuộc đơn đã hủy hoặc thiếu mã giao dịch cần đối soát thủ công.
+
 ## Khách hàng thanh toán
 
 - Thêm hàng → thanh toán → chọn **QR Pay — quét mã VietQR** → đặt hàng.
 - Website tạo đơn và trừ tồn theo size, chuyển ngay đến chi tiết đơn có QR, số tiền gồm phí ship, ngân hàng, tài khoản nhận và nội dung thanh toán riêng.
 - Mở ứng dụng ngân hàng, quét QR (hoặc lưu ảnh rồi quét từ thư viện). Kiểm tra người nhận, số tiền và nội dung trước khi chuyển. Có nút sao chép tài khoản, số tiền và nội dung.
-- Sau khi chuyển, bấm **Tôi đã chuyển khoản**. Đơn chuyển sang **Chờ đối soát**, chưa được ghi là đã trả tiền. Tải lại chi tiết đơn/lịch sử để xem kết quả.
+- Sau khi chuyển, giữ trang chi tiết đơn mở để xem kết quả tự cập nhật. Khi cần cửa hàng kiểm tra thủ công, bấm **Tôi đã chuyển khoản** để chuyển đơn sang **Chờ đối soát**.
 - Không tự động tạo lại đơn khi xem QR. Không chuyển lần hai nếu đã chuyển. QR của đơn đã hủy hoặc đã được xác nhận thanh toán không còn hiển thị trong website.
 
 ## Quản trị đối soát
@@ -24,7 +33,7 @@ Mở chi tiết đơn, đối chiếu **tài khoản nhận + số tiền + nộ
 
 Nếu khách báo đã chuyển nhưng chưa có giao dịch, dùng **Chưa thấy giao dịch — yêu cầu khách kiểm tra lại**. Đơn QR chưa được xác nhận nhận tiền không chuyển sang xác nhận/giao hàng/hoàn thành; có thể hủy để hoàn lại tồn kho. Đơn cũ COD/chuyển khoản giữ luồng đang có.
 
-Không có kết nối sao kê/webhook ngân hàng trong tính năng này; trạng thái được quản trị xác nhận thủ công. Khách bấm nút hay quét QR không chứng minh tiền đã vào ngân hàng. Hủy đơn đã nhận tiền không tự hoàn tiền: trạng thái nhận tiền/audit vẫn giữ, Admin cần đối soát và hoàn tiền bên ngoài website. Không tự hết hạn/hủy các đơn chờ QR; Admin xử lý các đơn bỏ dở ở trang đơn hàng.
+Khi chưa kết nối SePay, quản trị viên xác nhận thanh toán thủ công. Khách bấm nút hay quét QR không chứng minh tiền đã vào ngân hàng. Hủy đơn đã nhận tiền không tự hoàn tiền: trạng thái nhận tiền/audit vẫn giữ, Admin cần đối soát và hoàn tiền bên ngoài website. Không tự hết hạn/hủy các đơn chờ QR; Admin xử lý các đơn bỏ dở ở trang đơn hàng.
 
 ## Cách tạo mã và dữ liệu
 

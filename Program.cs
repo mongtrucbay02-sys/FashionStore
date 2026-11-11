@@ -24,8 +24,20 @@ if (store.IsSupabase)
 {
     // Make a fresh Supabase project ready on first launch. Initialize is idempotent
     // and creates only the private app schema/tables; it does not import or erase data.
-    SupabaseDatabase.Initialize(app.Configuration);
-    SupabaseDatabase.Validate(app.Configuration);
+    for (var attempt = 1; ; attempt++)
+    {
+        try
+        {
+            SupabaseDatabase.Initialize(app.Configuration);
+            SupabaseDatabase.Validate(app.Configuration);
+            break;
+        }
+        catch (Npgsql.NpgsqlException ex) when (ex.IsTransient && attempt < 4)
+        {
+            app.Logger.LogWarning("Kết nối Supabase bị gián đoạn khi khởi động. Thử lại lần {Attempt}.", attempt + 1);
+            await Task.Delay(TimeSpan.FromSeconds(attempt * 2));
+        }
+    }
 }
 
 if (args.Contains("--verify-supabase-import"))

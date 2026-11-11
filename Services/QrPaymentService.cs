@@ -110,6 +110,44 @@ public sealed class QrPaymentService(AppStore store)
         return error;
     }
 
+    public bool Reconcile(SePayTransfer transfer)
+    {
+        var reference = transfer.ReferenceCode?.Trim();
+        if (transfer.TransferType != "in" || !ValidAmount(transfer.TransferAmount) ||
+            reference is null || reference.Length is < 3 or > 100 || reference.Any(char.IsControl))
+            return false;
+
+        var codes = System.Text.RegularExpressions.Regex.Matches(transfer.Content ?? "", "[A-Za-z0-9]+")
+            .Select(m => m.Value).Append(transfer.Code ?? "")
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var matched = false;
+        store.Modify<Order>("orders.json", orders =>
+        {
+            var candidates = orders.Where(o => o.PaymentMethod == Method && o.QrPayment is { } qr &&
+                qr.AccountNumber == transfer.AccountNumber && codes.Contains(qr.Reference)).Take(2).ToList();
+            if (candidates.Count != 1) return;
+            var order = candidates[0];
+            var payment = order.QrPayment!;
+            if (order.Total != transfer.TransferAmount || OrderStatus.Normalize(order.Status) == OrderStatus.Cancelled)
+                return;
+            if (payment.Status == QrPaymentStatus.Paid)
+            {
+                matched = payment.BankTransactionReference.Equals(reference, StringComparison.OrdinalIgnoreCase);
+                return;
+            }
+            if (orders.Any(o => o.QrPayment?.Status == QrPaymentStatus.Paid &&
+                o.QrPayment.BankTransactionReference.Equals(reference, StringComparison.OrdinalIgnoreCase)))
+                return;
+
+            payment.Status = QrPaymentStatus.Paid;
+            payment.PaidAt = DateTimeOffset.UtcNow;
+            payment.ConfirmedBy = "SePay";
+            payment.BankTransactionReference = reference;
+            matched = true;
+        });
+        return matched;
+    }
+
     public string Reopen(int orderId)
     {
         var error = "";

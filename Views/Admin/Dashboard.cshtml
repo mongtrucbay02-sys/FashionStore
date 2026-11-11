@@ -1,7 +1,7 @@
 @model DashboardViewModel
 @{
     ViewData["Title"] = "Dashboard";
-    var max = Model.MonthlyRevenue.Max(m => m.Value);
+    var max = Model.DailyRevenue.Max(m => m.Value);
     string Cls(string s) => s switch
     {
         OrderStatus.Pending => "s-pending",
@@ -25,9 +25,9 @@
 </div>
 
 <div class="panel">
-    <h2>Doanh thu 6 tháng gần nhất</h2>
+    <h2>Doanh thu theo ngày đặt hàng · 14 ngày gần nhất</h2>
     <div class="chart-wrap"><div class="chart">
-        @foreach (var m in Model.MonthlyRevenue)
+        @foreach (var m in Model.DailyRevenue)
         {
             var h = max > 0 ? (int)Math.Round((double)(m.Value / max) * 150) : 0;
             <div class="col">
@@ -37,6 +37,20 @@
             </div>
         }
     </div></div>
+</div>
+
+<div class="panel">
+    <h2>Sản phẩm bán chạy nhất</h2>
+    <table>
+        <thead><tr><th>Sản phẩm</th><th>Số lượng đã bán</th></tr></thead>
+        <tbody>
+        @foreach (var item in Model.BestSellers)
+        {
+            <tr><td>@item.Name</td><td>@item.Quantity</td></tr>
+        }
+        @if (Model.BestSellers.Count == 0) { <tr><td colspan="2">Chưa có đơn hoàn thành.</td></tr> }
+        </tbody>
+    </table>
 </div>
 
 <div class="panel">

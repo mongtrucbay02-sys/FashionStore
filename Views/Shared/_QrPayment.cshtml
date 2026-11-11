@@ -4,10 +4,13 @@
     var qr = Model.QrPayment;
     var imageUrl = QrPaymentService.ImageUrl(Model);
     var cancelled = OrderStatus.Normalize(Model.Status) == OrderStatus.Cancelled;
+    var statusUrl = !cancelled && qr is { Status: not QrPaymentStatus.Paid }
+        ? Url.Action("PaymentStatus", "Order", new { id = Model.Id })
+        : null;
 }
 @if (qr is not null)
 {
-    <section class="card qr-payment" aria-labelledby="qr-title">
+    <section class="card qr-payment" aria-labelledby="qr-title" data-payment-status-url="@statusUrl">
         <div class="eyebrow dark">VIETQR · CHUYỂN KHOẢN NGÂN HÀNG</div>
         <h2 id="qr-title">Thanh toán đơn #@Model.Id.ToString("D3")</h2>
         <p class="qr-status" role="status">@qr.StatusLabel</p>
@@ -47,7 +50,7 @@
             }
             else
             {
-                <p>Cửa hàng đã nhận thông báo của bạn. Không cần chuyển tiền lần nữa. Tải lại trang để xem kết quả đối soát.</p>
+                <p>Cửa hàng đã nhận thông báo của bạn. Không cần chuyển tiền lần nữa. Trạng thái sẽ tự cập nhật khi giao dịch được xác nhận.</p>
             }
             <p class="qr-provider-note">Ảnh QR được cung cấp bởi VietQR.io. Nếu ảnh không tải được, thông tin chuyển khoản vẫn hiển thị ở trên.</p>
         }

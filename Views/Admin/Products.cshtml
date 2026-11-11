@@ -37,6 +37,10 @@
             <td class="num">@p.Stock</td>
             <td class="actions">
                 <a class="btn light sm" asp-action="ProductDetails" asp-route-id="@p.Id">Xem</a>
+                <form class="inline" method="post" asp-action="SetProductVisibility" asp-route-id="@p.Id">
+                    <input type="hidden" name="active" value="@(p.Active ? "false" : "true")" />
+                    <button class="btn light sm">@(p.Active ? "Ẩn khỏi cửa hàng" : "Hiện trên cửa hàng")</button>
+                </form>
                 <a class="btn light sm" asp-action="EditProduct" asp-route-id="@p.Id">Sửa</a>
                 <form class="inline" method="post" asp-action="DeleteProduct" asp-route-id="@p.Id"
                       onsubmit="return confirm('Xác nhận thao tác này?');">

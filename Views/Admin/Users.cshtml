@@ -15,18 +15,27 @@
             <td>@u.FullName</td>
             <td>@u.Email</td>
             <td>@u.Phone</td>
-            <td><span class="badge @(u.Role == "Admin" ? "admin" : "")">@u.Role</span></td>
+            <td><span class="badge @(u.Role == "Admin" ? "admin" : "")">@(u.Id == ViewBag.RootId ? "Admin tổng" : u.Role)</span></td>
             <td>@if (u.IsLocked) { <span class="badge locked">Đã khóa</span> } else { <span class="badge s-completed">Hoạt động</span> }</td>
             <td class="actions">
                 <a class="btn light sm" asp-action="UserDetails" asp-route-id="@u.Id">Xem</a>
+                @if (u.Id != ViewBag.RootId && u.Id != ViewBag.CurrentUserId && (u.Role != "Admin" || ViewBag.CanManageAdmins == true))
+                {
+                <form class="inline" method="post" asp-action="DeleteUser" asp-route-id="@u.Id" onsubmit="return confirm('Xóa tài khoản này?');">
+                    <button class="btn light sm">Xóa</button>
+                </form>
                 <form class="inline" method="post" asp-action="ToggleLock" asp-route-id="@u.Id">
                     <button class="btn light sm" type="submit">@(u.IsLocked ? "Mở khóa" : "Khóa")</button>
                 </form>
+                @if (ViewBag.CanManageAdmins == true)
+                {
                 <form class="inline" method="post" asp-action="ChangeRole" asp-route-id="@u.Id"
                       onsubmit="return confirm('Xác nhận thao tác này?');">
                     <input type="hidden" name="role" value="@other" />
                     <button class="btn light sm" type="submit">Đặt làm @other</button>
                 </form>
+                }
+                }
             </td>
         </tr>
     }

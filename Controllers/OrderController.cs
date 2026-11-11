@@ -141,6 +141,20 @@ public class OrderController : Controller
         return View(order);
     }
 
+    [HttpGet]
+    public IActionResult PaymentStatus(int id)
+    {
+        var order = _store.Read<Order>(OrdersFile)
+            .FirstOrDefault(o => o.Id == id && o.UserEmail == CurrentEmail);
+        if (order?.QrPayment is not { } qr) return NotFound();
+
+        return Json(new
+        {
+            paid = qr.Status == QrPaymentStatus.Paid,
+            cancelled = OrderStatus.Normalize(order.Status) == OrderStatus.Cancelled
+        });
+    }
+
     [HttpPost, ValidateAntiForgeryToken]
     public IActionResult ReportTransfer(int id)
     {

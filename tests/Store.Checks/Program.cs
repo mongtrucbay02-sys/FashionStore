@@ -32,11 +32,14 @@ var app = StoreApplication.Build(["--contentRoot", source, "--urls", "http://127
 {
     builder.Configuration.AddInMemoryCollection(new Dictionary<string, string?>
     {
+        ["DATABASE_URL"] = "",
         ["Storage:Provider"] = sqlMode ? "SqlServer" : "Json",
         ["ConnectionStrings:FashionStore"] = testConnection,
         ["Storage:RuntimeDirectory"] = Path.Combine(root, "state"),
         ["Storage:CatalogDirectory"] = Path.Combine(root, "catalog"),
         ["Logging:LogLevel:Default"] = "Warning",
+        ["Admin:RootEmail"] = "root@example.test",
+        ["SePay:WebhookApiKey"] = "synthetic-webhook-key",
 
     });
     builder.Services.RemoveAll<TimeProvider>();
@@ -121,6 +124,14 @@ try
         fields["__RequestVerificationToken"] = token;
         return await browser.PostAsync(path, new FormUrlEncodedContent(fields));
     }
+    if (args.Contains("--admin-commerce"))
+    {
+        await AdminCommerceChecks.RunAsync(app, Client, Post, Assert);
+        foreach (var (file, hash) in hashes)
+            Assert(SHA256.HashData(File.ReadAllBytes(file)).SequenceEqual(hash), "Real data unchanged: " + file);
+        return;
+    }
+
     async Task<HttpResponseMessage> Register(string email) => await Post(client, "/Account/Register", "/Account/Register", new()
     { ["FullName"] = "OTP synthetic customer", ["Email"] = email, ["Password"] = "Synthetic!2026", ["ConfirmPassword"] = "Synthetic!2026", ["Role"] = "Admin" });
     var email = "customer@example.test";

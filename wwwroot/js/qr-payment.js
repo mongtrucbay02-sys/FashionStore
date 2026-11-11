@@ -1,6 +1,28 @@
 (() => {
   'use strict';
   document.querySelectorAll('.qr-payment').forEach(panel => {
+    const statusUrl = panel.dataset.paymentStatusUrl;
+    if (statusUrl) {
+      async function checkPayment() {
+        try {
+          const response = await fetch(statusUrl, { cache: 'no-store', redirect: 'manual' });
+          if (response.status === 404 || response.status === 401 || response.status === 403 ||
+              response.type === 'opaqueredirect') return;
+
+          if (response.ok) {
+            const status = await response.json();
+            if (status.paid || status.cancelled) {
+              window.location.reload();
+              return;
+            }
+          }
+        } catch {
+          // Retry after temporary connection errors.
+        }
+        window.setTimeout(checkPayment, 5000);
+      }
+      window.setTimeout(checkPayment, 1000);
+    }
     const image = panel.querySelector('[data-qr-image]');
     function showError() {
       image.hidden = true;

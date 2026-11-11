@@ -10,7 +10,7 @@ namespace OutfitStudio.Controllers;
 
 [Authorize(Roles = "Admin")]
 [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
-public sealed class AdminController(AppStore store, IWebHostEnvironment environment, InventoryService inventory, QrPaymentService payments, ProductCatalog catalogService) : Controller
+public sealed class AdminController(AppStore store, IWebHostEnvironment environment, InventoryService inventory, QrPaymentService payments, ProductCatalog catalogService, IConfiguration configuration) : Controller
 {
     private string CurrentName => User.Identity?.Name ?? "Admin";
     private Guid CurrentUserId => Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
@@ -32,18 +32,35 @@ public sealed class AdminController(AppStore store, IWebHostEnvironment environm
         {
             TotalProducts = products.Count,
             TotalOrders = orders.Count,
-            TotalUsers = store.Read<User>("users.json").Count,
+            TotalUsers = store.Read<User>("users.json").Count(u => !u.IsDeleted),
             Revenue = orders.Where(o => o.Status == OrderStatus.Completed).Sum(o => o.Total),
             PendingOrders = orders.Count(o => o.Status == OrderStatus.Pending),
             LowStockProducts = products.Count(p => InventoryService.StatusOf(p) != InventoryService.OkLabel),
             RecentOrders = orders.OrderByDescending(o => o.CreatedAt).Take(5).ToList()
         };
-        for (int i = 5; i >= 0; i--)
-        {
-            var month = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(-i);
-            vm.MonthlyRevenue.Add(($"{month.Month:00}/{month.Year}", orders.Where(o => o.Status == OrderStatus.Completed && o.CreatedAt.Year == month.Year && o.CreatedAt.Month == month.Month).Sum(o => o.Total)));
-        }
+        var completed = orders.Where(o => o.Status == OrderStatus.Completed).ToList();
+        var today = DateTime.UtcNow.AddHours(7).Date;
+        for (var day = today.AddDays(-13); day <= today; day = day.AddDays(1))
+            vm.DailyRevenue.Add((day.ToString("dd/MM"), completed
+                .Where(o => o.CreatedAt.ToUniversalTime().AddHours(7).Date == day).Sum(o => o.Total)));
+        vm.BestSellers = completed.SelectMany(o => o.Items).GroupBy(i => i.ProductId)
+            .Select(g => (Name: g.First().ProductName, Quantity: g.Sum(i => (long)i.Quantity)))
+            .OrderByDescending(i => i.Quantity).ThenBy(i => i.Name).Take(5).ToList();
         return View(vm);
+    }
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public IActionResult SetProductVisibility(int id, bool? active)
+    {
+        if (!ModelState.IsValid || active is null) return BadRequest();
+        var found = store.Update<Product, bool>("products", products =>
+        {
+            var product = products.FirstOrDefault(p => p.Id == id);
+            if (product is null) return false;
+            product.Active = active.Value;
+            return true;
+        });
+        return found ? RedirectToAction(nameof(Products)) : NotFound();
     }
 
     public IActionResult Products(string? search, int? categoryId)
@@ -373,41 +390,63 @@ public sealed class AdminController(AppStore store, IWebHostEnvironment environm
         });
     }
 
-    public IActionResult Users() => View(store.Read<User>("users.json").OrderBy(u => u.Email).ToList());
+    private bool IsRoot(User user) => user.Email.Equals(
+        (configuration["Admin:RootEmail"] ?? configuration["AdminSeed:Email"] ?? "admin@fashionstore.local").Trim(),
+        StringComparison.OrdinalIgnoreCase);
+
+    public IActionResult Users()
+    {
+        var users = store.Read<User>("users.json").Where(u => !u.IsDeleted).OrderBy(u => u.Email).ToList();
+        ViewBag.RootId = users.FirstOrDefault(u => u.Role == "Admin" && IsRoot(u))?.Id;
+        ViewBag.CurrentUserId = CurrentUserId;
+        ViewBag.CanManageAdmins = users.Any(u => u.Id == CurrentUserId && IsRoot(u));
+        return View(users);
+    }
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public IActionResult DeleteUser(Guid id) => ManageUser(id, user =>
+    {
+        user.IsLocked = true;
+        user.Role = "User";
+        user.PasswordHash = "";
+        user.FullName = "";
+        user.Phone = "";
+        user.Address = "";
+        user.EmailVerifiedAt = null;
+    }, "Đã xóa tài khoản.");
+
+    private IActionResult ManageUser(Guid id, Action<User> change, string success, bool changesRole = false)
+    {
+        var changed = false;
+        store.Modify<User>("users.json", users =>
+        {
+            var target = users.FirstOrDefault(u => u.Id == id && !u.IsDeleted);
+            var actor = users.FirstOrDefault(u => u.Id == CurrentUserId && !u.IsDeleted && !u.IsLocked && u.Role == "Admin");
+            if (actor is null || target is null || target.Id == actor.Id || IsRoot(target) ||
+                ((changesRole || target.Role == "Admin") && !IsRoot(actor)))
+                return;
+            change(target);
+            changed = true;
+        });
+        TempData[changed ? "Success" : "Error"] = changed ? success : "Bạn không thể thao tác với tài khoản đã chọn.";
+        return RedirectToAction(nameof(Users));
+    }
     public IActionResult UserDetails(Guid id)
     {
-        var user = store.Read<User>("users.json").FirstOrDefault(u => u.Id == id);
+        var user = store.Read<User>("users.json").FirstOrDefault(u => u.Id == id && !u.IsDeleted);
         if (user is null)
             return NotFound();
         ViewBag.Orders = OrdersList().Where(o => o.UserEmail == user.Email).OrderByDescending(o => o.CreatedAt).ToList();
         return View(user);
     }
     [HttpPost, ValidateAntiForgeryToken]
-    public IActionResult ToggleLock(Guid id)
-    {
-        if (id == CurrentUserId)
-        {
-            TempData["Error"] = "Bạn không thể tự khóa tài khoản của mình.";
-            return RedirectToAction(nameof(Users));
-        }
-        store.Modify<User>("users.json", users => { var u = users.FirstOrDefault(u => u.Id == id); if (u is not null) u.IsLocked = !u.IsLocked; });
-        TempData["Success"] = "Đã thay đổi trạng thái khóa tài khoản.";
-        return RedirectToAction(nameof(Users));
-    }
+    public IActionResult ToggleLock(Guid id) =>
+        ManageUser(id, user => user.IsLocked = !user.IsLocked, "Đã thay đổi trạng thái khóa tài khoản.");
     [HttpPost, ValidateAntiForgeryToken]
-    public IActionResult ChangeRole(Guid id, string role)
-    {
-        if (role is not ("Admin" or "User"))
-            return BadRequest();
-        if (id == CurrentUserId)
-        {
-            TempData["Error"] = "Bạn không thể tự đổi quyền của mình.";
-            return RedirectToAction(nameof(Users));
-        }
-        store.Modify<User>("users.json", users => { var u = users.FirstOrDefault(u => u.Id == id); if (u is not null) u.Role = role; });
-        TempData["Success"] = "Đã cập nhật quyền tài khoản.";
-        return RedirectToAction(nameof(Users));
-    }
+    public IActionResult ChangeRole(Guid id, string role) =>
+        role is "Admin" or "User"
+            ? ManageUser(id, user => user.Role = role, "Đã cập nhật quyền tài khoản.", changesRole: true)
+            : BadRequest();
     public IActionResult Reviews()
     {
         ViewBag.ProductNames = store.All<Product>("products").ToDictionary(p => p.Id, p => p.Name);

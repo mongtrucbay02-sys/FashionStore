@@ -64,7 +64,8 @@ public static class StoreApplication
                 var store = context.HttpContext.RequestServices.GetRequiredService<AppStore>();
                 var id = context.Principal?.FindFirstValue(ClaimTypes.NameIdentifier);
                 var user = store.Read<User>("users.json").FirstOrDefault(u => u.Id.ToString() == id);
-                if (user is null || user.IsLocked)
+                if (user is null || user.IsLocked || user.IsDeleted ||
+                    context.Principal?.FindFirstValue("password_version") != user.PasswordVersion)
                 {
                     context.RejectPrincipal();
                     await context.HttpContext.SignOutAsync();

@@ -40,7 +40,21 @@ SQL thủ công: `database/CreateDatabase.sql`, sau đó chạy `database/Schema
 - [Chuyển dữ liệu lên Supabase](docs/supabase.md)
 - [Schema quan hệ PostgreSQL cho Supabase](database/SupabaseRelationalSchema.sql)
 - [OTP Gmail](docs/otp-email.md)
-- [QR Pay](docs/qr-pay.md)
+- [QR Pay và đối soát tự động SePay](docs/qr-pay.md)
+
+### Admin tổng và khôi phục tài khoản
+
+Đặt `Admin__RootEmail` bằng email của một tài khoản Admin hiện có và đăng nhập được qua Gmail OTP. Nếu chưa đặt, ứng dụng dùng `AdminSeed__Email` hoặc email demo `admin@fashionstore.local`. Cấu hình chỉ định tài khoản được bảo vệ, không tạo tài khoản hay cấp quyền. Admin tổng quản lý quyền và có thể xóa admin khác. Tài khoản admin tổng được bảo vệ khỏi xóa, khóa và hạ quyền trong giao diện quản trị.
+
+Khi xóa tài khoản, website thu hồi quyền đăng nhập và xóa hồ sơ tài khoản. Email được giữ ở bản ghi đã khóa để ngăn đăng ký lại và truy cập nhầm lịch sử đơn cũ. Người dùng đang hoạt động có thể dùng **Quên mật khẩu** trên trang đăng nhập để đặt lại mật khẩu bằng Gmail OTP.
+
+Chạy kiểm thử HTTP với dữ liệu thử riêng từ thư mục dự án:
+
+```powershell
+dotnet run --project tests/Store.Checks -- --admin-commerce
+```
+
+Kiểm thử dùng hai tài khoản độc lập với cùng sản phẩm, cùng size và tồn kho bằng 1. Bộ kiểm thử mô phỏng OTP và webhook, không gửi email hoặc chuyển tiền thật.
 - [Quản lý tồn kho](docs/ton-kho.md)
 - [Cloudflare](docs/ket-noi-cloudflare.md)
 - [Thử đồ](docs/thu-do-ao.md) · [Phối đồ/size](docs/phoi-do-ai.md)
